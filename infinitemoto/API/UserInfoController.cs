@@ -17,7 +17,7 @@ namespace infinitemoto.API
             userInfoServices = _userInfoServices;
         }
 
-        [HttpPost("create")]
+        [HttpPost("SignUP")]
         public async Task<IActionResult> CreateUserAsync([FromBody] UserInfoDto request)
         {
             if (request == null)
