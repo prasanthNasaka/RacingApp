@@ -26,34 +26,47 @@ namespace infinitemoto.BusinessServices
             if (wReq == null)
                 throw new ArgumentNullException(nameof(wReq), "User request cannot be null.");
 
-            // Hash the password before saving
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(wReq.password);
-
-            // Map DTO to Entity (UserInfo)
-            var userEntity = new Userinfo
+            try
             {
-                Username = wReq.username,
-                Password = hashedPassword,
-                Usertype = wReq.usertype,
-                Compid = wReq.compid
-            };
+                // Hash the password before saving
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(wReq.password);
 
-            // Add the new user entity to the DbContext
-            await _dbContext.Userinfos.AddAsync(userEntity);
-            
-            // Save changes asynchronously
-            await _dbContext.SaveChangesAsync();
+                // Map DTO to Entity (UserInfo)
+                var userEntity = new Userinfo
+                {
+                    Username = wReq.username,
+                    Password = hashedPassword,
+                    Usertype = wReq.usertype,
+                    Compid = wReq.compid
+                };
 
-            // Map the saved entity back to a DTO to return
-            var userDto = new UserInfoDto
+                // Add the new user entity to the DbContext
+                await _dbContext.Userinfos.AddAsync(userEntity);
+
+                // Save changes asynchronously
+                await _dbContext.SaveChangesAsync();
+
+                // Map the saved entity back to a DTO to return
+                return new UserInfoDto
+                {
+                    id = userEntity.Id,
+                    username = userEntity.Username,
+                    usertype = userEntity.Usertype,
+                    compid = userEntity.Compid
+                };
+            }
+            catch (DbUpdateException dbEx)
             {
-                id = userEntity.Id,
-                username = userEntity.Username,
-                usertype = userEntity.Usertype,
-                compid = userEntity.Compid
-            };
-
-            return userDto;
+                // Log specific database errors (e.g., foreign key violations, constraints)
+                Console.WriteLine($"Database update error: {dbEx.Message}");
+                throw new Exception("An error occurred while saving the user. Please check the input data.");
+            }
+            catch (Exception ex)
+            {
+                // Log general errors
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                throw new Exception("An unexpected error occurred while creating the user.");
+            }
         }
     }
 }
