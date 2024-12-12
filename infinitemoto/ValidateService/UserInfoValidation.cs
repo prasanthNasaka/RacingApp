@@ -39,6 +39,16 @@ namespace infinitemoto.ValidateService
                 return "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
             }
 
+            if (request.usertype==0)
+            {
+                return "Usertype is required.";
+            }
+
+            if (request.compid==0)
+            {
+                return "CompId is required.";
+            }
+
             return "";
 
         }
