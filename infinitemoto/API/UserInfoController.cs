@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using infinitemoto.DTOs;
 using infinitemoto.BusinessServices;
+using System.Text.RegularExpressions;
+using infinitemoto.Results;
 
 namespace infinitemoto.API
 {
@@ -17,37 +19,44 @@ namespace infinitemoto.API
             userInfoServices = _userInfoServices;
         }
 
-        [HttpPost("SignUP")]
+        [HttpPost("SignUp")]
         public async Task<IActionResult> CreateUserAsync([FromBody] UserInfoDto request)
         {
-            if (request == null)
-            {
-                return BadRequest("User data is required.");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.username) || string.IsNullOrWhiteSpace(request.password))
-            {
-                return BadRequest("Username and password are required.");
-            }
-
             try
             {
-                UserInfoDto userInfoRequest = await userInfoServices.CreateAsync(request);
+                // Call the service to create the user
+                Result<UserInfoDto> result = await userInfoServices.CreateAsync(request);
 
-                return Ok(new
+                // Check if the operation was successful
+                if (result.IsSuccess)
                 {
-                    Message = "User created successfully.",
-                    Data = userInfoRequest
-                });
+                    return Ok(new
+                    {
+                        Message = "User created successfully.",
+                        Data = result.Data
+                    });
+                }
+                else
+                {
+                    // Return a 400 Bad Request with the validation errors
+                    return BadRequest(new
+                    {
+                        Message = "Validation error occurred.",
+                        Error = result.Error
+                    });
+                }
             }
             catch (Exception ex)
             {
+                // Log and return a 500 Internal Server Error
+                Console.WriteLine($"Unexpected error: {ex.Message}");
                 return StatusCode(500, new
                 {
-                    Message = "An error occurred while creating the user.",
+                    Message = "An unexpected error occurred while creating the user.",
                     Error = ex.Message
                 });
             }
         }
+
     }
 }

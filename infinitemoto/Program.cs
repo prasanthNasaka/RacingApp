@@ -2,6 +2,7 @@
 using infinitemoto.BusinessServices;
 using Microsoft.EntityFrameworkCore;
 using infinitemoto.Models;
+using infinitemoto.ValidateService;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DummyProjectSqlContext>(options =>
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<DummyProjectSqlContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
+builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
