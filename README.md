@@ -16,3 +16,7 @@ docker-compose up -d
 
 Verify that the containers are running
 docker ps
+
+Build and start the containers
+docker-compose up --build
+
