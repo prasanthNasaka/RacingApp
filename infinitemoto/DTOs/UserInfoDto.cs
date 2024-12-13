@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using infinitemoto.LookUps;
 
 namespace infinitemoto.DTOs
 {
@@ -10,7 +11,7 @@ namespace infinitemoto.DTOs
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public int usertype { get; set; }
+        public UserRoles usertype { get; set; }
         public int compid { get; set; }
 
     }

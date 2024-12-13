@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.LookUps;
 using infinitemoto.Models;
 using infinitemoto.Results;
 using infinitemoto.ValidateService;
@@ -36,7 +37,7 @@ namespace infinitemoto.BusinessServices
                 {
                     Username = wReq.username,
                     Password = hashedPassword,
-                    Usertype = wReq.usertype,
+                    Usertype = (int)wReq.usertype,
                     Compid = wReq.compid
                 };
 
@@ -47,7 +48,7 @@ namespace infinitemoto.BusinessServices
                 {
                     id = userEntity.Id,
                     username = userEntity.Username,
-                    usertype = userEntity.Usertype,
+                    usertype = (UserRoles)userEntity.Usertype,
                     compid = userEntity.Compid,
                     password = wReq.password
                 };
