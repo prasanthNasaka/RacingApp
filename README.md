@@ -20,3 +20,9 @@ docker ps
 Build and start the containers
 docker-compose up --build
 
+new tables Scaffold
+dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=DummyProjectSql;Username=postgres;Password=1234" Npgsql.EntityFrameworkCore.PostgreSQL -o Models
+
+update tables Scaffold
+dotnet ef dbcontext scaffold "Host=localhost;Port=5431;Database=DummyProjectSql;Username=postgres;Password=1234" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -f
+
