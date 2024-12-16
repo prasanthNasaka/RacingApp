@@ -53,5 +53,14 @@ namespace infinitemoto.LookUps
         KartingSlalomGrass = 27
     }
 
+     public enum AutheticationRoles
+    {
+        SuperAdmin = 1,
+        Admin = 2,
+        Register = 3,
+        Account = 4,
+        Scrutiny = 5
+    }
+
 
 }

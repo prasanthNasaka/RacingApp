@@ -162,3 +162,35 @@ BEGIN
             (2, 'Cross Cars');
     END IF;
 END $$;
+
+-- Check and create the 'authenticationroles' table if it does not exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 
+        FROM information_schema.tables 
+        WHERE table_name = 'authenticationroles'
+    ) THEN
+        CREATE TABLE public.authenticationroles (
+            roleid INT PRIMARY KEY, -- Enum ID as Primary Key
+            rolename VARCHAR(50) NOT NULL -- Enum Name
+        );
+    END IF;
+END $$;
+
+-- Insert the enum values into 'authenticationroles' table if they do not already exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM public.authenticationroles WHERE roleid = 1
+    ) THEN
+        INSERT INTO public.authenticationroles (roleid, rolename) 
+        VALUES 
+            (1, 'SuperAdmin'),
+            (2, 'Admin'),
+            (3, 'Register'),
+            (4, 'Account'),
+            (5, 'Scrutiny');
+    END IF;
+END $$;
+
