@@ -10,12 +10,12 @@ namespace infinitemoto.ValidateService
 
     public interface IUserInfoValidation
     {
-       string ValidateUserInfo(UserInfoDto wReq);
+        string ValidateUserInfo(UserInfoDto wReq);
     }
     public class UserInfoValidation : IUserInfoValidation
     {
-        
-        public  string ValidateUserInfo(UserInfoDto request)
+
+        public string ValidateUserInfo(UserInfoDto request)
         {
             if (request == null)
             {

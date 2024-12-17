@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "infinitemoto.API.UserInfoController",
+    "Method": "CreateAdminAsync",
+    "RelativePath": "api/UserInfo/CreateAdmin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "infinitemoto.DTOs.CreateAdminDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "infinitemoto.API.UserInfoController",
+    "Method": "CreateUserAsync",
+    "RelativePath": "api/UserInfo/SignUp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "infinitemoto.DTOs.UserInfoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
