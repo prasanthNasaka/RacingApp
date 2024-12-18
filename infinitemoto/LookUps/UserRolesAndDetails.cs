@@ -53,8 +53,9 @@ namespace infinitemoto.LookUps
         KartingSlalomGrass = 27
     }
 
-     public enum AutheticationRoles
+     public enum AuthenticationRoles
     {
+        Unknown = 0,
         SuperAdmin = 1,
         Admin = 2,
         Register = 3,

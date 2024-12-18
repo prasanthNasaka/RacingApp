@@ -14,4 +14,6 @@ public partial class Userinfo
     public int Usertype { get; set; }
 
     public int Compid { get; set; }
+
+    public bool IsActive { get; set; }
 }

@@ -31,6 +31,8 @@ public partial class DummyProjectSqlContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresEnum("user_role", new[] { "superadmin", "admin", "user" });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Categoryid).HasName("category_pkey");
@@ -88,6 +90,9 @@ public partial class DummyProjectSqlContext : DbContext
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Compid).HasColumnName("compid");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");

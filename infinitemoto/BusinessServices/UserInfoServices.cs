@@ -29,16 +29,29 @@ namespace infinitemoto.BusinessServices
             if (!string.IsNullOrEmpty(errors))
                 return Result<UserInfoDto>.Fail(errors);
 
+            // Add role-specific validation
+            if (wReq.usertype == AuthenticationRoles.Admin) // Admin
+            {
+                // Check if there's already an admin for this company
+                var existingAdmin = await _dbContext.Userinfos
+                    .AnyAsync(u => u.Compid == wReq.compid && u.Usertype == 2);
+
+                if (existingAdmin)
+                {
+                    return Result<UserInfoDto>.Fail("An admin already exists for this company.");
+                }
+            }
+
             try
             {
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(wReq.password);
-
                 var userEntity = new Userinfo
                 {
                     Username = wReq.username,
                     Password = hashedPassword,
                     Usertype = (int)wReq.usertype,
-                    Compid = wReq.compid
+                    Compid = wReq.compid,
+                    IsActive = wReq.isActive
                 };
 
                 await _dbContext.Userinfos.AddAsync(userEntity);
@@ -48,9 +61,10 @@ namespace infinitemoto.BusinessServices
                 {
                     id = userEntity.Id,
                     username = userEntity.Username,
-                    usertype = (UserRoles)userEntity.Usertype,
+                    usertype = (AuthenticationRoles)userEntity.Usertype,
                     compid = userEntity.Compid,
-                    password = wReq.password
+                    password = wReq.password,
+                    isActive = userEntity.IsActive
                 };
 
                 return Result<UserInfoDto>.Success(result);
