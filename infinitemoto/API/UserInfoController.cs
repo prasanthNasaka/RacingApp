@@ -31,7 +31,7 @@ namespace infinitemoto.API
                 {
                     username = request.username,
                     password = request.password,
-                    usertype = 2, // 2 represents Admin
+                    usertype = UserType.Admin,
                     compid = request.compid,
                     isActive = true
                 };
@@ -104,10 +104,17 @@ namespace infinitemoto.API
                 });
             }
         }
-        private int GetCurrentUserType()
+
+        private UserType GetCurrentUserType()
         {
-            var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
-            return userType != null ? int.Parse(userType) : 0;
+            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
+
+            if (string.IsNullOrEmpty(userTypeClaim) || !Enum.TryParse(userTypeClaim, out UserType userType))
+            {
+                return UserType.Unknown; // Return default value if claim is missing or invalid
+            }
+
+            return userType; 
         }
 
     }

@@ -10,7 +10,7 @@ namespace infinitemoto.DTOs
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public int usertype { get; set; } //1: SuperAdmin, 2: Admin, 3: Regular User
+        public UserType usertype { get; set; } //1: SuperAdmin, 2: Admin, 3: Regular User
         public int compid { get; set; }
 
         public bool isActive { get; set; } = true;

@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "C:\\Hardwin Project\\RacingApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\businessservices\\userinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\businessservices\\userinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\infinitemoto.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\infinitemoto.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\infinitemoto.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\infinitemoto.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\api\\userinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\api\\userinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\dtos\\usertype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\dtos\\usertype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\dtos\\userinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\dtos\\userinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\dtos\\createadmindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\dtos\\createadmindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\models\\dummyprojectsqlcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\models\\dummyprojectsqlcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,30 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\results\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\results\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\dtos\\userinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\dtos\\userinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\dtos\\createadmindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\dtos\\createadmindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\businessservices\\userinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\businessservices\\userinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\api\\userinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\api\\userinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\infinitemoto.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\infinitemoto.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|c:\\hardwin project\\racingapp\\infinitemoto\\models\\dummyprojectsqlcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E614329-3491-4869-9598-ACA13CFC5B6A}|infinitemoto\\infinitemoto.csproj|solutionrelative:infinitemoto\\models\\dummyprojectsqlcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Bookmark",
@@ -122,19 +130,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "UserInfoServices.cs",
               "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\BusinessServices\\UserInfoServices.cs",
               "RelativeDocumentMoniker": "infinitemoto\\BusinessServices\\UserInfoServices.cs",
               "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\BusinessServices\\UserInfoServices.cs",
               "RelativeToolTip": "infinitemoto\\BusinessServices\\UserInfoServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADEAAAAAAAAAAAAUwDIAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T06:40:40.326Z"
+              "WhenOpened": "2024-12-16T06:40:40.326Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
+              "Title": "infinitemoto.http",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.http",
+              "RelativeDocumentMoniker": "infinitemoto\\infinitemoto.http",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.http",
+              "RelativeToolTip": "infinitemoto\\infinitemoto.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-12-18T06:35:35.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserType.cs",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\DTOs\\UserType.cs",
+              "RelativeDocumentMoniker": "infinitemoto\\DTOs\\UserType.cs",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\DTOs\\UserType.cs",
+              "RelativeToolTip": "infinitemoto\\DTOs\\UserType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T06:20:13.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserInfoController.cs",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\API\\UserInfoController.cs",
+              "RelativeDocumentMoniker": "infinitemoto\\API\\UserInfoController.cs",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\API\\UserInfoController.cs",
+              "RelativeToolTip": "infinitemoto\\API\\UserInfoController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAiwHUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T06:39:11.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "CreateAdminDto.cs",
               "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\DTOs\\CreateAdminDto.cs",
               "RelativeDocumentMoniker": "infinitemoto\\DTOs\\CreateAdminDto.cs",
@@ -142,47 +190,51 @@
               "RelativeToolTip": "infinitemoto\\DTOs\\CreateAdminDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T07:11:27.13Z"
+              "WhenOpened": "2024-12-16T07:11:27.13Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UserInfoDto.cs",
               "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\DTOs\\UserInfoDto.cs",
               "RelativeDocumentMoniker": "infinitemoto\\DTOs\\UserInfoDto.cs",
               "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\DTOs\\UserInfoDto.cs",
               "RelativeToolTip": "infinitemoto\\DTOs\\UserInfoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T06:40:27.373Z"
+              "WhenOpened": "2024-12-16T06:40:27.373Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Result.cs",
-              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Results\\Result.cs",
-              "RelativeDocumentMoniker": "infinitemoto\\Results\\Result.cs",
-              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Results\\Result.cs",
-              "RelativeToolTip": "infinitemoto\\Results\\Result.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "DummyProjectSqlContext.cs",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Models\\DummyProjectSqlContext.cs",
+              "RelativeDocumentMoniker": "infinitemoto\\Models\\DummyProjectSqlContext.cs",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Models\\DummyProjectSqlContext.cs",
+              "RelativeToolTip": "infinitemoto\\Models\\DummyProjectSqlContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T06:41:02.281Z"
+              "WhenOpened": "2024-12-16T09:09:47.154Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UserInfoValidation.cs",
-              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\ValidateService\\UserInfoValidation.cs",
-              "RelativeDocumentMoniker": "infinitemoto\\ValidateService\\UserInfoValidation.cs",
-              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\ValidateService\\UserInfoValidation.cs",
-              "RelativeToolTip": "infinitemoto\\ValidateService\\UserInfoValidation.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAAC4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T12:50:09.964Z"
+              "Title": "infinitemoto.csproj",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
+              "RelativeDocumentMoniker": "infinitemoto\\infinitemoto.csproj",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
+              "RelativeToolTip": "infinitemoto\\infinitemoto.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-16T09:14:42.249Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\appsettings.json",
               "RelativeDocumentMoniker": "infinitemoto\\appsettings.json",
@@ -194,52 +246,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
+              "Title": "UserInfoValidation.cs",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\ValidateService\\UserInfoValidation.cs",
+              "RelativeDocumentMoniker": "infinitemoto\\ValidateService\\UserInfoValidation.cs",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\ValidateService\\UserInfoValidation.cs",
+              "RelativeToolTip": "infinitemoto\\ValidateService\\UserInfoValidation.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAIBJwC4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T12:50:09.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Result.cs",
+              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Results\\Result.cs",
+              "RelativeDocumentMoniker": "infinitemoto\\Results\\Result.cs",
+              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Results\\Result.cs",
+              "RelativeToolTip": "infinitemoto\\Results\\Result.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T06:41:02.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Program.cs",
               "RelativeDocumentMoniker": "infinitemoto\\Program.cs",
               "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Program.cs",
               "RelativeToolTip": "infinitemoto\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADwAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T05:36:39.058Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserInfoController.cs",
-              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\API\\UserInfoController.cs",
-              "RelativeDocumentMoniker": "infinitemoto\\API\\UserInfoController.cs",
-              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\API\\UserInfoController.cs",
-              "RelativeToolTip": "infinitemoto\\API\\UserInfoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T06:39:11.54Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "infinitemoto.csproj",
-              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
-              "RelativeDocumentMoniker": "infinitemoto\\infinitemoto.csproj",
-              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
-              "RelativeToolTip": "infinitemoto\\infinitemoto.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-12-16T09:14:42.249Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DummyProjectSqlContext.cs",
-              "DocumentMoniker": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Models\\DummyProjectSqlContext.cs",
-              "RelativeDocumentMoniker": "infinitemoto\\Models\\DummyProjectSqlContext.cs",
-              "ToolTip": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\Models\\DummyProjectSqlContext.cs",
-              "RelativeToolTip": "infinitemoto\\Models\\DummyProjectSqlContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T09:09:47.154Z"
+              "WhenOpened": "2024-12-17T05:36:39.058Z"
             }
           ]
         }
