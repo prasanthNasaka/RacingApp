@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.LookUps;
 using infinitemoto.Models;
 using infinitemoto.Results;
 using infinitemoto.ValidateService;
@@ -29,7 +30,7 @@ namespace infinitemoto.BusinessServices
                 return Result<UserInfoDto>.Fail(errors);
 
             // Add role-specific validation
-            if (wReq.usertype == UserType.Admin) // Admin
+            if (wReq.usertype == AuthenticationRoles.Admin) // Admin
             {
                 // Check if there's already an admin for this company
                 var existingAdmin = await _dbContext.Userinfos
@@ -60,7 +61,7 @@ namespace infinitemoto.BusinessServices
                 {
                     id = userEntity.Id,
                     username = userEntity.Username,
-                    usertype = (UserType)userEntity.Usertype,
+                    usertype = (AuthenticationRoles)userEntity.Usertype,
                     compid = userEntity.Compid,
                     password = wReq.password,
                     isActive = userEntity.IsActive

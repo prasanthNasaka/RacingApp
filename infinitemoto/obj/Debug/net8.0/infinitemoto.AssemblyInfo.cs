@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("infinitemoto")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d2f860929982085291d8051082addc0343bfb94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c87e8f8684bf4110f33e046bd206a9e71c366c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("infinitemoto")]
 [assembly: System.Reflection.AssemblyTitleAttribute("infinitemoto")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

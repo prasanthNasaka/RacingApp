@@ -5,6 +5,7 @@ using infinitemoto.DTOs;
 using infinitemoto.BusinessServices;
 using System.Text.RegularExpressions;
 using infinitemoto.Results;
+using infinitemoto.LookUps;
 
 namespace infinitemoto.API
 {
@@ -25,13 +26,11 @@ namespace infinitemoto.API
         {
             try
             {
-                // Temporary bypass for testing
-                // TODO: Remove this bypass in production
                 var userInfoDto = new UserInfoDto
                 {
                     username = request.username,
                     password = request.password,
-                    usertype = UserType.Admin,
+                    usertype = LookUps.AuthenticationRoles.Admin,
                     compid = request.compid,
                     isActive = true
                 };
@@ -105,13 +104,13 @@ namespace infinitemoto.API
             }
         }
 
-        private UserType GetCurrentUserType()
+        private AuthenticationRoles GetCurrentUserType()
         {
-            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
+            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "AuthenticationRoles")?.Value;
 
-            if (string.IsNullOrEmpty(userTypeClaim) || !Enum.TryParse(userTypeClaim, out UserType userType))
+            if (string.IsNullOrEmpty(userTypeClaim) || !Enum.TryParse(userTypeClaim, out AuthenticationRoles userType))
             {
-                return UserType.Unknown; // Return default value if claim is missing or invalid
+                return AuthenticationRoles.Unknown; // Return default value if claim is missing or invalid
             }
 
             return userType; 
