@@ -9,8 +9,8 @@ namespace infinitemoto.DTOs
     public class UserInfoDto
     {
         public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public required string username { get; set; }
+        public required string password { get; set; }
         public UserRoles usertype { get; set; }
         public int compid { get; set; }
 

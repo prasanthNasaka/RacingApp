@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "1CxWlzOzfJZYDptKtf2hPEd7OdgXzUAA8wyOqFt8dcY=",
+  "Hash": "5wEvqd42mXvRSzae3k58yTinwc/femFivFTdJC1TX5k=",
   "Source": "infinitemoto",
   "BasePath": "_content/infinitemoto",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }
