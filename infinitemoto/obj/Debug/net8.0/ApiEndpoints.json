@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "infinitemoto.API.UserInfoController",
+    "Method": "ForgotPasswordAsync",
+    "RelativePath": "api/UserInfo/ForgotPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "infinitemoto.DTOs.ForgotPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "infinitemoto.API.UserInfoController",
     "Method": "CreateUserAsync",
     "RelativePath": "api/UserInfo/SignUp",
     "HttpMethod": "POST",

@@ -116,5 +116,47 @@ namespace infinitemoto.API
             return userType; 
         }
 
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPasswordAsync([FromBody] ForgotPasswordDto request)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.NewPassword))
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Username and new password are required.",
+                    });
+                }
+
+                var result = await userInfoServices.UpdatePasswordAsync(request);
+
+                if (result.IsSuccess)
+                {
+                    return Ok(new
+                    {
+                        Message = "Password updated successfully."
+                    });
+                }
+                else
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Error updating password.",
+                        Error = result.Error
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                return StatusCode(500, new
+                {
+                    Message = "An unexpected error occurred while updating the password.",
+                    Error = ex.Message
+                });
+            }
+        }
+
     }
 }

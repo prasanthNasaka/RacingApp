@@ -10,6 +10,7 @@ namespace infinitemoto.BusinessServices
     public interface IUserInfoServices
     {
         Task<Result<UserInfoDto>> CreateAsync(UserInfoDto wReq);
+        Task<Result<bool>> UpdatePasswordAsync(ForgotPasswordDto request);
     }
 
     public class UserInfoServices : IUserInfoServices
@@ -81,5 +82,30 @@ namespace infinitemoto.BusinessServices
             }
         }
 
+        public async Task<Result<bool>> UpdatePasswordAsync(ForgotPasswordDto request)
+        {
+            try
+            {
+                var user = await _dbContext.Userinfos
+                    .FirstOrDefaultAsync(u => u.Username == request.Username && u.IsActive);
+
+                if (user == null)
+                {
+                    return Result<bool>.Fail("User not found or inactive.");
+                }
+
+                // Hash the new password
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+                user.Password = hashedPassword;
+
+                await _dbContext.SaveChangesAsync();
+                return Result<bool>.Success(true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                return Result<bool>.Fail("An unexpected error occurred while updating the password.");
+            }
+        }
     }
 }
