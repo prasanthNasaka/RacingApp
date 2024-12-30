@@ -14,11 +14,14 @@ public partial class DummyProjectSqlContext : DbContext
         : base(options)
     {
     }
+
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Usertoken> Usertokens { get; set; }
 
 
+    public virtual DbSet<Registration> Registrations { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
 

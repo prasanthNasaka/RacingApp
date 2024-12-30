@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using infinitemoto.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<JwtService>(); // Register JwtService
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -96,6 +98,8 @@ app.Use(async (context, next) =>
     }
     await next();
 });
+
+
 
 // Middleware setup
 app.UseHttpsRedirection();

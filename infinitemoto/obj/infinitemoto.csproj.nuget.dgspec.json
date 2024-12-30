@@ -1,27 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj": {}
+    "c:\\amonRacers\\RacingApp2\\RacingApp\\infinitemoto\\infinitemoto.csproj": {}
   },
   "projects": {
-    "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj": {
+    "c:\\amonRacers\\RacingApp2\\RacingApp\\infinitemoto\\infinitemoto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
+        "projectUniqueName": "c:\\amonRacers\\RacingApp2\\RacingApp\\infinitemoto\\infinitemoto.csproj",
         "projectName": "infinitemoto",
-        "projectPath": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\infinitemoto.csproj",
-        "packagesPath": "C:\\Users\\Muhammed Suhail\\.nuget\\packages\\",
-        "outputPath": "C:\\Hardwin Project\\RacingApp\\infinitemoto\\obj\\",
+        "projectPath": "c:\\amonRacers\\RacingApp2\\RacingApp\\infinitemoto\\infinitemoto.csproj",
+        "packagesPath": "C:\\Users\\nares\\.nuget\\packages\\",
+        "outputPath": "c:\\amonRacers\\RacingApp2\\RacingApp\\infinitemoto\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Muhammed Suhail\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -95,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
