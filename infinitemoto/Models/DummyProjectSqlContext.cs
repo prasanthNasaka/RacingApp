@@ -14,6 +14,11 @@ public partial class DummyProjectSqlContext : DbContext
         : base(options)
     {
     }
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Usertoken> Usertokens { get; set; }
+
+
 
     public virtual DbSet<Category> Categories { get; set; }
 
@@ -31,13 +36,13 @@ public partial class DummyProjectSqlContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasPostgresEnum("user_role", new[] { "superadmin", "admin", "user" });
-
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Categoryid).HasName("category_pkey");
 
             entity.ToTable("category");
+
+            entity.HasIndex(e => e.Eventtypeid, "IX_category_eventtypeid");
 
             entity.Property(e => e.Categoryid).HasColumnName("categoryid");
             entity.Property(e => e.Categoryname)
@@ -107,6 +112,8 @@ public partial class DummyProjectSqlContext : DbContext
             entity.HasKey(e => e.Roleid).HasName("userroles_pkey");
 
             entity.ToTable("userroles");
+
+            entity.HasIndex(e => e.Eventtypeid, "IX_userroles_eventtypeid");
 
             entity.Property(e => e.Roleid).HasColumnName("roleid");
             entity.Property(e => e.Description).HasColumnName("description");
