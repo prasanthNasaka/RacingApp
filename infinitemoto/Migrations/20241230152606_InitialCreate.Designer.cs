@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using infinitemoto.Models;
@@ -11,9 +12,11 @@ using infinitemoto.Models;
 namespace infinitemoto.Migrations
 {
     [DbContext(typeof(DummyProjectSqlContext))]
-    partial class DummyProjectSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20241230152606_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
