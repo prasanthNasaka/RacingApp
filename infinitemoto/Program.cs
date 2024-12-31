@@ -29,12 +29,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+  
+
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
+builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
+
 builder.Services.AddScoped<JwtService>(); // Register JwtService
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -98,6 +102,7 @@ app.Use(async (context, next) =>
     }
     await next();
 });
+  // Register services and add custom converter for DateOnly
 
 
 
