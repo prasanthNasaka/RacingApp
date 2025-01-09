@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-
 namespace infinitemoto.Models;
 
 public partial class DummyProjectSqlContext : DbContext
@@ -20,6 +19,7 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Usertoken> Usertokens { get; set; }
 
+    public virtual DbSet<Eventcategory> Eventcategories { get; set; }
 
     public virtual DbSet<Registration> Registrations { get; set; }
 

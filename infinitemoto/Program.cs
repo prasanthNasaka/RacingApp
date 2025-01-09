@@ -36,6 +36,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+// builder.Services.AddScoped<IEventCategoryDto, Eventcategory>();
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
 
