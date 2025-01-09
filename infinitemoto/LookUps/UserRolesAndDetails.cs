@@ -62,6 +62,12 @@ namespace infinitemoto.LookUps
         Account = 4,
         Scrutiny = 5
     }
+        public enum CategoryEnum
+    {
+        CC1600 = 1600,
+        CC1800 = 1800
+    }
+
 
 
 }
