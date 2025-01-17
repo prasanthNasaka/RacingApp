@@ -1,77 +1,46 @@
-﻿using infinitemoto.BusinessServices;
-using infinitemoto.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using infinitemoto.DTOs;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using infinitemoto.BusinessServices;
+
 namespace infinitemoto.controller
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly DummyProjectSqlContext _context;
         private readonly JwtService _jwtService;
+        private const string DefaultUsername = "admin";
+        private const string DefaultPassword = "moto@123";
 
-        public AuthController(DummyProjectSqlContext context, JwtService jwtService)
+        public AuthController(JwtService jwtService)
         {
-            _context = context;
             _jwtService = jwtService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(DTOs.RegisterRequest dto)
-        {
-            if (await _context.Users.AnyAsync(u => u.Email == dto.Username))
-                return BadRequest("User already exists.");
-
-            var user = new User
-            {
-                Email = dto.Username,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
-
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return Ok("User registered successfully.");
-        }
-
         [HttpPost("login")]
-        public async Task<IActionResult> Login(DTOs.Login dto)
+        public IActionResult Login(DTOs.Login dto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Username);
+            if (dto.Username == DefaultUsername && dto.Password == DefaultPassword)
+            {
+                var token = _jwtService.GenerateToken(DefaultUsername);
+                return Ok(new { Token = token });
+            }
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
-                return Unauthorized("Invalid username or password.");
-
-            var token = _jwtService.GenerateToken(user.Email);
-            return Ok(new { Token = token });
+            return Unauthorized("Invalid username or password.");
         }
 
         [HttpGet("validate-token")]
-        public async Task<IActionResult> ValidateToken([FromQuery] string username)
+        public IActionResult ValidateToken([FromQuery] string username)
         {
-            var token = _jwtService.GenerateToken(username);
-            var userToken = new Usertoken
+            if (username == DefaultUsername)
             {
-                
-                Username = username,
-                Password = "defaultPassword", // Set a default or generated password
-                Token = token,
-                CreatedAt = DateTime.UtcNow
-            };
-            // Store the token in the database
-            _context.Usertokens.Add(userToken);
-            await _context.SaveChangesAsync();
-            return Ok(new { Token = token });
+                var token = _jwtService.GenerateToken(username);
+                return Ok(new { Token = token });
+            }
+
+            return Unauthorized("Invalid username.");
         }
     }
 }
