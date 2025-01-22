@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace infinitemoto.Models
+
+namespace infinitemoto.Models;
+
+public partial class User
 {
-    public partial  class User
-    {
-        public int Id { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Email { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
+
+    public string Role { get; set; } = null!;
 }

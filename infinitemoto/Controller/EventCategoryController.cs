@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using infinitemoto.DTOs;
 using infinitemoto.Models;
 using infinitemoto.LookUps;
+using Microsoft.AspNetCore.Authorization;
 
 namespace infinitemoto.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventCategoryController : ControllerBase
     {
         private readonly DummyProjectSqlContext _context;

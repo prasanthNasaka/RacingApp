@@ -1,25 +1,29 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-namespace infinitemoto.Models
+
+namespace infinitemoto.Models;
+
+public partial class Registration
 {
-   public class Registration
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
-        public string Name { get; set; }
-        public required DateTime DOB { get; set; }
-        public required string BloodGroup { get; set; }
-        public required string DrivingLicense { get; set; }
-        public DateTime DrivingLicenseValidTill { get; set; }
-        public required string FMSCI_License { get; set; }
-        public DateTime FMSCI_LicenseValidTill { get; set; }
-        public required string Phone { get; set; }
+    public string Name { get; set; } = null!;
 
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
-        public  string   Email { get; set; }
-        public string Image { get; set; }
-    }
+    public DateTime Dob { get; set; }
+
+    public string BloodGroup { get; set; } = null!;
+
+    public string DrivingLicense { get; set; } = null!;
+
+    public DateTime DrivingLicenseValidTill { get; set; }
+
+    public string FmsciLicense { get; set; } = null!;
+
+    public DateTime FmsciLicenseValidTill { get; set; }
+
+    public string Phone { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
+
+    public string Image { get; set; } = null!;
 }
