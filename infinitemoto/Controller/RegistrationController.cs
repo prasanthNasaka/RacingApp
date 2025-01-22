@@ -1,5 +1,6 @@
 using infinitemoto.BusinessServices;
 using infinitemoto.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace infinitemoto.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RegistrationController : ControllerBase
     {
         private readonly DummyProjectSqlContext _context;

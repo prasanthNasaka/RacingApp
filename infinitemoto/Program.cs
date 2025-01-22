@@ -35,10 +35,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
-builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IJwtService, JwtService>();  // Register JwtService for JWT handling
 // builder.Services.AddScoped<IEventCategoryDto, Eventcategory>();
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
+builder.Services.AddScoped<IVehicleDto, VehicleDto>();
+builder.Services.AddScoped<IDriverDto, DriverDto>();
+builder.Services.AddScoped<ITeamDto, TeamDto>();
+builder.Services.AddScoped<IVehicledocDto, VehicledocDto>();
+
 
 builder.Services.AddScoped<JwtService>(); // Register JwtService
 builder.Services.AddEndpointsApiExplorer();
