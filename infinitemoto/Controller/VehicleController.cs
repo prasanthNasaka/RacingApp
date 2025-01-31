@@ -1,182 +1,83 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using infinitemoto.DTOs;
-using infinitemoto.Models;
+using infinitemoto.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
-[Route("api/[controller]")]
-[ApiController]
-[Authorize]
-public class VehiclesController : ControllerBase
+namespace infinitemoto.Controllers
 {
-    private readonly DummyProjectSqlContext _context;
-
-    public VehiclesController(DummyProjectSqlContext context)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class VehiclesController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly IVehicleService _vehicleService;
 
-    // GET: api/Vehicles
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<IVehicleDto>>> GetVehicles()
-    {
-        var vehicles = await _context.Vehicles.ToListAsync();
-
-        var vehicleDtos = new List<VehicleDto>();
-        foreach (var vehicle in vehicles)
+        // Constructor that accepts IVehicleService as dependency
+        public VehiclesController(IVehicleService vehicleService)
         {
-            vehicleDtos.Add(new VehicleDto
+            _vehicleService = vehicleService;
+        }
+
+        // GET: api/Vehicles
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles()
+        {
+            // Get all vehicles from the service
+            var vehicles = await _vehicleService.GetAllVehiclesAsync();
+            return Ok(vehicles);  // Return the list of vehicles
+        }
+
+        // GET: api/Vehicles/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VehicleDto>> GetVehicle(int id)
+        {
+            // Get vehicle by ID from the service
+            var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
+            if (vehicle == null)
             {
-                VehicleId = vehicle.VehicleId,
-                RegNumb = vehicle.RegNumb,
-                ChasisNumb = vehicle.ChasisNumb,
-                FcUpto = vehicle.FcUpto?.ToString("dd-MM-yyyy"), // Convert DateOnly to string
-                EngNumber = vehicle.EngNumber,
-                Make = vehicle.Make,
-                Model = vehicle.Model,
-                Cc = vehicle.Cc,
-                VehicleOf = vehicle.VehicleOf,
-                VehiclePhoto = vehicle.VehiclePhoto,
-                Status = vehicle.Status
-            });
-        }
-
-        return Ok(vehicleDtos);
-    }
-
-    // GET: api/Vehicles/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<IVehicleDto>> GetVehicle(int id)
-    {
-        var vehicle = await _context.Vehicles.FindAsync(id);
-
-        if (vehicle == null)
-        {
-            return NotFound();
-        }
-
-        var vehicleDto = new VehicleDto
-        {
-            VehicleId = vehicle.VehicleId,
-            RegNumb = vehicle.RegNumb,
-            ChasisNumb = vehicle.ChasisNumb,
-            FcUpto = vehicle.FcUpto?.ToString("dd-MM-yyyy"), // Convert DateOnly to string
-            EngNumber = vehicle.EngNumber,
-            Make = vehicle.Make,
-            Model = vehicle.Model,
-            Cc = vehicle.Cc,
-            VehicleOf = vehicle.VehicleOf,
-            VehiclePhoto = vehicle.VehiclePhoto,
-            Status = vehicle.Status
-        };
-
-        return Ok(vehicleDto);
-    }
-
-    // POST: api/Vehicles
-    [HttpPost]
-    public async Task<ActionResult<IVehicleDto>> CreateVehicle([FromBody] VehicleDto vehicleDto)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        try
-        {
-            var vehicle = new Vehicle
-            {
-                RegNumb = vehicleDto.RegNumb,
-                ChasisNumb = vehicleDto.ChasisNumb,
-                FcUpto = DateOnly.ParseExact(vehicleDto.FcUpto, "dd-MM-yyyy", null),
-                EngNumber = vehicleDto.EngNumber,
-                Make = vehicleDto.Make,
-                Model = vehicleDto.Model,
-                Cc = vehicleDto.Cc,
-                VehicleOf = vehicleDto.VehicleOf,
-                VehiclePhoto = vehicleDto.VehiclePhoto,
-                Status = vehicleDto.Status
-            };
-
-            _context.Vehicles.Add(vehicle);
-            await _context.SaveChangesAsync();
-
-            vehicleDto.VehicleId = vehicle.VehicleId; // Set the ID after saving
-            return CreatedAtAction(nameof(GetVehicle), new { id = vehicle.VehicleId }, vehicleDto);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
-
-    // PUT: api/Vehicles/5
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleDto)
-    {
-        if (id != vehicleDto.VehicleId)
-        {
-            return BadRequest(new { message = "ID mismatch. Ensure the ID in the URL matches the request body." });
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var vehicle = await _context.Vehicles.FindAsync(id);
-        if (vehicle == null)
-        {
-            return NotFound(new { message = $"Vehicle with ID {id} not found." });
-        }
-
-        try
-        {
-            vehicle.RegNumb = vehicleDto.RegNumb;
-            vehicle.ChasisNumb = vehicleDto.ChasisNumb;
-            vehicle.FcUpto = DateOnly.ParseExact(vehicleDto.FcUpto, "dd-MM-yyyy", null);
-            vehicle.EngNumber = vehicleDto.EngNumber;
-            vehicle.Make = vehicleDto.Make;
-            vehicle.Model = vehicleDto.Model;
-            vehicle.Cc = vehicleDto.Cc;
-            vehicle.VehicleOf = vehicleDto.VehicleOf;
-            vehicle.VehiclePhoto = vehicleDto.VehiclePhoto;
-            vehicle.Status = vehicleDto.Status;
-
-            _context.Entry(vehicle).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.Vehicles.Any(e => e.VehicleId == id))
-            {
-                return NotFound(new { message = "Vehicle not found or has been deleted." });
+                return NotFound();  // Return NotFound if vehicle not found
             }
-            throw;
+            return Ok(vehicle);  // Return the vehicle details
         }
-        catch (Exception ex)
+
+        // POST: api/Vehicles
+        [HttpPost]
+        public async Task<ActionResult<VehicleDto>> CreateVehicle([FromBody] List<VehicleDto> vehicleDto,int DriverID)
         {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
+            // Create a new vehicle using the service
+            var createdVehicle = await _vehicleService.CreateVehicleAsync(vehicleDto,DriverID);
 
-    // DELETE: api/Vehicles/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteVehicle(int id)
-    {
-        var vehicle = await _context.Vehicles.FindAsync(id);
-        if (vehicle == null)
+            // Return CreatedAtAction response with the newly created vehicle
+           // return CreatedAtAction(nameof(GetVehicle), new { id = createdVehicle.VehicleId }, createdVehicle);
+           return Ok(createdVehicle);
+        }
+
+        // PUT: api/Vehicles/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleDto)
         {
-            return NotFound();
+            // Update the vehicle using the service
+            var result = await _vehicleService.UpdateVehicleAsync(id, new List<VehicleDto> { vehicleDto });
+            if (!result)
+            {
+                return NotFound();  // Return NotFound if vehicle with the specified ID does not exist
+            }
+
+            return NoContent();  // Return NoContent if update is successful
         }
 
-        _context.Vehicles.Remove(vehicle);
-        await _context.SaveChangesAsync();
+        // DELETE: api/Vehicles/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicle(int id)
+        {
+            // Delete the vehicle using the service
+            var result = await _vehicleService.DeleteVehicleAsync(id);
+            if (!result)
+            {
+                return NotFound();  // Return NotFound if vehicle with the specified ID does not exist
+            }
 
-        return NoContent();
+            return NoContent();  // Return NoContent if deletion is successful
+        }
     }
 }

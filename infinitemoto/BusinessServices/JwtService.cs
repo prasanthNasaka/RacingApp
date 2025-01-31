@@ -6,8 +6,6 @@ using static infinitemoto.BusinessServices.JwtService;
 
 namespace infinitemoto.BusinessServices
 {
-
-
     public class JwtService : IJwtService
     {
         private readonly string _key;

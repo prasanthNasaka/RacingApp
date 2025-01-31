@@ -5,15 +5,13 @@ namespace infinitemoto.Models;
 
 public partial class Eventcategory
 {
-    public int Eventid { get; set; }
+    public int EvtCatId { get; set; }
 
-    public string Eventname { get; set; } = null!;
+    public int? EvtCategory { get; set; }
 
-    public string Category { get; set; } = null!;
+    public int? NoOfParticipants { get; set; }
 
-    public int NumberOfLaps { get; set; }
+    public string? Status { get; set; }
 
-    public int NumberOfParticipants { get; set; }
-
-    public decimal EventPrice { get; set; }
+    public virtual Eventregistration? EvtCategoryNavigation { get; set; }
 }

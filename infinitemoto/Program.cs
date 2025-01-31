@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using infinitemoto.DTOs;
+using infinitemoto.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,20 +31,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-  
+
 
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();  // Register JwtService for JWT handling
-// builder.Services.AddScoped<IEventCategoryDto, Eventcategory>();
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
 builder.Services.AddScoped<IVehicleDto, VehicleDto>();
+builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<IDriverDto, DriverDto>();
 builder.Services.AddScoped<ITeamDto, TeamDto>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IVehicledocDto, VehicledocDto>();
+builder.Services.AddScoped<DriverService>();
+// builder.Services.AddScoped<IVehicalsevice, Vehicalsevice >();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+
+// error handling
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
 
 
 builder.Services.AddScoped<JwtService>(); // Register JwtService
@@ -108,7 +120,7 @@ app.Use(async (context, next) =>
     }
     await next();
 });
-  // Register services and add custom converter for DateOnly
+// Register services and add custom converter for DateOnly
 
 
 
