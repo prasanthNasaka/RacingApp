@@ -9,77 +9,86 @@ namespace infinitemoto.LookUps
         Rider = 5
     }
 
-    public enum EvenType
+    public enum EventType
     {
-        TwoWheelerPrescriptions = 1, //2 wheelers
-        FourWheelerPrescriptions = 2, //4 wheelers
-        Karting = 3,
-        Grass_Roots = 4,
-        ESPORTS = 5,
-        Leisure_Tourism = 6,
-        Recommended_Reading = 7,
-        Environmental_Policy_Sustainability_Guidelines = 8,
-        Anti_Harassment = 9
+        TwoWheelerPrescriptions = 6, // 2 wheelers
+        FourWheelerPrescriptions = 7, // 4 wheelers
+        Karting = 8,
+        Grass_Roots = 9,
+        ESPORTS = 10,
+        Leisure_Tourism = 11,
+        Recommended_Reading = 12,
+        Environmental_Policy_Sustainability_Guidelines = 13,
+        Anti_Harassment = 14
     }
 
     public enum Category
     {
-        TwoWRacing = 1,
-        TwoWStageRally = 2,
-        TwoWSprintRally = 3,
-        TwoWSupercross_Motocross_DirtTrack = 4,
-        TwoWDragRacing = 5,
-        TwoWHillClimb = 6,
-        TwoWTSDRally = 7,
-        FourWRacing = 8,
-        FourWRally = 9,
-        FourWTSDRally = 10,
-        FourWRallySprint = 11,
-        FourWCrossCountryRally = 12,
-        FourWDragRacing = 13,
-        FourWHillClimbRacing = 14,
-        FourWAutoCross = 15,
-        FourWTimeAttack = 16,
-        FourWAutokhana = 17,
-        CrossCars = 18,
-        KartingTwoStroke = 19,
-        KartingFourStroke = 20,
-        FourWOpenKhana = 21,
-        FourWDriveDash = 22,
-        KartingSlalom = 23,
-        KartingSpeedster = 24,
-        TwoWRideRush = 25,
-        GrassrootsTSD = 26,
-        KartingSlalomGrass = 27
+        TwoWRacing = 15,
+        TwoWStageRally = 16,
+        TwoWSprintRally = 17,
+        TwoWSupercross_Motocross_DirtTrack = 18,
+        TwoWDragRacing = 19,
+        TwoWHillClimb = 20,
+        TwoWTSDRally = 21,
+        FourWRacing = 22,
+        FourWRally = 23,
+        FourWTSDRally = 24,
+        FourWRallySprint = 25,
+        FourWCrossCountryRally = 26,
+        FourWDragRacing = 27,
+        FourWHillClimbRacing = 28,
+        FourWAutoCross = 29,
+        FourWTimeAttack = 30,
+        FourWAutokhana = 31,
+        CrossCars = 32,
+        KartingTwoStroke = 33,
+        KartingFourStroke = 34,
+        FourWOpenKhana = 35,
+        FourWDriveDash = 36,
+        KartingSlalom = 37,
+        KartingSpeedster = 38,
+        TwoWRideRush = 39,
+        GrassrootsTSD = 40,
+        KartingSlalomGrass = 41
     }
 
-     public enum AuthenticationRoles
+    public enum AuthenticationRoles
     {
-        Unknown = 0,
-        SuperAdmin = 1,
-        Admin = 2,
-        Register = 3,
-        Account = 4,
-        Scrutiny = 5
+        Unknown = 42,
+        SuperAdmin = 43,
+        Admin = 44,
+        Register = 45,
+        Account = 46,
+        Scrutiny = 47
     }
-        public enum CategoryEnum
+
+    public enum CategoryEnum
     {
-        CC1600 = 1600,
-        CC1800 = 1800
+        CC1600 = 48,
+        CC1800 = 49
     }
 
     public enum BloodGroup
-   {
-    A_Positive,
-    A_Negative,
-    B_Positive,
-    B_Negative,
-    O_Positive,
-    O_Negative,
-    AB_Positive,
-    AB_Negative
-  }
+    {
+        A_Positive = 50,
+        A_Negative = 51,
+        B_Positive = 52,
+        B_Negative = 53,
+        O_Positive = 54,
+        O_Negative = 55,
+        AB_Positive = 56,
+        AB_Negative = 57
+    }
 
-
-
+    public enum VechDoc
+    {
+        Registration_Certificate = 58,
+        Insurance_Certificate = 59,
+        Pollution_Certificate = 60,
+        Fitness_Certificate = 61,
+        Permit_Certificate = 62,
+        Tax_Certificate = 63,
+        Other = 64
+    }
 }

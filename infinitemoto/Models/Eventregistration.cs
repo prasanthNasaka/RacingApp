@@ -20,4 +20,8 @@ public partial class Eventregistration
     public string Banner { get; set; } = null!;
 
     public string Showdashboard { get; set; } = null!;
+
+    public int? Eventstatus { get; set; }
+
+    public virtual ICollection<Eventcategory> Eventcategories { get; set; } = new List<Eventcategory>();
 }

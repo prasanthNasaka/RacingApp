@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using infinitemoto.DTOs;
-using infinitemoto.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,24 +9,18 @@ using Microsoft.AspNetCore.Authorization;
 [Authorize]
 public class TeamsController : ControllerBase
 {
-    private readonly DummyProjectSqlContext _context;
+    private readonly ITeamService _teamService;
 
-    public TeamsController(DummyProjectSqlContext context)
+    public TeamsController(ITeamService teamService)
     {
-        _context = context;
+        _teamService = teamService;
     }
 
     // GET: api/Teams
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TeamDto>>> GetTeams()
     {
-        var teams = await _context.Teams.Select(team => new TeamDto
-        {
-            TeamId = team.TeamId,
-            TeamName = team.TeamName,
-            Status = team.Status
-        }).ToListAsync();
-
+        var teams = await _teamService.GetTeamsAsync();
         return Ok(teams);
     }
 
@@ -36,21 +28,14 @@ public class TeamsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TeamDto>> GetTeam(int id)
     {
-        var team = await _context.Teams.FindAsync(id);
+        var team = await _teamService.GetTeamAsync(id);
 
         if (team == null)
         {
             return NotFound();
         }
 
-        var teamDto = new TeamDto
-        {
-            TeamId = team.TeamId,
-            TeamName = team.TeamName,
-            Status = team.Status
-        };
-
-        return Ok(teamDto);
+        return Ok(team);
     }
 
     // POST: api/Teams
@@ -64,18 +49,8 @@ public class TeamsController : ControllerBase
 
         try
         {
-            var team = new Team
-            {
-                TeamName = teamDto.TeamName,
-                Status = teamDto.Status
-            };
-
-            _context.Teams.Add(team);
-            await _context.SaveChangesAsync();
-
-            teamDto.TeamId = team.TeamId; // Set the ID from the saved entity
-
-            return CreatedAtAction(nameof(GetTeam), new { id = team.TeamId }, teamDto);
+            var createdTeam = await _teamService.CreateTeamAsync(teamDto);
+            return CreatedAtAction(nameof(GetTeam), new { id = createdTeam.TeamId }, createdTeam);
         }
         catch (Exception ex)
         {
@@ -94,27 +69,13 @@ public class TeamsController : ControllerBase
 
         try
         {
-            var team = await _context.Teams.FindAsync(id);
-            if (team == null)
+            var result = await _teamService.UpdateTeamAsync(id, teamDto);
+            if (!result)
             {
                 return NotFound();
             }
-
-            team.TeamName = teamDto.TeamName;
-            team.Status = teamDto.Status;
-
-            _context.Entry(team).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.Teams.Any(e => e.TeamId == id))
-            {
-                return NotFound();
-            }
-            throw;
         }
         catch (Exception ex)
         {
@@ -128,14 +89,11 @@ public class TeamsController : ControllerBase
     {
         try
         {
-            var team = await _context.Teams.FindAsync(id);
-            if (team == null)
+            var result = await _teamService.DeleteTeamAsync(id);
+            if (!result)
             {
                 return NotFound();
             }
-
-            _context.Teams.Remove(team);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

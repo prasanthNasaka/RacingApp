@@ -15,11 +15,17 @@ public partial class DummyProjectSqlContext : DbContext
     {
     }
 
+    public virtual DbSet<Account> Accounts { get; set; }
+
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Company> Companies { get; set; }
+
     public virtual DbSet<Driver> Drivers { get; set; }
+
+    public virtual DbSet<Emp> Emps { get; set; }
 
     public virtual DbSet<Eventcategory> Eventcategories { get; set; }
 
@@ -41,7 +47,7 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Vehicle> Vehicles { get; set; }
 
-    public virtual DbSet<Vehicledoc> Vehicledocs { get; set; }
+    public virtual DbSet<VehicleDoc> VehicleDocs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -49,6 +55,25 @@ public partial class DummyProjectSqlContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Account>(entity =>
+        {
+            entity.HasKey(e => e.AccId).HasName("accounts_pkey");
+
+            entity.ToTable("accounts");
+
+            entity.Property(e => e.AccId).HasColumnName("acc_id");
+            entity.Property(e => e.AccName)
+                .HasMaxLength(100)
+                .HasColumnName("acc_name");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(20)
+                .HasColumnName("phone_number");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
         modelBuilder.Entity<Authenticationrole>(entity =>
         {
             entity.HasKey(e => e.Roleid).HasName("authenticationroles_pkey");
@@ -83,48 +108,108 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasConstraintName("category_eventtypeid_fkey");
         });
 
+        modelBuilder.Entity<Company>(entity =>
+        {
+            entity.HasKey(e => e.ComId).HasName("company_pkey");
+
+            entity.ToTable("company");
+
+            entity.Property(e => e.ComId).HasColumnName("com_id");
+            entity.Property(e => e.ComName)
+                .HasMaxLength(100)
+                .HasColumnName("com_name");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.Location)
+                .HasMaxLength(100)
+                .HasColumnName("location");
+            entity.Property(e => e.Phone).HasColumnName("phone");
+        });
+
         modelBuilder.Entity<Driver>(entity =>
         {
-            entity.HasKey(e => e.DriverId).HasName("driver_pkey");
+            entity.HasKey(e => e.DriverId).HasName("drivers_pkey");
 
-            entity.ToTable("driver");
+            entity.ToTable("drivers");
 
             entity.Property(e => e.DriverId).HasColumnName("driver_id");
-            entity.Property(e => e.Bloodgroup)
-                .HasMaxLength(10)
-                .HasColumnName("bloodgroup");
-            entity.Property(e => e.DlNumb)
-                .HasMaxLength(25)
-                .HasColumnName("dl_numb");
+            entity.Property(e => e.Bloodgroup).HasColumnName("bloodgroup");
+            entity.Property(e => e.DlNumb).HasColumnName("dl_numb");
+            entity.Property(e => e.DlPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("dl_photo");
             entity.Property(e => e.DlValidTill).HasColumnName("dl_valid_till");
             entity.Property(e => e.Dob).HasColumnName("dob");
             entity.Property(e => e.DriverPhoto)
-                .HasMaxLength(255)
+                .HasColumnType("character varying")
                 .HasColumnName("driver_photo");
             entity.Property(e => e.Drivername)
-                .HasMaxLength(25)
+                .HasMaxLength(23)
                 .HasColumnName("drivername");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .HasColumnName("email");
-            entity.Property(e => e.FmsciNumb)
-                .HasMaxLength(25)
-                .HasColumnName("fmsci_numb");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.FmsciLicPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("fmsci_lic_photo");
+            entity.Property(e => e.FmsciNumb).HasColumnName("fmsci_numb");
             entity.Property(e => e.FmsciValidTill).HasColumnName("fmsci_valid_till");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(25)
-                .HasColumnName("phone");
+            entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Teammemberof).HasColumnName("teammemberof");
 
-             entity.HasOne(d => d.TeammemberofNavigation).WithMany( p => p.Drivers)
-                 .HasForeignKey(d => d.Teammemberof)
-                 .HasConstraintName("driver_teammemberof_fkey");
+            entity.HasOne(d => d.TeammemberofNavigation).WithMany(p => p.Drivers)
+                .HasForeignKey(d => d.Teammemberof)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("drivers_teammemberof_fkey");
+        });
+
+        modelBuilder.Entity<Emp>(entity =>
+        {
+            entity.HasKey(e => e.EmpId).HasName("emp_pkey");
+
+            entity.ToTable("emp");
+
+            entity.Property(e => e.EmpId).HasColumnName("emp_id");
+            entity.Property(e => e.AccId).HasColumnName("acc_id");
+            entity.Property(e => e.Age).HasColumnName("age");
+            entity.Property(e => e.ComId).HasColumnName("com_id");
+            entity.Property(e => e.Dob).HasColumnName("dob");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.EmpName)
+                .HasMaxLength(100)
+                .HasColumnName("emp_name");
+            entity.Property(e => e.Location)
+                .HasMaxLength(100)
+                .HasColumnName("location");
+            entity.Property(e => e.Phone).HasColumnName("phone");
+
+            entity.HasOne(d => d.Acc).WithMany(p => p.Emps)
+                .HasForeignKey(d => d.AccId)
+                .HasConstraintName("emp_acc_id_fkey");
+
+            entity.HasOne(d => d.Com).WithMany(p => p.Emps)
+                .HasForeignKey(d => d.ComId)
+                .HasConstraintName("emp_com_id_fkey");
         });
 
         modelBuilder.Entity<Eventcategory>(entity =>
         {
-            entity.HasKey(e => e.Eventid);
+            entity.HasKey(e => e.EvtCatId).HasName("eventcategory_pkey");
+
+            entity.ToTable("eventcategory");
+
+            entity.Property(e => e.EvtCatId).HasColumnName("evt_cat_id");
+            entity.Property(e => e.EvtCategory).HasColumnName("evt_category");
+            entity.Property(e => e.NoOfParticipants).HasColumnName("no_of_participants");
+            entity.Property(e => e.Status)
+                .HasMaxLength(100)
+                .HasColumnName("status");
+
+            entity.HasOne(d => d.EvtCategoryNavigation).WithMany(p => p.Eventcategories)
+                .HasForeignKey(d => d.EvtCategory)
+                .HasConstraintName("eventcategory_evt_category_fkey");
         });
 
         modelBuilder.Entity<Eventregistration>(entity =>
@@ -138,6 +223,7 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Eventname)
                 .HasMaxLength(255)
                 .HasColumnName("eventname");
+            entity.Property(e => e.Eventstatus).HasColumnName("eventstatus");
             entity.Property(e => e.Eventtype).HasColumnName("eventtype");
             entity.Property(e => e.Isactive).HasColumnName("isactive");
             entity.Property(e => e.Showdashboard).HasColumnName("showdashboard");
@@ -165,9 +251,9 @@ public partial class DummyProjectSqlContext : DbContext
 
         modelBuilder.Entity<Team>(entity =>
         {
-            entity.HasKey(e => e.TeamId).HasName("team_pkey");
+            entity.HasKey(e => e.TeamId).HasName("teams_pkey");
 
-            entity.ToTable("team");
+            entity.ToTable("teams");
 
             entity.Property(e => e.TeamId).HasColumnName("team_id");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -234,30 +320,22 @@ public partial class DummyProjectSqlContext : DbContext
 
         modelBuilder.Entity<Vehicle>(entity =>
         {
-            entity.HasKey(e => e.VehicleId).HasName("vehicle_pkey");
+            entity.HasKey(e => e.VehicleId).HasName("vehicles_pkey");
 
-            entity.ToTable("vehicle");
+            entity.ToTable("vehicles");
 
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
-            entity.Property(e => e.Cc)
-                .HasMaxLength(50)
-                .HasColumnName("cc");
-            entity.Property(e => e.ChasisNumb)
-                .HasMaxLength(255)
-                .HasColumnName("chasis_numb");
+            entity.Property(e => e.Cc).HasColumnName("cc");
+            entity.Property(e => e.ChasisNumb).HasColumnName("chasis_numb");
             entity.Property(e => e.EngNumber)
-                .HasMaxLength(255)
+                .HasMaxLength(50)
                 .HasColumnName("eng_number");
             entity.Property(e => e.FcUpto).HasColumnName("fc_upto");
             entity.Property(e => e.Make)
-                .HasMaxLength(255)
+                .HasMaxLength(100)
                 .HasColumnName("make");
-            entity.Property(e => e.Model)
-                .HasMaxLength(255)
-                .HasColumnName("model");
-            entity.Property(e => e.RegNumb)
-                .HasMaxLength(255)
-                .HasColumnName("reg_numb");
+            entity.Property(e => e.Model).HasColumnName("model");
+            entity.Property(e => e.RegNumb).HasColumnName("reg_numb");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.VehicleOf).HasColumnName("vehicle_of");
             entity.Property(e => e.VehiclePhoto)
@@ -266,27 +344,30 @@ public partial class DummyProjectSqlContext : DbContext
 
             entity.HasOne(d => d.VehicleOfNavigation).WithMany(p => p.Vehicles)
                 .HasForeignKey(d => d.VehicleOf)
-                .HasConstraintName("vehicle_vehicle_of_fkey");
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("vehicles_vehicle_of_fkey");
         });
 
-        modelBuilder.Entity<Vehicledoc>(entity =>
+        modelBuilder.Entity<VehicleDoc>(entity =>
         {
-            entity.HasKey(e => e.VehDocId).HasName("vehicledoc_pkey");
+            entity.HasKey(e => e.VehDocId).HasName("vehicle_doc_pkey");
 
-            entity.ToTable("vehicledoc");
+            entity.ToTable("vehicle_doc");
 
             entity.Property(e => e.VehDocId).HasColumnName("veh_doc_id");
             entity.Property(e => e.DocPath)
-                .HasMaxLength(255)
+                .HasColumnType("character varying")
                 .HasColumnName("doc_path");
-            entity.Property(e => e.DocType)
-                .HasMaxLength(255)
-                .HasColumnName("doc_type");
+            entity.Property(e => e.DocType).HasColumnName("doc_type");
+            entity.Property(e => e.FitnessCertificate).HasColumnName("fitness_certificate");
+            entity.Property(e => e.FitnessRequired).HasColumnName("fitness_required");
+            entity.Property(e => e.InsuranceValidTill).HasColumnName("insurance_valid_till");
+            entity.Property(e => e.RcBookValidTill).HasColumnName("rc_book_valid_till");
+            entity.Property(e => e.Status)
+                .HasDefaultValueSql("'Active'::text")
+                .HasColumnName("status");
+            entity.Property(e => e.Validtill).HasColumnName("validtill");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
-
-            entity.HasOne(d => d.Vehicle).WithMany(p => p.Vehicledocs)
-               .HasForeignKey(d => d.VehicleId)
-               .HasConstraintName("vehicledoc_vehicle_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

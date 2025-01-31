@@ -7,19 +7,19 @@ public partial class Vehicle
 {
     public int VehicleId { get; set; }
 
-    public string? RegNumb { get; set; }
+    public int RegNumb { get; set; }
 
-    public string? ChasisNumb { get; set; }
+    public int ChasisNumb { get; set; }
 
-    public DateOnly? FcUpto { get; set; }
+    public DateTime FcUpto { get; set; }
 
-    public string? EngNumber { get; set; }
+    public string EngNumber { get; set; } = null!;
 
-    public string? Make { get; set; }
+    public string Make { get; set; } = null!;
 
-    public string? Model { get; set; }
+    public string Model { get; set; } = null!;
 
-    public string? Cc { get; set; }
+    public string Cc { get; set; } = null!;
 
     public int? VehicleOf { get; set; }
 
@@ -27,7 +27,5 @@ public partial class Vehicle
 
     public bool? Status { get; set; }
 
-   public virtual Driver? VehicleOfNavigation { get; set; }
-
-    public virtual ICollection<Vehicledoc> Vehicledocs { get; set; } = new List<Vehicledoc>();
+    public virtual Driver? VehicleOfNavigation { get; set; }
 }
