@@ -16,7 +16,7 @@ namespace infinitemoto.Models
 
         public DateTime FmsciValidTill { get; set; }
 
-        public int DlNumb { get; set; }
+        public int? DlNumb { get; set; }
 
         public DateTime DlValidTill { get; set; }
 
@@ -24,7 +24,7 @@ namespace infinitemoto.Models
 
         public string Bloodgroup { get; set; } = null!;
 
-        public int? Teammemberof { get; set; }  // Foreign key for the Team (Nullable)
+        public int Teammemberof { get; set; }  // Foreign key for the Team (Nullable)
 
         public string? DriverPhoto { get; set; }
 
