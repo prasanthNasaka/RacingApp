@@ -19,9 +19,9 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
-    public virtual DbSet<Category> Categories { get; set; }
-
     public virtual DbSet<Company> Companies { get; set; }
+
+    public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
 
     public virtual DbSet<Driver> Drivers { get; set; }
 
@@ -31,9 +31,9 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Eventregistration> Eventregistrations { get; set; }
 
-    public virtual DbSet<Eventtype> Eventtypes { get; set; }
-
     public virtual DbSet<Registration> Registrations { get; set; }
+
+    public virtual DbSet<Scrutinyrule> Scrutinyrules { get; set; }
 
     public virtual DbSet<Team> Teams { get; set; }
 
@@ -88,26 +88,6 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("rolename");
         });
 
-        modelBuilder.Entity<Category>(entity =>
-        {
-            entity.HasKey(e => e.Categoryid).HasName("category_pkey");
-
-            entity.ToTable("category");
-
-            entity.HasIndex(e => e.Eventtypeid, "IX_category_eventtypeid");
-
-            entity.Property(e => e.Categoryid).HasColumnName("categoryid");
-            entity.Property(e => e.Categoryname)
-                .HasMaxLength(255)
-                .HasColumnName("categoryname");
-            entity.Property(e => e.Eventtypeid).HasColumnName("eventtypeid");
-
-            entity.HasOne(d => d.Eventtype).WithMany(p => p.Categories)
-                .HasForeignKey(d => d.Eventtypeid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("category_eventtypeid_fkey");
-        });
-
         modelBuilder.Entity<Company>(entity =>
         {
             entity.HasKey(e => e.ComId).HasName("company_pkey");
@@ -125,6 +105,18 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("location");
             entity.Property(e => e.Phone).HasColumnName("phone");
+        });
+
+        modelBuilder.Entity<CompanyDetail>(entity =>
+        {
+            entity.HasKey(e => e.Companyid).HasName("companydetails_pk");
+
+            entity.Property(e => e.Companyid)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("companyid");
+            entity.Property(e => e.Companyname)
+                .HasColumnType("character varying")
+                .HasColumnName("companyname");
         });
 
         modelBuilder.Entity<Driver>(entity =>
@@ -159,8 +151,14 @@ public partial class DummyProjectSqlContext : DbContext
 
             entity.HasOne(d => d.TeammemberofNavigation).WithMany(p => p.Drivers)
                 .HasForeignKey(d => d.Teammemberof)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("drivers_teammemberof_fkey");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_tbl_teams");
+
+            entity.HasOne(d => d.TeammemberofNavigation)
+    .WithMany(p => p.Drivers) // A team can have many drivers
+    .HasForeignKey(d => d.Teammemberof) // Foreign key in Driver
+    .OnDelete(DeleteBehavior.SetNull) // Set null if team is deleted
+    .HasConstraintName("fk_tbl_teams");
         });
 
         modelBuilder.Entity<Emp>(entity =>
@@ -201,15 +199,19 @@ public partial class DummyProjectSqlContext : DbContext
             entity.ToTable("eventcategory");
 
             entity.Property(e => e.EvtCatId).HasColumnName("evt_cat_id");
+            entity.Property(e => e.Entryprice).HasColumnName("entryprice");
+            entity.Property(e => e.EventId).HasColumnName("event_id");
             entity.Property(e => e.EvtCategory).HasColumnName("evt_category");
-            entity.Property(e => e.NoOfParticipants).HasColumnName("no_of_participants");
+            entity.Property(e => e.NoOfVeh).HasColumnName("noOfVeh");
+            entity.Property(e => e.Nooflaps).HasColumnName("nooflaps");
             entity.Property(e => e.Status)
                 .HasMaxLength(100)
                 .HasColumnName("status");
+            entity.Property(e => e.Wheelertype).HasColumnName("wheelertype");
 
-            entity.HasOne(d => d.EvtCategoryNavigation).WithMany(p => p.Eventcategories)
-                .HasForeignKey(d => d.EvtCategory)
-                .HasConstraintName("eventcategory_evt_category_fkey");
+            entity.HasOne(d => d.Event).WithMany(p => p.Eventcategories)
+                .HasForeignKey(d => d.EventId)
+                .HasConstraintName("eventcategory_eventregistration_fk");
         });
 
         modelBuilder.Entity<Eventregistration>(entity =>
@@ -219,27 +221,33 @@ public partial class DummyProjectSqlContext : DbContext
             entity.ToTable("eventregistration");
 
             entity.Property(e => e.Eventid).HasColumnName("eventid");
+            entity.Property(e => e.Accountname)
+                .HasMaxLength(100)
+                .HasColumnName("accountname");
+            entity.Property(e => e.Bankname)
+                .HasMaxLength(100)
+                .HasColumnName("bankname");
+            entity.Property(e => e.Companyid).HasColumnName("companyid");
             entity.Property(e => e.Enddate).HasColumnName("enddate");
             entity.Property(e => e.Eventname)
                 .HasMaxLength(255)
                 .HasColumnName("eventname");
             entity.Property(e => e.Eventstatus).HasColumnName("eventstatus");
             entity.Property(e => e.Eventtype).HasColumnName("eventtype");
+            entity.Property(e => e.Ifsccode)
+                .HasMaxLength(20)
+                .HasColumnName("ifsccode");
             entity.Property(e => e.Isactive).HasColumnName("isactive");
+            entity.Property(e => e.Qrpath)
+                .HasMaxLength(1000)
+                .HasColumnName("QRpath");
             entity.Property(e => e.Showdashboard).HasColumnName("showdashboard");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
-        });
 
-        modelBuilder.Entity<Eventtype>(entity =>
-        {
-            entity.HasKey(e => e.Eventtypeid).HasName("eventtypes_pkey");
-
-            entity.ToTable("eventtypes");
-
-            entity.Property(e => e.Eventtypeid).HasColumnName("eventtypeid");
-            entity.Property(e => e.Eventtypename)
-                .HasMaxLength(255)
-                .HasColumnName("eventtypename");
+            entity.HasOne(d => d.Company).WithMany(p => p.Eventregistrations)
+                .HasForeignKey(d => d.Companyid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("eventregistration_companydetails_fk");
         });
 
         modelBuilder.Entity<Registration>(entity =>
@@ -247,6 +255,21 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Dob).HasColumnName("DOB");
             entity.Property(e => e.FmsciLicense).HasColumnName("FMSCI_License");
             entity.Property(e => e.FmsciLicenseValidTill).HasColumnName("FMSCI_LicenseValidTill");
+        });
+
+        modelBuilder.Entity<Scrutinyrule>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("scrutinyrules");
+
+            entity.Property(e => e.ScrutinyDescription)
+                .HasColumnType("character varying")
+                .HasColumnName("scrutiny_description");
+            entity.Property(e => e.ScrutinyId)
+                .ValueGeneratedOnAdd()
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("scrutiny_id");
         });
 
         modelBuilder.Entity<Team>(entity =>
@@ -305,10 +328,6 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Rolename)
                 .HasMaxLength(100)
                 .HasColumnName("rolename");
-
-            entity.HasOne(d => d.Eventtype).WithMany(p => p.Userroles)
-                .HasForeignKey(d => d.Eventtypeid)
-                .HasConstraintName("userroles_eventtypeid_fkey");
         });
 
         modelBuilder.Entity<Usertoken>(entity =>
@@ -341,11 +360,6 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.VehiclePhoto)
                 .HasMaxLength(255)
                 .HasColumnName("vehicle_photo");
-
-            entity.HasOne(d => d.VehicleOfNavigation).WithMany(p => p.Vehicles)
-                .HasForeignKey(d => d.VehicleOf)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("vehicles_vehicle_of_fkey");
         });
 
         modelBuilder.Entity<VehicleDoc>(entity =>
@@ -354,7 +368,9 @@ public partial class DummyProjectSqlContext : DbContext
 
             entity.ToTable("vehicle_doc");
 
-            entity.Property(e => e.VehDocId).HasColumnName("veh_doc_id");
+            entity.Property(e => e.VehDocId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("veh_doc_id");
             entity.Property(e => e.DocPath)
                 .HasColumnType("character varying")
                 .HasColumnName("doc_path");
@@ -368,6 +384,10 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("status");
             entity.Property(e => e.Validtill).HasColumnName("validtill");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
+
+            entity.HasOne(d => d.VehDoc).WithOne(p => p.VehicleDoc)
+                .HasForeignKey<VehicleDoc>(d => d.VehDocId)
+                .HasConstraintName("fk_vechiles");
         });
 
         OnModelCreatingPartial(modelBuilder);

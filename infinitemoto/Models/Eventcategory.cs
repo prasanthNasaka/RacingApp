@@ -7,11 +7,19 @@ public partial class Eventcategory
 {
     public int EvtCatId { get; set; }
 
-    public int? EvtCategory { get; set; }
+    public string? EvtCategory { get; set; }
 
-    public int? NoOfParticipants { get; set; }
+    public int? NoOfVeh { get; set; }
 
     public string? Status { get; set; }
 
-    public virtual Eventregistration? EvtCategoryNavigation { get; set; }
+    public int Nooflaps { get; set; }
+
+    public int? Entryprice { get; set; }
+
+    public int? Wheelertype { get; set; }
+
+    public int? EventId { get; set; }
+
+    public virtual Eventregistration? Event { get; set; }
 }

@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using infinitemoto.DTOs;
 using infinitemoto.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,76 +8,50 @@ namespace infinitemoto.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesController : ControllerBase
+    public class VehicleController : ControllerBase
     {
         private readonly IVehicleService _vehicleService;
 
-        // Constructor that accepts IVehicleService as dependency
-        public VehiclesController(IVehicleService vehicleService)
+        public VehicleController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
         }
 
-        // GET: api/Vehicles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetVehicles()
+        public async Task<IEnumerable<VehicleDTO>> GetVehicles()
         {
-            // Get all vehicles from the service
-            var vehicles = await _vehicleService.GetAllVehiclesAsync();
-            return Ok(vehicles);  // Return the list of vehicles
+            return await _vehicleService.GetAllVehiclesAsync();
         }
 
-        // GET: api/Vehicles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<VehicleDto>> GetVehicle(int id)
+        public async Task<IActionResult> GetVehicle(int id)
         {
-            // Get vehicle by ID from the service
             var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
             if (vehicle == null)
-            {
-                return NotFound();  // Return NotFound if vehicle not found
-            }
-            return Ok(vehicle);  // Return the vehicle details
+                return NotFound();
+
+            return Ok(vehicle);
         }
 
-        // POST: api/Vehicles
         [HttpPost]
-        public async Task<ActionResult<VehicleDto>> CreateVehicle([FromBody] List<VehicleDto> vehicleDto,int DriverID)
+        public async Task<IActionResult> CreateVehicle([FromBody] VehicleDTO vehicleDto)
         {
-            // Create a new vehicle using the service
-            var createdVehicle = await _vehicleService.CreateVehicleAsync(vehicleDto,DriverID);
-
-            // Return CreatedAtAction response with the newly created vehicle
-           // return CreatedAtAction(nameof(GetVehicle), new { id = createdVehicle.VehicleId }, createdVehicle);
-           return Ok(createdVehicle);
+            await _vehicleService.AddVehicleAsync(vehicleDto);
+            return CreatedAtAction(nameof(GetVehicle), new { id = vehicleDto.VehicleId }, vehicleDto);
         }
 
-        // PUT: api/Vehicles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleDto)
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDto)
         {
-            // Update the vehicle using the service
-            var result = await _vehicleService.UpdateVehicleAsync(id, new List<VehicleDto> { vehicleDto });
-            if (!result)
-            {
-                return NotFound();  // Return NotFound if vehicle with the specified ID does not exist
-            }
-
-            return NoContent();  // Return NoContent if update is successful
+            await _vehicleService.UpdateVehicleAsync(id, vehicleDto);
+            return NoContent();
         }
 
-        // DELETE: api/Vehicles/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
-            // Delete the vehicle using the service
-            var result = await _vehicleService.DeleteVehicleAsync(id);
-            if (!result)
-            {
-                return NotFound();  // Return NotFound if vehicle with the specified ID does not exist
-            }
-
-            return NoContent();  // Return NoContent if deletion is successful
+            await _vehicleService.DeleteVehicleAsync(id);
+            return NoContent();
         }
     }
 }

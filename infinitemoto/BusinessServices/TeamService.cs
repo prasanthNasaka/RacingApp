@@ -1,18 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using infinitemoto.DTOs;
 using infinitemoto.Models;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
-public interface ITeamService
-{
-    Task<IEnumerable<TeamDto>> GetTeamsAsync();
-    Task<TeamDto> GetTeamAsync(int id);
-    Task<TeamDto> CreateTeamAsync(TeamDto teamDto);
-    Task<bool> UpdateTeamAsync(int id, TeamDto teamDto);
-    Task<bool> DeleteTeamAsync(int id);
-}
+using infinitemoto.Services;
 
 public class TeamService : ITeamService
 {
@@ -23,32 +13,8 @@ public class TeamService : ITeamService
         _context = context;
     }
 
-    public async Task<IEnumerable<TeamDto>> GetTeamsAsync()
-    {
-        return await _context.Teams
-            .Select(team => new TeamDto
-            {
-                TeamId = team.TeamId,
-                TeamName = team.TeamName,
-                Status = team.Status
-            })
-            .ToListAsync();
-    }
-
-    public async Task<TeamDto> GetTeamAsync(int id)
-    {
-        var team = await _context.Teams.FindAsync(id);
-        if (team == null) return null;
-
-        return new TeamDto
-        {
-            TeamId = team.TeamId,
-            TeamName = team.TeamName,
-            Status = team.Status
-        };
-    }
-
-    public async Task<TeamDto> CreateTeamAsync(TeamDto teamDto)
+    // Create a new team
+    public async Task AddTeamAsync(TeamDTO teamDto)
     {
         var team = new Team
         {
@@ -58,34 +24,57 @@ public class TeamService : ITeamService
 
         _context.Teams.Add(team);
         await _context.SaveChangesAsync();
-
-        teamDto.TeamId = team.TeamId; // Set the ID from the saved entity
-
-        return teamDto;
     }
 
-    public async Task<bool> UpdateTeamAsync(int id, TeamDto teamDto)
+    // Update an existing team
+    public async Task UpdateTeamAsync(int teamId, TeamDTO teamDto)
     {
-        var team = await _context.Teams.FindAsync(id);
-        if (team == null) return false;
+        var team = await _context.Teams.FindAsync(teamId);
+        if (team == null) throw new KeyNotFoundException("Team not found");
 
         team.TeamName = teamDto.TeamName;
         team.Status = teamDto.Status;
 
-        _context.Entry(team).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-
-        return true;
     }
 
-    public async Task<bool> DeleteTeamAsync(int id)
+    // Delete an existing team
+    public async Task DeleteTeamAsync(int teamId)
     {
-        var team = await _context.Teams.FindAsync(id);
-        if (team == null) return false;
+        var team = await _context.Teams.FindAsync(teamId);
+        if (team == null) throw new KeyNotFoundException("Team not found");
 
         _context.Teams.Remove(team);
         await _context.SaveChangesAsync();
+    }
 
-        return true;
+    // Get all teams
+    public async Task<IEnumerable<TeamDTO>> GetAllTeamsAsync()
+    {
+        return await _context.Teams
+            .Select(t => new TeamDTO
+            {
+                TeamId = t.TeamId,
+                TeamName = t.TeamName,
+                Status = t.Status
+            })
+            .ToListAsync();
+    }
+
+    // Get a team by its ID
+    public async Task<TeamDTO?> GetTeamByIdAsync(int teamId)
+    {
+        var team = await _context.Teams
+            .FirstOrDefaultAsync(t => t.TeamId == teamId);
+
+        if (team == null)
+            return null;
+
+        return new TeamDTO
+        {
+            TeamId = team.TeamId,
+            TeamName = team.TeamName,
+            Status = team.Status
+        };
     }
 }
