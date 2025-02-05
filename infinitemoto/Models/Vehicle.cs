@@ -27,5 +27,5 @@ public partial class Vehicle
 
     public bool? Status { get; set; }
 
-    public virtual Driver? VehicleOfNavigation { get; set; }
+    public virtual VehicleDoc? VehicleDoc { get; set; }
 }

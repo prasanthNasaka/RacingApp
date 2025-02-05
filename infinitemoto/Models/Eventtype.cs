@@ -13,3 +13,5 @@ public partial class Eventtype
 
     public virtual ICollection<Userrole> Userroles { get; set; } = new List<Userrole>();
 }
+
+

@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using infinitemoto.DTOs;
-using System.Collections.Generic;
+using infinitemoto.Services;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class TeamsController : ControllerBase
 {
     private readonly ITeamService _teamService;
@@ -16,90 +14,52 @@ public class TeamsController : ControllerBase
         _teamService = teamService;
     }
 
-    // GET: api/Teams
+    // GET: api/teams
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TeamDto>>> GetTeams()
+    public async Task<IActionResult> GetAllTeams()
     {
-        var teams = await _teamService.GetTeamsAsync();
+        var teams = await _teamService.GetAllTeamsAsync();
         return Ok(teams);
     }
 
-    // GET: api/Teams/5
+    // GET: api/teams/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<TeamDto>> GetTeam(int id)
+    public async Task<IActionResult> GetTeamById(int id)
     {
-        var team = await _teamService.GetTeamAsync(id);
-
+        var team = await _teamService.GetTeamByIdAsync(id);
         if (team == null)
-        {
             return NotFound();
-        }
 
         return Ok(team);
     }
 
-    // POST: api/Teams
+    // POST: api/teams
     [HttpPost]
-    public async Task<ActionResult<TeamDto>> CreateTeam([FromBody] TeamDto teamDto)
+    public async Task<IActionResult> CreateTeam([FromBody] TeamDTO teamDto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if (teamDto == null)
+            return BadRequest("Team data is required");
 
-        try
-        {
-            var createdTeam = await _teamService.CreateTeamAsync(teamDto);
-            return CreatedAtAction(nameof(GetTeam), new { id = createdTeam.TeamId }, createdTeam);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
+        await _teamService.AddTeamAsync(teamDto);
+        return CreatedAtAction(nameof(GetTeamById), new { id = teamDto.TeamId }, teamDto);
     }
 
-    // PUT: api/Teams/5
+    // PUT: api/teams/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTeam(int id, [FromBody] TeamDto teamDto)
+    public async Task<IActionResult> UpdateTeam(int id, [FromBody] TeamDTO teamDto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        if (teamDto == null)
+            return BadRequest("Team data is required");
 
-        try
-        {
-            var result = await _teamService.UpdateTeamAsync(id, teamDto);
-            if (!result)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
+        await _teamService.UpdateTeamAsync(id, teamDto);
+        return NoContent();  // No content to return after successful update
     }
 
-    // DELETE: api/Teams/5
+    // DELETE: api/teams/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTeam(int id)
     {
-        try
-        {
-            var result = await _teamService.DeleteTeamAsync(id);
-            if (!result)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
+        await _teamService.DeleteTeamAsync(id);
+        return NoContent();  // Return 204 No Content after successful deletion
     }
 }

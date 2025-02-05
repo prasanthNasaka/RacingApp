@@ -23,10 +23,10 @@ public class DriverSearchController : ControllerBase
   
     /// <returns>List of matching drivers with vehicles</returns>
     [HttpGet("search Word")]
-    public async Task<ActionResult<IEnumerable<DriverDto>>> SearchDrivers(
+    public async Task<ActionResult<IEnumerable<DriverDTO>>> SearchDrivers(
         [FromQuery] string? searchWord)
     {
-        var drivers = await _driverService.SearchDriversWithVehiclesAsync(searchWord);
+        var drivers = string.Empty; //await _driverService.SearchDriversWithVehiclesAsync(searchWord);
         return Ok(drivers);
     }
 }

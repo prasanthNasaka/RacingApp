@@ -40,15 +40,17 @@ builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();  // Register JwtService for JWT handling
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
-builder.Services.AddScoped<IVehicleDto, VehicleDto>();
+builder.Services.AddScoped<IVehicleDto, VehicleDTO>();
 builder.Services.AddScoped<IDriverService, DriverService>();
-builder.Services.AddScoped<IDriverDto, DriverDto>();
-builder.Services.AddScoped<ITeamDto, TeamDto>();
+//builder.Services.AddScoped<IDriverDTO, DriverDTO>();
+builder.Services.AddScoped<IDriverDTO,DriverDTO>();
+builder.Services.AddScoped<ITeamDTO, TeamDTO>();
 builder.Services.AddScoped<ITeamService, TeamService>();
-builder.Services.AddScoped<IVehicledocDto, VehicledocDto>();
+builder.Services.AddScoped<IVehicledocDto, VehicleDocDTO>();
 builder.Services.AddScoped<DriverService>();
-// builder.Services.AddScoped<IVehicalsevice, Vehicalsevice >();
+//builder.Services.AddScoped<IVehicalsevice, Vehicalsevice >();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IVehicleDocService, VehicleDocService>();
 
 // error handling
 builder.Services.AddControllers().AddJsonOptions(options =>

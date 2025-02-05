@@ -3,23 +3,20 @@ using System.Collections.Generic;
 
 namespace infinitemoto.DTOs
 {
-    public interface ITeamDto
+    public interface ITeamDTO
     {
         int TeamId { get; set; }
         string TeamName { get; set; }
         bool Status { get; set; }
-        //ICollection<DriverDto> Drivers { get; set; }
+        //List<DriverDTO>? Drivers { get; set; }
     }
 
-
-    public class TeamDto : ITeamDto
+   public class TeamDTO : ITeamDTO
     {
         public int TeamId { get; set; }
-        public string TeamName { get; set; } = string.Empty;
+        public string TeamName { get; set; } = null!;
         public bool Status { get; set; }
-        //public ICollection<DriverDto> Drivers { get; set; } = new List<DriverDto>();  // If you want to include drivers associated with the team
+        //public List<DriverDTO>? Drivers { get; set; } // Optional: Include driver details if needed
     }
-
-    // DriverDto to be used inside TeamDto
     
 }

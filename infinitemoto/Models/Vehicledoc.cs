@@ -15,13 +15,15 @@ public partial class VehicleDoc
 
     public string Status { get; set; } = null!;
 
-    public DateOnly Validtill { get; set; }
+    public DateTime Validtill { get; set; }
 
-    public DateOnly RcBookValidTill { get; set; }
+    public DateTime RcBookValidTill { get; set; }
 
-    public DateOnly InsuranceValidTill { get; set; }
+    public DateTime InsuranceValidTill { get; set; }
 
     public bool FitnessRequired { get; set; }
 
     public string? FitnessCertificate { get; set; }
+
+    public virtual Vehicle VehDoc { get; set; } = null!;
 }

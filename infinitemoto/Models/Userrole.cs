@@ -12,6 +12,4 @@ public partial class Userrole
     public int? Eventtypeid { get; set; }
 
     public string? Description { get; set; }
-
-    public virtual Eventtype? Eventtype { get; set; }
 }

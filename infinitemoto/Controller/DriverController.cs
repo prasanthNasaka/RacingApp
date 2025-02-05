@@ -1,125 +1,108 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using infinitemoto.DTOs;
+using infinitemoto.Services; // Ensure the correct namespace for IDriverService
 
-[Route("api/[controller]")]
+[Route("api/drivers")]
 [ApiController]
-//[Authorize]
 public class DriversController : ControllerBase
 {
-    private readonly DriverService _driverService;
+    private readonly IDriverService _driverService;
 
-    public DriversController(DriverService driverService)
+    public DriversController(IDriverService driverService)
     {
         _driverService = driverService;
     }
 
-    /// <summary>
-    /// Get all drivers
-    /// </summary>
-    /// <returns>List of all drivers</returns>
-    [HttpGet("all")]
-    public async Task<IActionResult> GetAllDrivers()
+    [HttpGet]
+    public async Task<IActionResult> GetDrivers()
     {
         var drivers = await _driverService.GetAllDriversAsync();
         return Ok(drivers);
     }
 
-    /// <summary>
-    /// Get a driver along with their vehicle by ID
-    /// </summary>
-    /// <param name="driverId">Driver ID</param>
-    /// <returns>Driver with vehicle details</returns>
-    [HttpGet("with-vehicle/{driverId}")]
-    public async Task<IActionResult> GetDriverWithVehicle(int driverId)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetDriver(int id)
     {
-        var driverDetails = await _driverService.GetDriverWithVehicleByIdAsync(driverId);
-
-        if (driverDetails == null)
+        var driver = await _driverService.GetDriverByIdAsync(id);
+        if (driver == null)
         {
-            return NotFound(new { Message = "Driver not found" });
+            return NotFound();
         }
-
-        return Ok(driverDetails);
-    }
-
-    /// <summary>
-    /// Get a driver by ID
-    /// </summary>
-    /// <param name="id">Driver ID</param>
-    /// <returns>Driver details</returns>
-    [HttpGet("single/{id}")]
-    public async Task<ActionResult<DriverDto>> GetDriver(int id)
-    {
-        var driver = await _driverService.GetDriverAsync(id);
-        if (driver == null) return NotFound(new { Message = "Driver not found" });
-
         return Ok(driver);
     }
 
-    /// <summary>
-    /// Create a new driver
-    /// </summary>
-    /// <param name="driverDto">Driver details</param>
-    /// <returns>Created driver</returns>
-    [HttpPost]
-    public async Task<ActionResult<DriverDto>> CreateDriver([FromBody] DriverDto driverDto)
+   [HttpPost]
+public async Task<IActionResult> AddDriver([FromBody] DriverDTO driverDto)
+{
+    if (!ModelState.IsValid)
     {
-        // Validate input
-        if (driverDto == null)
-        {
-            return BadRequest("Driver data is required.");
-        }
-
-        try
-        {
-            // Call the service layer to create the driver
-            var createdDriver = await _driverService.CreateDriverAsync(driverDto);
-
-            // If the driver creation fails (i.e., returns null), respond with a failure
-            if (createdDriver == null)
-            {
-                return BadRequest("Failed to create driver.");
-            }
-
-            // If the driver is created successfully, return the result with Created status
-            return CreatedAtAction(nameof(GetDriver), new { id = createdDriver.DriverId }, createdDriver);
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (you can use a logging framework here)
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
+        return BadRequest(ModelState);
     }
 
-
-
-    /// <summary>
-    /// Update an existing driver
-    /// </summary>
-    /// <param name="id">Driver ID</param>
-    /// <param name="driverDto">Updated driver details</param>
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDriver(int id, [FromBody] DriverDto driverDto)
+    try
     {
-        var updated = await _driverService.UpdateDriverAsync(id, driverDto);
-        if (!updated) return NotFound(new { Message = "Driver not found" });
+        var result = await _driverService.AddDriverAsync(driverDto);
+        if (!result)
+        {
+            return StatusCode(500, "Error adding driver.");
+        }
+        return CreatedAtAction(nameof(GetDriver), new { id = driverDto.DriverId }, driverDto);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal Server Error: {ex.Message}");
+    }
+}
 
+
+    [HttpPut("{id}")]
+public async Task<IActionResult> UpdateDriver(int id, [FromBody] DriverDTO driverDto)
+{
+    if (id != driverDto.DriverId)
+    {
+        return BadRequest("Driver ID mismatch.");
+    }
+
+    try
+    {
+        // Update the driver in the service layer and check for success
+        var result = await _driverService.UpdateDriverAsync(id, driverDto);
+
+        // If the update failed, return NotFound or a custom message
+        if (!result)
+        {
+            return NotFound($"Driver with ID {id} not found.");
+        }
+
+        // If the update was successful, return NoContent to indicate successful update
         return NoContent();
     }
+    catch (Exception ex)
+    {
+        // Catch any errors and return an Internal Server Error
+        return StatusCode(500, $"Internal Server Error: {ex.Message}");
+    }
+}
 
-    /// <summary>
-    /// Delete a driver by ID
-    /// </summary>
-    /// <param name="id">Driver ID</param>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteDriver(int id)
     {
-        var deleted = await _driverService.DeleteDriverAsync(id);
-        if (!deleted) return NotFound(new { Message = "Driver not found" });
+        try
+        {
+            var driverExists = await _driverService.GetDriverByIdAsync(id);
+            if (driverExists == null)
+            {
+                return NotFound();
+            }
 
-        return NoContent();
+            await _driverService.DeleteDriverAsync(id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        }
     }
 }
