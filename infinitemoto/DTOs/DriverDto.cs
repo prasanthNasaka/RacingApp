@@ -16,7 +16,7 @@ public interface IDriverDTO
     DateTime DlValidTill { get; set; }
     DateTime Dob { get; set; }
     string BloodGroup { get; set; }
-    int TeamMemberOf { get; set; }
+    int? TeamMemberOf { get; set; }
     string? DriverPhoto { get; set; }
     string DlPhoto { get; set; }
     string? FmsciLicPhoto { get; set; }
@@ -36,7 +36,7 @@ public class DriverDTO : IDriverDTO
     public DateTime DlValidTill { get; set; }
     public DateTime Dob { get; set; }
     public string BloodGroup { get; set; } = null!;
-    public int TeamMemberOf { get; set; }
+    public int? TeamMemberOf { get; set; }
     public string? DriverPhoto { get; set; }
     public string? DlPhoto { get; set; }
     public string? FmsciLicPhoto { get; set; }

@@ -120,43 +120,46 @@ public partial class DummyProjectSqlContext : DbContext
         });
 
         modelBuilder.Entity<Driver>(entity =>
-{
-    entity.HasKey(e => e.DriverId).HasName("drivers_pkey");
+        {
+            entity.HasKey(e => e.DriverId).HasName("drivers_pkey");
 
-    entity.ToTable("drivers");
+            entity.ToTable("drivers");
 
-    entity.Property(e => e.DriverId).HasColumnName("driver_id");
-    entity.Property(e => e.Bloodgroup).HasColumnName("bloodgroup");
-    entity.Property(e => e.DlNumb).HasColumnName("dl_numb");
-    entity.Property(e => e.DlPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("dl_photo");
-    entity.Property(e => e.DlValidTill).HasColumnName("dl_valid_till");
-    entity.Property(e => e.Dob).HasColumnName("dob");
-    entity.Property(e => e.DriverPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("driver_photo");
-    entity.Property(e => e.Drivername)
-        .HasMaxLength(23)
-        .HasColumnName("drivername");
-    entity.Property(e => e.Email).HasColumnName("email");
-    entity.Property(e => e.FmsciLicPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("fmsci_lic_photo");
-    entity.Property(e => e.FmsciNumb).HasColumnName("fmsci_numb");
-    entity.Property(e => e.FmsciValidTill).HasColumnName("fmsci_valid_till");
-    entity.Property(e => e.Phone).HasColumnName("phone");
-    entity.Property(e => e.Status).HasColumnName("status");
-    entity.Property(e => e.Teammemberof).HasColumnName("teammemberof");
+            entity.Property(e => e.DriverId).HasColumnName("driver_id");
+            entity.Property(e => e.Bloodgroup).HasColumnName("bloodgroup");
+            entity.Property(e => e.DlNumb).HasColumnName("dl_numb");
+            entity.Property(e => e.DlPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("dl_photo");
+            entity.Property(e => e.DlValidTill).HasColumnName("dl_valid_till");
+            entity.Property(e => e.Dob).HasColumnName("dob");
+            entity.Property(e => e.DriverPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("driver_photo");
+            entity.Property(e => e.Drivername)
+                .HasMaxLength(23)
+                .HasColumnName("drivername");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.FmsciLicPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("fmsci_lic_photo");
+            entity.Property(e => e.FmsciNumb).HasColumnName("fmsci_numb");
+            entity.Property(e => e.FmsciValidTill).HasColumnName("fmsci_valid_till");
+            entity.Property(e => e.Phone).HasColumnName("phone");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Teammemberof).HasColumnName("teammemberof");
 
-    // Define relationship properly
-    entity.HasOne(d => d.TeammemberofNavigation) // Navigation property for Team
-        .WithMany(p => p.Drivers) // A team can have many drivers
-        .HasForeignKey(d => d.Teammemberof) // Foreign key in Driver table
-        .OnDelete(DeleteBehavior.SetNull) // If team is deleted, set null in Driver table
-        .HasConstraintName("fk_tbl_teams");
-});
+            entity.HasOne(d => d.TeammemberofNavigation).WithMany(p => p.Drivers)
+                .HasForeignKey(d => d.Teammemberof)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_tbl_teams");
 
+            entity.HasOne(d => d.TeammemberofNavigation)
+    .WithMany(p => p.Drivers) // A team can have many drivers
+    .HasForeignKey(d => d.Teammemberof) // Foreign key in Driver
+    .OnDelete(DeleteBehavior.SetNull) // Set null if team is deleted
+    .HasConstraintName("fk_tbl_teams");
+        });
 
         modelBuilder.Entity<Emp>(entity =>
         {

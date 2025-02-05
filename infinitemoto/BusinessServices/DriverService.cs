@@ -16,12 +16,12 @@ public class DriverService : IDriverService
 
     public async Task<IEnumerable<Driver>> GetAllDriversAsync()
     {
-        return await _context.Drivers.Include(d => d.TeammemberofNavigation).ToListAsync();
+        return await _context.Drivers.Include(d => d.Teammemberof).ToListAsync();
     }
 
     public async Task<Driver> GetDriverByIdAsync(int driverId)
     {
-        return await _context.Drivers.Include(d => d.TeammemberofNavigation).FirstOrDefaultAsync(d => d.DriverId == driverId);
+        return await _context.Drivers.Include(d => d.Teammemberof).FirstOrDefaultAsync(d => d.DriverId == driverId);
     }
 
     public async Task<bool> AddDriverAsync(DriverDTO driverDto)
