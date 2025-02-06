@@ -104,5 +104,65 @@ namespace infinitemoto.Services
             _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
         }
+
+
+
+        public async Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync (string? searchWord, int? vehicleOf = null, bool? status = null)
+    {
+        // Query vehicles and include related vehicle documents if needed
+        var query = _context.Vehicles
+                            .Include(v => v.VehicleDoc)  // Include VehicleDoc if needed
+                            .AsQueryable();
+
+        // Filter based on the search word (by LicensePlate or Model)
+        if (!string.IsNullOrWhiteSpace(searchWord))
+        {
+            query = query.Where(v => v.Make.Contains(searchWord) || v.Model.Contains(searchWord) || v.RegNumb.ToString().Contains(searchWord));
+        }
+
+        // Filter based on VehicleOf (e.g., vehicle owner or other related entity)
+        if (vehicleOf.HasValue)
+        {
+            query = query.Where(v => v.VehicleOf == vehicleOf.Value);
+        }
+
+        // Filter based on status if provided
+        if (status.HasValue)
+        {
+            query = query.Where(v => v.Status == status.Value);
+        }
+
+        // Execute the query asynchronously and map the results to DTOs
+        var vehicles = await query
+                            .Select(v => new VehicleDTO
+                            {
+                                VehicleId = v.VehicleId,
+                                RegNumb = v.RegNumb,
+                                ChasisNumb = v.ChasisNumb,
+                                //FcUpto = v.FcUpto,
+                                //EngNumber = v.EngNumber,
+                                Make = v.Make,
+                                Model = v.Model,
+                                //Cc = v.Cc,
+                                VehicleOf = v.VehicleOf,
+                                //VehiclePhoto = v.VehiclePhoto,
+                                //Status = v.Status,
+                                // You can also map other properties of VehicleDoc if needed
+                                // VehicleDocDetails = v.VehicleDoc != null ? new VehicleDocDTO
+                                // {
+                                //     // Assuming you have a DTO for VehicleDoc
+                                //     DocId = v.VehicleDoc.DocId,
+                                //     DocType = v.VehicleDoc.DocType
+                                // } : null
+                            })
+                            .ToListAsync();
+
+        return vehicles;
+    }
+
+        // public Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync(string? searchWord)
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }
