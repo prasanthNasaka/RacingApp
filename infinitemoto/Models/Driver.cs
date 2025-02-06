@@ -16,7 +16,7 @@ namespace infinitemoto.Models
 
         public DateTime FmsciValidTill { get; set; }
 
-        public int? DlNumb { get; set; }
+        public int DlNumb { get; set; }
 
         public DateTime DlValidTill { get; set; }
 
