@@ -1,21 +1,23 @@
 using infinitemoto.DTOs;
 using infinitemoto.Services;
-using infinitemoto.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
-public class VehicleSearchController : ControllerBase
+// [Authorize]
+public class SearchController : ControllerBase
 {
     private readonly IVehicleService _vehicleService;
+    private readonly IDriverService _driverService;
 
-    public VehicleSearchController(IVehicleService vehicleService)
+    public SearchController(IVehicleService vehicleService, IDriverService driverService)
     {
         _vehicleService = vehicleService;
+        _driverService = driverService;
     }
 
     /// <summary>
@@ -23,20 +25,34 @@ public class VehicleSearchController : ControllerBase
     /// </summary>
     /// <param name="searchWord">License plate or model of the vehicle</param>
     /// <returns>List of matching vehicles</returns>
-    [HttpGet("search")]
+    [HttpGet("vehicles")]
     public async Task<ActionResult<IEnumerable<VehicleDTO>>> SearchVehicles([FromQuery] string? searchWord)
     {
-        // Perform the search using the service method
         var vehicles = await _vehicleService.SearchVehiclesAsync(searchWord);
 
-        // Check if any vehicles were found
         if (vehicles == null || !vehicles.Any())
         {
-            // Return a 404 Not Found response if no vehicles are found
             return NotFound(new { message = "No vehicles found matching the search criteria." });
         }
 
-        // Return the list of matching vehicles
         return Ok(vehicles);
+    }
+
+    /// <summary>
+    /// Search for drivers with vehicles based on filters.
+    /// </summary>
+    /// <param name="searchWord">Driver's name</param>
+    /// <returns>List of matching drivers with vehicles</returns>
+    [HttpGet("drivers")]
+    public async Task<ActionResult<IEnumerable<DriverDTO>>> SearchDrivers([FromQuery] string? searchWord)
+    {
+        var drivers = await _driverService.SearchDriversWithVehiclesAsync(searchWord);
+
+        if (drivers == null || !drivers.Any())
+        {
+            return NotFound(new { message = "No drivers found matching the search criteria." });
+        }
+
+        return Ok(drivers);
     }
 }

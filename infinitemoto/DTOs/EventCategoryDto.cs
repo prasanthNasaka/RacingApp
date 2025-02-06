@@ -6,25 +6,39 @@ namespace infinitemoto.DTOs;
 
 public interface IEventCategoryDto
 {
-    int Eventid { get; set; }
-    string Eventname { get; set; }
-    string Category { get; set; }
-    int NumberOfLaps { get; set; }
-    int NumberOfParticipants { get; set; }
-    decimal EventPrice { get; set; }
+    int EvtCatId { get; set; }
+
+    string? EvtCategory { get; set; }
+
+    int? NoOfVeh { get; set; }
+
+    string? Status { get; set; }
+
+    int Nooflaps { get; set; }
+
+    int? Entryprice { get; set; }
+
+    int? Wheelertype { get; set; }
+
+    int? EventId { get; set; }
 }
 
 public class EventCategoryDto : IEventCategoryDto
 {
-    public int Eventid { get; set; }
+     public int EvtCatId { get; set; }
 
-    public string Eventname { get; set; } = null!;
+    public string? EvtCategory { get; set; }
 
-    public string Category { get; set; } = null!;
+    public int? NoOfVeh { get; set; }
 
-    public int NumberOfLaps { get; set; }
+    public string? Status { get; set; }
 
-    public int NumberOfParticipants { get; set; }
+    public int Nooflaps { get; set; }
 
-    public decimal EventPrice { get; set; }
+    public int? Entryprice { get; set; }
+
+    public int? Wheelertype { get; set; }
+
+    public int? EventId { get; set; }
+
 }

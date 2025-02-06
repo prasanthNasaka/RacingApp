@@ -7,20 +7,40 @@ namespace infinitemoto.DTOs;
 public interface IEventregistrationDto
 {
     int Eventid { get; set; }
+
     string Eventtype { get; set; }
+
     string Eventname { get; set; }
+
     DateTime Startdate { get; set; }
+
     DateTime Enddate { get; set; }
+
     string Isactive { get; set; }
+
     string Banner { get; set; }
+
     string Showdashboard { get; set; }
+
+    int? Eventstatus { get; set; }
+
+    string Bankname { get; set; }
+
+    string Ifsccode { get; set; }
+
+    string Accountname { get; set; }
+
+    string Qrpath { get; set; }
+
+    int Companyid { get; set; }
 }
 
 public class EventregistrationDto : IEventregistrationDto
 {
-    public int Eventid { get; set; }
 
-    public string Eventtype { get; set; }
+     public int Eventid { get; set; }
+
+    public string Eventtype { get; set; } = null!;
 
     public string Eventname { get; set; } = null!;
 
@@ -28,9 +48,22 @@ public class EventregistrationDto : IEventregistrationDto
 
     public DateTime Enddate { get; set; }
 
-    public string Isactive { get; set; }
+    public string Isactive { get; set; } = null!;
 
-    public string Banner { get; set; }
+    public string Banner { get; set; } = null!;
 
-    public string Showdashboard { get; set; }
+    public string Showdashboard { get; set; } = null!;
+
+    public int? Eventstatus { get; set; }
+
+    public string Bankname { get; set; } = null!;
+
+    public string Ifsccode { get; set; } = null!;
+
+    public string Accountname { get; set; } = null!;
+
+    public string Qrpath { get; set; } = null!;
+
+    public int Companyid { get; set; }
+    
 }
