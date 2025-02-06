@@ -95,4 +95,46 @@ public class DriverService : IDriverService
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<IEnumerable<DriverDTO>> SearchDriversWithVehiclesAsync(string? searchWord)
+    {
+        // Query drivers and include their associated vehicles (if applicable)
+        var query = _context.Drivers
+                            .Include(d => d.TeammemberofNavigation) // Include the team if needed
+                            .AsQueryable();
+
+        // If a search word is provided, filter the drivers by their name
+        if (!string.IsNullOrWhiteSpace(searchWord))
+        {
+            query = query.Where(d => d.Drivername.Contains(searchWord));
+        }
+
+        // Execute the query asynchronously and map the results to DTOs
+        var drivers = await query
+                            .Select(d => new DriverDTO
+                            {
+                                DriverId = d.DriverId,
+                                DriverName = d.Drivername,
+                                Phone = d.Phone,
+                                Email = d.Email,
+                                FmsciNumb = d.FmsciNumb,
+                                //FmsciValidTill = d.FmsciValidTill,
+                                DlNumb = d.DlNumb,
+                                //DlValidTill = d.DlValidTill,
+                                //Dob = d.Dob,
+                                //DriverPhoto = d.DriverPhoto,
+                                //DlPhoto = d.DlPhoto,
+                                //FmsciLicPhoto = d.FmsciLicPhoto,
+                                //Status = d.Status,
+                                // Team = d.TeammemberofNavigation == null ? null : new TeamDTO
+                                // {
+                                //     TeamId = d.TeammemberofNavigation.TeamId,
+                                //     TeamName = d.TeammemberofNavigation.TeamName
+                                // }
+                            })
+                            .ToListAsync();
+
+        return drivers;
+    }
+    
 }

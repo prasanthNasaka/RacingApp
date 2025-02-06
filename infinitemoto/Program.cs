@@ -122,9 +122,12 @@ app.Use(async (context, next) =>
     }
     await next();
 });
-// Register services and add custom converter for DateOnly
 
+// Configure the HTTP request pipeline
+app.UseHttpsRedirection();
 
+// CORS should be placed before Authentication and Authorization
+app.UseCors("CorsPolicy");
 
 // Middleware setup
 app.UseHttpsRedirection();

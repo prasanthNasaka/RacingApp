@@ -1,6 +1,7 @@
 using infinitemoto.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using infinitemoto.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +27,17 @@ public class DriverSearchController : ControllerBase
     public async Task<ActionResult<IEnumerable<DriverDTO>>> SearchDrivers(
         [FromQuery] string? searchWord)
     {
-        var drivers = string.Empty; //await _driverService.SearchDriversWithVehiclesAsync(searchWord);
+        var drivers = await _driverService.SearchDriversWithVehiclesAsync(searchWord);
+
+        // Check if any drivers were found
+        if (drivers == null || !drivers.Any())
+        {
+            // Return a 404 Not Found response if no drivers are found
+            return NotFound(new { message = "No drivers found matching the search criteria." });
+        }
+
+
+
         return Ok(drivers);
     }
 }
