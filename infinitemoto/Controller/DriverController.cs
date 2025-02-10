@@ -34,26 +34,26 @@ public class DriversController : ControllerBase
     }
 
    [HttpPost]
-public async Task<IActionResult> AddDriver([FromBody] DriverDTO driverDto)
+public async Task<IActionResult> AddDriver([FromForm] DriverDTO driverDto)
 {
-    if (!ModelState.IsValid)
-    {
-        return BadRequest(ModelState);
-    }
+    // if (!ModelState.IsValid)
+    // {
+    //     return BadRequest(ModelState);
+    // }
 
-    try
-    {
+    //try
+    //{
         var result = await _driverService.AddDriverAsync(driverDto);
         if (!result)
         {
             return StatusCode(500, "Error adding driver.");
         }
         return CreatedAtAction(nameof(GetDriver), new { id = driverDto.DriverId }, driverDto);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Internal Server Error: {ex.Message}");
-    }
+    //}
+    // catch (Exception ex)
+    // {
+    //     return StatusCode(500, $"Internal Server Error: {ex.Message}");
+    // }
 }
 
 

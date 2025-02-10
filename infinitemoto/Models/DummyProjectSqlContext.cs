@@ -120,43 +120,46 @@ public partial class DummyProjectSqlContext : DbContext
         });
 
         modelBuilder.Entity<Driver>(entity =>
-{
-    entity.HasKey(e => e.DriverId).HasName("drivers_pkey");
+        {
+            entity.HasKey(e => e.DriverId).HasName("drivers_pkey");
 
-    entity.ToTable("drivers");
+            entity.ToTable("drivers");
 
-    entity.Property(e => e.DriverId).HasColumnName("driver_id");
-    entity.Property(e => e.Bloodgroup).HasColumnName("bloodgroup");
-    entity.Property(e => e.DlNumb).HasColumnName("dl_numb");
-    entity.Property(e => e.DlPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("dl_photo");
-    entity.Property(e => e.DlValidTill).HasColumnName("dl_valid_till");
-    entity.Property(e => e.Dob).HasColumnName("dob");
-    entity.Property(e => e.DriverPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("driver_photo");
-    entity.Property(e => e.Drivername)
-        .HasMaxLength(23)
-        .HasColumnName("drivername");
-    entity.Property(e => e.Email).HasColumnName("email");
-    entity.Property(e => e.FmsciLicPhoto)
-        .HasColumnType("character varying")
-        .HasColumnName("fmsci_lic_photo");
-    entity.Property(e => e.FmsciNumb).HasColumnName("fmsci_numb");
-    entity.Property(e => e.FmsciValidTill).HasColumnName("fmsci_valid_till");
-    entity.Property(e => e.Phone).HasColumnName("phone");
-    entity.Property(e => e.Status).HasColumnName("status");
-    entity.Property(e => e.Teammemberof).HasColumnName("teammemberof");
+            entity.Property(e => e.DriverId).HasColumnName("driver_id");
+            entity.Property(e => e.Bloodgroup).HasColumnName("bloodgroup");
+            entity.Property(e => e.DlNumb)
+                .HasMaxLength(20)
+                .HasColumnName("dl_numb");
+            entity.Property(e => e.DlPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("dl_photo");
+            entity.Property(e => e.DlValidTill).HasColumnName("dl_valid_till");
+            entity.Property(e => e.Dob).HasColumnName("dob");
+            entity.Property(e => e.DriverPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("driver_photo");
+            entity.Property(e => e.Drivername)
+                .HasMaxLength(23)
+                .HasColumnName("drivername");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.FmsciLicPhoto)
+                .HasColumnType("character varying")
+                .HasColumnName("fmsci_lic_photo");
+            entity.Property(e => e.FmsciNumb)
+                .HasMaxLength(20)
+                .HasColumnName("fmsci_numb");
+            entity.Property(e => e.FmsciValidTill).HasColumnName("fmsci_valid_till");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .HasColumnName("phone");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Teammemberof).HasColumnName("teammemberof");
 
-    // Define relationship properly
-    entity.HasOne(d => d.TeammemberofNavigation) // Navigation property for Team
-        .WithMany(p => p.Drivers) // A team can have many drivers
-        .HasForeignKey(d => d.Teammemberof) // Foreign key in Driver table
-        .OnDelete(DeleteBehavior.SetNull) // If team is deleted, set null in Driver table
-        .HasConstraintName("fk_tbl_teams");
-});
-
+            entity.HasOne(d => d.TeammemberofNavigation).WithMany(p => p.Drivers)
+                .HasForeignKey(d => d.Teammemberof)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_tbl_teams");
+        });
 
         modelBuilder.Entity<Emp>(entity =>
         {
@@ -234,11 +237,9 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Ifsccode)
                 .HasMaxLength(20)
                 .HasColumnName("ifsccode");
-            entity.Property(e => e.Isactive).HasColumnName("isactive");
             entity.Property(e => e.Qrpath)
                 .HasMaxLength(1000)
                 .HasColumnName("QRpath");
-            entity.Property(e => e.Showdashboard).HasColumnName("showdashboard");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Eventregistrations)
@@ -342,7 +343,9 @@ public partial class DummyProjectSqlContext : DbContext
 
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
             entity.Property(e => e.Cc).HasColumnName("cc");
-            entity.Property(e => e.ChasisNumb).HasColumnName("chasis_numb");
+            entity.Property(e => e.ChasisNumb)
+                .HasMaxLength(20)
+                .HasColumnName("chasis_numb");
             entity.Property(e => e.EngNumber)
                 .HasMaxLength(50)
                 .HasColumnName("eng_number");
@@ -351,7 +354,9 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("make");
             entity.Property(e => e.Model).HasColumnName("model");
-            entity.Property(e => e.RegNumb).HasColumnName("reg_numb");
+            entity.Property(e => e.RegNumb)
+                .HasMaxLength(20)
+                .HasColumnName("reg_numb");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.VehicleOf).HasColumnName("vehicle_of");
             entity.Property(e => e.VehiclePhoto)
@@ -372,10 +377,6 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("doc_path");
             entity.Property(e => e.DocType).HasColumnName("doc_type");
-            entity.Property(e => e.FitnessCertificate).HasColumnName("fitness_certificate");
-            entity.Property(e => e.FitnessRequired).HasColumnName("fitness_required");
-            entity.Property(e => e.InsuranceValidTill).HasColumnName("insurance_valid_till");
-            entity.Property(e => e.RcBookValidTill).HasColumnName("rc_book_valid_till");
             entity.Property(e => e.Status)
                 .HasDefaultValueSql("'Active'::text")
                 .HasColumnName("status");

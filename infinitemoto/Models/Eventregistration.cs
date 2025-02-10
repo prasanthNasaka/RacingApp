@@ -15,11 +15,7 @@ public partial class Eventregistration
 
     public DateTime Enddate { get; set; }
 
-    public string Isactive { get; set; } = null!;
-
     public string Banner { get; set; } = null!;
-
-    public string Showdashboard { get; set; } = null!;
 
     public int? Eventstatus { get; set; }
 

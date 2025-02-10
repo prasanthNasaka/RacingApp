@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using infinitemoto.LookUps;
 
 namespace infinitemoto.Models;
 
@@ -13,17 +14,9 @@ public partial class VehicleDoc
 
     public int? VehicleId { get; set; }
 
-    public string Status { get; set; } = null!;
+    public bool? Status { get; set; }
 
-    public DateTime Validtill { get; set; }
-
-    public DateTime RcBookValidTill { get; set; }
-
-    public DateTime InsuranceValidTill { get; set; }
-
-    public bool FitnessRequired { get; set; }
-
-    public string? FitnessCertificate { get; set; }
+    public DateOnly Validtill { get; set; }
 
     public virtual Vehicle VehDoc { get; set; } = null!;
 }

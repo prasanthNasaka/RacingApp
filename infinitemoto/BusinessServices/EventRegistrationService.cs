@@ -27,9 +27,9 @@ namespace infinitemoto.Services
                     Eventname = e.Eventname,
                     Startdate = e.Startdate,
                     Enddate = e.Enddate,
-                    Isactive = e.Isactive,
+                    //Isactive = e.Isactive,
                     Banner = e.Banner,
-                    Showdashboard = e.Showdashboard
+                    //Showdashboard = e.Showdashboard
                 })
                 .ToListAsync();
         }
@@ -50,9 +50,9 @@ namespace infinitemoto.Services
         Eventname = eventRegistration.Eventname,
         Startdate = eventRegistration.Startdate,
         Enddate = eventRegistration.Enddate,
-        Isactive = eventRegistration.Isactive,
+        //Isactive = eventRegistration.Isactive,
         Banner = eventRegistration.Banner,
-        Showdashboard = eventRegistration.Showdashboard
+        //Showdashboard = eventRegistration.Showdashboard
     };
 }
 
@@ -65,9 +65,9 @@ namespace infinitemoto.Services
                 Eventname = eventRegistrationDto.Eventname,
                 Startdate = eventRegistrationDto.Startdate,
                 Enddate = eventRegistrationDto.Enddate,
-                Isactive = eventRegistrationDto.Isactive,
+                //Isactive = eventRegistrationDto.Isactive,
                 Banner = eventRegistrationDto.Banner,
-                Showdashboard = eventRegistrationDto.Showdashboard
+                //Showdashboard = eventRegistrationDto.Showdashboard
             };
 
             _context.Eventregistrations.Add(eventRegistration);
@@ -92,9 +92,9 @@ namespace infinitemoto.Services
             eventRegistration.Eventname = eventRegistrationDto.Eventname;
             eventRegistration.Startdate = eventRegistrationDto.Startdate;
             eventRegistration.Enddate = eventRegistrationDto.Enddate;
-            eventRegistration.Isactive = eventRegistrationDto.Isactive;
+            //eventRegistration.Isactive = eventRegistrationDto.Isactive;
             eventRegistration.Banner = eventRegistrationDto.Banner;
-            eventRegistration.Showdashboard = eventRegistrationDto.Showdashboard;
+            //eventRegistration.Showdashboard = eventRegistrationDto.Showdashboard;
 
             await _context.SaveChangesAsync();
             return true;
