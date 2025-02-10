@@ -91,4 +91,10 @@ namespace infinitemoto.LookUps
         Tax_Certificate = 63,
         Other = 64
     }
+
+    public enum EventStatus
+    {
+        active = 65,
+        Inactive = 66,
+    }
 }

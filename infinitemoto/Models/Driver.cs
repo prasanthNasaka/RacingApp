@@ -1,40 +1,45 @@
-﻿using System;
+﻿                                    using System;
+                                    using System.Collections.Generic;
+                                    using infinitemoto.LookUps;
 
-namespace infinitemoto.Models
-{
-    public partial class Driver
-    {
-        public int DriverId { get; set; }
+                                    namespace infinitemoto.Models;
 
-        public string Drivername { get; set; } = null!;
+                                    public partial class Driver
+                                    {
+                                        public int DriverId { get; set; }
 
-        public int Phone { get; set; }
+                                        public string Drivername { get; set; } = null!;
 
-        public string Email { get; set; } = null!;
+                                        public string Phone { get; set; } = null!;
 
-        public int FmsciNumb { get; set; }
+                                        public string Email { get; set; } = null!;
 
-        public DateTime FmsciValidTill { get; set; }
+                                        public string FmsciNumb { get; set; } = null!;
 
-        public int DlNumb { get; set; }
+                                        public DateOnly FmsciValidTill { get; set; }
 
-        public DateTime DlValidTill { get; set; }
+                                        public string DlNumb { get; set; } = null!;
 
-        public DateTime Dob { get; set; }
+                                        public DateOnly DlValidTill { get; set; }
 
-        public string Bloodgroup { get; set; } = null!;
+                                        public DateOnly Dob { get; set; }
 
-        public int Teammemberof { get; set; }  // Foreign key for the Team (Nullable)
+                                        public string Bloodgroup { get; set; }
 
-        public string? DriverPhoto { get; set; }
+                                        public int? Teammemberof { get; set; }
 
-        public string? DlPhoto { get; set; }
+                                        public string? DriverPhoto { get; set; }
 
-        public string? FmsciLicPhoto { get; set; }
+                                        public string? DlPhoto { get; set; }
 
-        public bool Status { get; set; }
+                                        public string? FmsciLicPhoto { get; set; }
 
-        // Navigation property for Team
-        public virtual Team? TeammemberofNavigation { get; set; }  
-    }
-}
+                                        public bool Status { get; set; }
+
+                                        public virtual Team? TeammemberofNavigation { get; set; }
+
+                                        // public static implicit operator Driver(Driver v)
+                                        // {
+                                        //     throw new NotImplementedException();
+                                        // }
+                                    }

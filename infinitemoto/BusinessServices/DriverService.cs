@@ -42,19 +42,50 @@ public class DriverService : IDriverService
             Phone = driverDto.Phone,
             Email = driverDto.Email,
             FmsciNumb = driverDto.FmsciNumb,
-            FmsciValidTill = driverDto.FmsciValidTill,
+            FmsciValidTill =  DateOnly.FromDateTime(driverDto.FmsciValidTill),
             DlNumb = driverDto.DlNumb,
-            DlValidTill = driverDto.DlValidTill,
-            Dob = driverDto.Dob,
+            DlValidTill =  DateOnly.FromDateTime(driverDto.DlValidTill),
+            Dob =  DateOnly.FromDateTime(driverDto.Dob),
             Bloodgroup = driverDto.BloodGroup,
             Teammemberof = driverDto.TeamMemberOf,
-            DriverPhoto = driverDto.DriverPhoto,
-            Status = driverDto.Status
+           // DriverPhoto = driverDto.DriverPhoto,
+            Status = driverDto.Status,            
         };
-
+            if(driverDto.DriverPhoto != null)
+            {
+                driver.DriverPhoto = saveImg( driverDto.DriverPhoto,"DP");
+            }
+            if(driverDto.DlPhoto != null)
+            {
+                driver.DlPhoto = saveImg( driverDto.DlPhoto,"DL");
+            }
+            if(driverDto.FmsciLicPhoto != null)
+            {
+                driver.FmsciLicPhoto = saveImg(driverDto.FmsciLicPhoto,"FM");
+            }
+        
         _context.Drivers.Add(driver);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    private string saveImg(IFormFile img, string  ImgFor)
+    {
+       /// Save image to the server
+       /// 
+        string upLoadPath    = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+        if(!Directory.Exists(upLoadPath))
+        {
+           Directory.CreateDirectory(upLoadPath);
+        }
+         
+        string fileName = ImgFor + "_" + Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+        string filePath = Path.Combine(upLoadPath, fileName);
+        using(var stream = new FileStream(filePath, FileMode.Create))
+        {
+                img.CopyTo(stream);
+        }
+        return fileName;
     }
 
     public async Task<bool> UpdateDriverAsync(int id, DriverDTO driverDto)
@@ -70,13 +101,13 @@ public class DriverService : IDriverService
         existingDriver.Phone = driverDto.Phone;
         existingDriver.Email = driverDto.Email;
         existingDriver.FmsciNumb = driverDto.FmsciNumb;
-        existingDriver.FmsciValidTill = driverDto.FmsciValidTill;
+        existingDriver.FmsciValidTill =  DateOnly.FromDateTime( driverDto.FmsciValidTill);
         existingDriver.DlNumb = driverDto.DlNumb;
-        existingDriver.DlValidTill = driverDto.DlValidTill;
-        existingDriver.Dob = driverDto.Dob;
+        existingDriver.DlValidTill =  DateOnly.FromDateTime(driverDto.DlValidTill);
+        existingDriver.Dob =  DateOnly.FromDateTime(driverDto.Dob);
         existingDriver.Bloodgroup = driverDto.BloodGroup;
         existingDriver.Teammemberof = driverDto.TeamMemberOf;
-        existingDriver.DriverPhoto = driverDto.DriverPhoto;
+        //existingDriver.DriverPhoto = driverDto.DriverPhoto;
         existingDriver.Status = driverDto.Status;
 
         await _context.SaveChangesAsync();

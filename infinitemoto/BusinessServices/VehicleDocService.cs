@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.LookUps;
 using infinitemoto.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -26,11 +27,11 @@ namespace infinitemoto.Services
                     DocPath = d.DocPath,
                     VehicleId = d.VehicleId,
                     Status = d.Status,
-                    Validtill = d.Validtill,
-                    RcBookValidTill = d.RcBookValidTill,
-                    InsuranceValidTill = d.InsuranceValidTill,
-                    FitnessRequired = d.FitnessRequired,
-                    FitnessCertificate = d.FitnessCertificate
+                    Validtill = d.Validtill.ToDateTime(TimeOnly.MinValue),
+                    // RcBookValidTill = d.RcBookValidTill,
+                    // InsuranceValidTill = d.InsuranceValidTill,
+                    // FitnessRequired = d.FitnessRequired,
+                    // FitnessCertificate = d.FitnessCertificate
                 }).ToListAsync();
         }
 
@@ -47,12 +48,12 @@ namespace infinitemoto.Services
                 DocPath = vehicleDoc.DocPath,
                 VehicleId = vehicleDoc.VehicleId,
                 Status = vehicleDoc.Status,
-                Validtill = vehicleDoc.Validtill,
-                RcBookValidTill = vehicleDoc.RcBookValidTill,
-                InsuranceValidTill = vehicleDoc.InsuranceValidTill,
-                FitnessRequired = vehicleDoc.FitnessRequired,
-                FitnessCertificate = vehicleDoc.FitnessCertificate
-            };
+                Validtill = vehicleDoc.Validtill.ToDateTime(TimeOnly.MinValue),
+            //     RcBookValidTill = vehicleDoc.RcBookValidTill,
+            //     InsuranceValidTill = vehicleDoc.InsuranceValidTill,
+            //     FitnessRequired = vehicleDoc.FitnessRequired,
+            //     FitnessCertificate = vehicleDoc.FitnessCertificate
+             };
         }
 
         public async Task AddVehicleDocAsync(VehicleDocDTO vehicleDocDto)
@@ -63,11 +64,11 @@ namespace infinitemoto.Services
                 DocPath = vehicleDocDto.DocPath,
                 VehicleId = vehicleDocDto.VehicleId,
                 Status = vehicleDocDto.Status,
-                Validtill = vehicleDocDto.Validtill,
-                RcBookValidTill = vehicleDocDto.RcBookValidTill,
-                InsuranceValidTill = vehicleDocDto.InsuranceValidTill,
-                FitnessRequired = vehicleDocDto.FitnessRequired,
-                FitnessCertificate = vehicleDocDto.FitnessCertificate
+                Validtill = DateOnly.FromDateTime(vehicleDocDto.Validtill),
+                // RcBookValidTill = vehicleDocDto.RcBookValidTill,
+                // InsuranceValidTill = vehicleDocDto.InsuranceValidTill,
+                // FitnessRequired = vehicleDocDto.FitnessRequired,
+                // FitnessCertificate = vehicleDocDto.FitnessCertificate
             };
 
             _context.VehicleDocs.Add(vehicleDoc);
@@ -82,11 +83,11 @@ namespace infinitemoto.Services
             vehicleDoc.DocType = vehicleDocDto.DocType;
             vehicleDoc.DocPath = vehicleDocDto.DocPath;
             vehicleDoc.Status = vehicleDocDto.Status;
-            vehicleDoc.Validtill = vehicleDocDto.Validtill;
-            vehicleDoc.RcBookValidTill = vehicleDocDto.RcBookValidTill;
-            vehicleDoc.InsuranceValidTill = vehicleDocDto.InsuranceValidTill;
-            vehicleDoc.FitnessRequired = vehicleDocDto.FitnessRequired;
-            vehicleDoc.FitnessCertificate = vehicleDocDto.FitnessCertificate;
+            vehicleDoc.Validtill = DateOnly.FromDateTime(vehicleDocDto.Validtill);
+            // vehicleDoc.RcBookValidTill = vehicleDocDto.RcBookValidTill;
+            // vehicleDoc.InsuranceValidTill = vehicleDocDto.InsuranceValidTill;
+            // vehicleDoc.FitnessRequired = vehicleDocDto.FitnessRequired;
+            // vehicleDoc.FitnessCertificate = vehicleDocDto.FitnessCertificate;
 
             await _context.SaveChangesAsync();
         }
@@ -100,4 +101,6 @@ namespace infinitemoto.Services
             await _context.SaveChangesAsync();
         }
     }
-}
+    }
+
+

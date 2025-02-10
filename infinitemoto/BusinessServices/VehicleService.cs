@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.LookUps;
 using infinitemoto.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace infinitemoto.Services
                     VehicleId = v.VehicleId,
                     RegNumb = v.RegNumb,
                     ChasisNumb = v.ChasisNumb,
-                    FcUpto = v.FcUpto,
+                    FcUpto = v.FcUpto.ToDateTime(TimeOnly.MinValue),
                     EngNumber = v.EngNumber,
                     Make = v.Make,
                     Model = v.Model,
@@ -34,6 +35,8 @@ namespace infinitemoto.Services
                     Status = v.Status
                 }).ToListAsync();
         }
+
+        
 
         public async Task<VehicleDTO?> GetVehicleByIdAsync(int vehicleId)
         {
@@ -46,7 +49,7 @@ namespace infinitemoto.Services
                 VehicleId = vehicle.VehicleId,
                 RegNumb = vehicle.RegNumb,
                 ChasisNumb = vehicle.ChasisNumb,
-                FcUpto = vehicle.FcUpto,
+                FcUpto = vehicle.FcUpto.ToDateTime(TimeOnly.MinValue),
                 EngNumber = vehicle.EngNumber,
                 Make = vehicle.Make,
                 Model = vehicle.Model,
@@ -59,21 +62,40 @@ namespace infinitemoto.Services
 
         public async Task AddVehicleAsync(VehicleDTO vehicleDto)
         {
+#pragma warning disable CS8629 // Nullable value type may be null.
             var vehicle = new Vehicle
             {
                 RegNumb = vehicleDto.RegNumb,
                 ChasisNumb = vehicleDto.ChasisNumb,
-                FcUpto = vehicleDto.FcUpto,
+                FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto),
                 EngNumber = vehicleDto.EngNumber,
                 Make = vehicleDto.Make,
                 Model = vehicleDto.Model,
                 Cc = vehicleDto.Cc,
                 VehicleOf = vehicleDto.VehicleOf,
                 VehiclePhoto = vehicleDto.VehiclePhoto,
-                Status = vehicleDto.Status
+                 Status = vehicleDto.Status
+                 //Status = (EventStatus)vehicleDto.Status 
             };
+#pragma warning restore CS8629 // Nullable value type may be null.
+
 
             _context.Vehicles.Add(vehicle);
+
+            if(vehicleDto.VehicleDoc != null)
+                vehicleDto.VehicleDoc.ForEach(vd =>
+                {
+                    var vehicleDoc = new VehicleDoc
+                    {
+                        DocType = vd.DocType,
+                        DocPath = vd.DocPath,
+                        VehicleId = vehicle.VehicleId,
+                        Status = vd.Status,
+                        //Status = (EventStatus)Enum.Parse(typeof(EventStatus), vd.Status, true),
+                        Validtill = DateOnly.FromDateTime(vd.Validtill)
+                    };
+                    _context.VehicleDocs.Add(vehicleDoc);
+                });
             await _context.SaveChangesAsync();
         }
 
@@ -84,7 +106,7 @@ namespace infinitemoto.Services
 
             vehicle.RegNumb = vehicleDto.RegNumb;
             vehicle.ChasisNumb = vehicleDto.ChasisNumb;
-            vehicle.FcUpto = vehicleDto.FcUpto;
+            vehicle.FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto);
             vehicle.EngNumber = vehicleDto.EngNumber;
             vehicle.Make = vehicleDto.Make;
             vehicle.Model = vehicleDto.Model;
@@ -127,10 +149,10 @@ namespace infinitemoto.Services
         }
 
         // Filter based on status if provided
-        if (status.HasValue)
-        {
-            query = query.Where(v => v.Status == status.Value);
-        }
+        // if (status.HasValue)
+        // {
+        //     query = query.Where(v => v.Status == status.Value);
+        // }
 
         // Execute the query asynchronously and map the results to DTOs
         var vehicles = await query

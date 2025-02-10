@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using infinitemoto.DTOs;
 using infinitemoto.Services;
 using System.Text.Json.Serialization;
+using infinitemoto.LookUps;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,13 +44,12 @@ builder.Services.AddScoped<IEventregistrationDto, EventregistrationDto>();
 builder.Services.AddScoped<IEventCategoryDto, EventCategoryDto>();
 builder.Services.AddScoped<IVehicleDto, VehicleDTO>();
 builder.Services.AddScoped<IDriverService, DriverService>();
-//builder.Services.AddScoped<IDriverDTO, DriverDTO>();
+builder.Services.AddScoped<IDriverDTO, DriverDTO>();
 builder.Services.AddScoped<IDriverDTO,DriverDTO>();
 builder.Services.AddScoped<ITeamDTO, TeamDTO>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IVehicledocDto, VehicleDocDTO>();
 builder.Services.AddScoped<DriverService>();
-//builder.Services.AddScoped<IVehicalsevice, Vehicalsevice >();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IVehicleDocService, VehicleDocService>();
 
@@ -95,6 +95,8 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+
 
 builder.Services.AddCors(options =>
 {

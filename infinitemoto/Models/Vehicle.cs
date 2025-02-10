@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using infinitemoto.LookUps;
 
 namespace infinitemoto.Models;
 
@@ -7,11 +9,11 @@ public partial class Vehicle
 {
     public int VehicleId { get; set; }
 
-    public int RegNumb { get; set; }
+    public string RegNumb { get; set; } = null!;
 
-    public int ChasisNumb { get; set; }
+    public string ChasisNumb { get; set; } = null!;
 
-    public DateTime FcUpto { get; set; }
+    public DateOnly FcUpto { get; set; }
 
     public string EngNumber { get; set; } = null!;
 
@@ -25,7 +27,8 @@ public partial class Vehicle
 
     public string? VehiclePhoto { get; set; }
 
-    public bool? Status { get; set; }
+    //[DefaultValue(EventStatus.Inactive)] 
+    public EventStatus Status { get; set; } 
 
     public virtual VehicleDoc? VehicleDoc { get; set; }
 }
