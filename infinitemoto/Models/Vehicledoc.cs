@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using infinitemoto.LookUps;
 
 namespace infinitemoto.Models;
 
@@ -10,11 +9,11 @@ public partial class VehicleDoc
 
     public string DocType { get; set; } = null!;
 
-    public string DocPath { get; set; } = null!;
+    public string DocImage { get; set; } = null!;
 
     public int? VehicleId { get; set; }
 
-    public bool? Status { get; set; }
+    public string Status { get; set; } = null!;
 
     public DateOnly Validtill { get; set; }
 

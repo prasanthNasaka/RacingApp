@@ -53,15 +53,15 @@ public class DriverService : IDriverService
         };
             if(driverDto.DriverPhoto != null)
             {
-                driver.DriverPhoto = saveImg( driverDto.DriverPhoto,"DP");
+                driver.DriverPhoto = Utils.saveImg( driverDto.DriverPhoto,"DP");
             }
             if(driverDto.DlPhoto != null)
             {
-                driver.DlPhoto = saveImg( driverDto.DlPhoto,"DL");
+                driver.DlPhoto = Utils.saveImg( driverDto.DlPhoto,"DL");
             }
             if(driverDto.FmsciLicPhoto != null)
             {
-                driver.FmsciLicPhoto = saveImg(driverDto.FmsciLicPhoto,"FM");
+                driver.FmsciLicPhoto = Utils.saveImg(driverDto.FmsciLicPhoto,"FM");
             }
         
         _context.Drivers.Add(driver);
@@ -69,24 +69,24 @@ public class DriverService : IDriverService
         return true;
     }
 
-    private string saveImg(IFormFile img, string  ImgFor)
-    {
-       /// Save image to the server
-       /// 
-        string upLoadPath    = Path.Combine(Directory.GetCurrentDirectory(), "Images");
-        if(!Directory.Exists(upLoadPath))
-        {
-           Directory.CreateDirectory(upLoadPath);
-        }
+    // private string saveImg(IFormFile img, string  ImgFor)
+    // {
+    //    /// Save image to the server
+    //    /// 
+    //     string upLoadPath    = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+    //     if(!Directory.Exists(upLoadPath))
+    //     {
+    //        Directory.CreateDirectory(upLoadPath);
+    //     }
          
-        string fileName = ImgFor + "_" + Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
-        string filePath = Path.Combine(upLoadPath, fileName);
-        using(var stream = new FileStream(filePath, FileMode.Create))
-        {
-                img.CopyTo(stream);
-        }
-        return fileName;
-    }
+    //     string fileName = ImgFor + "_" + Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+    //     string filePath = Path.Combine(upLoadPath, fileName);
+    //     using(var stream = new FileStream(filePath, FileMode.Create))
+    //     {
+    //             img.CopyTo(stream);
+    //     }
+    //     return fileName;
+    // }
 
     public async Task<bool> UpdateDriverAsync(int id, DriverDTO driverDto)
     {

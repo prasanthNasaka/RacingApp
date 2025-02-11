@@ -19,19 +19,15 @@ namespace infinitemoto.Services
 
         public async Task<IEnumerable<VehicleDocDTO>> GetAllVehicleDocsAsync()
         {
+            var vehicleDoc = new VehicleDocDTO();
             return await _context.VehicleDocs
                 .Select(d => new VehicleDocDTO
                 {
                     VehDocId = d.VehDocId,
                     DocType = d.DocType,
-                    DocPath = d.DocPath,
                     VehicleId = d.VehicleId,
-                    Status = d.Status,
+                    Status = Enum.Parse<EventStatus>(d.Status),
                     Validtill = d.Validtill.ToDateTime(TimeOnly.MinValue),
-                    // RcBookValidTill = d.RcBookValidTill,
-                    // InsuranceValidTill = d.InsuranceValidTill,
-                    // FitnessRequired = d.FitnessRequired,
-                    // FitnessCertificate = d.FitnessCertificate
                 }).ToListAsync();
         }
 
@@ -45,14 +41,9 @@ namespace infinitemoto.Services
             {
                 VehDocId = vehicleDoc.VehDocId,
                 DocType = vehicleDoc.DocType,
-                DocPath = vehicleDoc.DocPath,
                 VehicleId = vehicleDoc.VehicleId,
-                Status = vehicleDoc.Status,
+                Status = Enum.Parse<EventStatus>(vehicleDoc.Status),
                 Validtill = vehicleDoc.Validtill.ToDateTime(TimeOnly.MinValue),
-            //     RcBookValidTill = vehicleDoc.RcBookValidTill,
-            //     InsuranceValidTill = vehicleDoc.InsuranceValidTill,
-            //     FitnessRequired = vehicleDoc.FitnessRequired,
-            //     FitnessCertificate = vehicleDoc.FitnessCertificate
              };
         }
 
@@ -61,15 +52,15 @@ namespace infinitemoto.Services
             var vehicleDoc = new VehicleDoc
             {
                 DocType = vehicleDocDto.DocType,
-                DocPath = vehicleDocDto.DocPath,
                 VehicleId = vehicleDocDto.VehicleId,
-                Status = vehicleDocDto.Status,
+                Status = vehicleDocDto.Status.ToString(),
                 Validtill = DateOnly.FromDateTime(vehicleDocDto.Validtill),
-                // RcBookValidTill = vehicleDocDto.RcBookValidTill,
-                // InsuranceValidTill = vehicleDocDto.InsuranceValidTill,
-                // FitnessRequired = vehicleDocDto.FitnessRequired,
-                // FitnessCertificate = vehicleDocDto.FitnessCertificate
             };
+            if(vehicleDocDto.DocImage != null)
+            {
+                vehicleDoc.DocImage = Utils.saveImg(vehicleDocDto.DocImage, "DP");
+            }
+       
 
             _context.VehicleDocs.Add(vehicleDoc);
             await _context.SaveChangesAsync();
@@ -81,14 +72,8 @@ namespace infinitemoto.Services
             if (vehicleDoc == null) throw new KeyNotFoundException("Vehicle document not found");
 
             vehicleDoc.DocType = vehicleDocDto.DocType;
-            vehicleDoc.DocPath = vehicleDocDto.DocPath;
-            vehicleDoc.Status = vehicleDocDto.Status;
+            vehicleDoc.Status = vehicleDocDto.Status.ToString();
             vehicleDoc.Validtill = DateOnly.FromDateTime(vehicleDocDto.Validtill);
-            // vehicleDoc.RcBookValidTill = vehicleDocDto.RcBookValidTill;
-            // vehicleDoc.InsuranceValidTill = vehicleDocDto.InsuranceValidTill;
-            // vehicleDoc.FitnessRequired = vehicleDocDto.FitnessRequired;
-            // vehicleDoc.FitnessCertificate = vehicleDocDto.FitnessCertificate;
-
             await _context.SaveChangesAsync();
         }
 

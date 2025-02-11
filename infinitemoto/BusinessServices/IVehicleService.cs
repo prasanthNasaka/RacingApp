@@ -8,6 +8,8 @@ namespace infinitemoto.Services
     {
         Task<IEnumerable<VehicleDTO>> GetAllVehiclesAsync();
         Task<VehicleDTO?> GetVehicleByIdAsync(int vehicleId);
+       
+        //Task AddVehicleAsync(VehicleDTO vehicleDto, List<VehicleDocDTO> vehicleDocDto);
         Task AddVehicleAsync(VehicleDTO vehicleDto);
         Task UpdateVehicleAsync(int vehicleId, VehicleDTO vehicleDto);
         Task DeleteVehicleAsync(int vehicleId);

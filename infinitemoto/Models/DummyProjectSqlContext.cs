@@ -373,13 +373,19 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.VehDocId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("veh_doc_id");
-            entity.Property(e => e.DocPath)
+            entity.Property(e => e.DocImage)
                 .HasColumnType("character varying")
-                .HasColumnName("doc_path");
+                .HasColumnName("doc_image");
             entity.Property(e => e.DocType).HasColumnName("doc_type");
+
             entity.Property(e => e.Status)
-                .HasDefaultValueSql("'Active'::text")
-                .HasColumnName("status");
+        .HasConversion<string>() // Store Enum as a string in DB
+        .HasDefaultValueSql("'InActive'::text") 
+        .HasColumnName("status");
+            // entity.Property(e => e.Status)
+            //     .HasDefaultValueSql("'Active'::text")
+            //     .HasColumnName("status");
+            
             entity.Property(e => e.Validtill).HasColumnName("validtill");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
 
