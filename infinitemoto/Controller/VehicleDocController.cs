@@ -34,7 +34,7 @@ namespace infinitemoto.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehicleDoc([FromBody] VehicleDocDTO vehicleDocDto)
+        public async Task<IActionResult> CreateVehicleDoc([FromForm] VehicleDocDTO vehicleDocDto)
         {
             await _vehicleDocService.AddVehicleDocAsync(vehicleDocDto);
             return CreatedAtAction(nameof(GetVehicleDoc), new { id = vehicleDocDto.VehDocId }, vehicleDocDto);

@@ -17,7 +17,7 @@ namespace infinitemoto.DTOs
         string Model { get; set; }
         string Cc { get; set; }
         int? VehicleOf { get; set; }
-        string? VehiclePhoto { get; set; }
+        IFormFile VehiclePhoto { get; set; }
         EventStatus Status { get; set; }
         List< VehicleDocDTO?> VehicleDoc{get;set;}
     }
@@ -32,12 +32,14 @@ namespace infinitemoto.DTOs
         public string Model { get; set; } = null!;
         public string Cc { get; set; } = null!;
         public int? VehicleOf { get; set; }
-        public string? VehiclePhoto { get; set; }
+        public IFormFile VehiclePhoto { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))] 
+        //[JsonConverter(typeof(JsonStringEnumConverter))] 
         public EventStatus Status { get; set; }
 
-        public List< VehicleDocDTO?> VehicleDoc { get; set; }
+        // public List< VehicleDocDTO?> VehicleDoc { get; set; }
+        public List<VehicleDocDTO> VehicleDoc { get; set; }
+
     }
 
     

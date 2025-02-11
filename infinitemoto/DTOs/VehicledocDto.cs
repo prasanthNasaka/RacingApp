@@ -7,9 +7,9 @@ namespace infinitemoto.DTOs
     {
         int VehDocId { get; set; }
         string DocType { get; set; }
-        string DocPath { get; set; }
+        IFormFile ? DocImage { get; set; }
         int? VehicleId { get; set; }
-        bool? Status { get; set; }
+        EventStatus Status { get; set; }
         DateTime Validtill { get; set; }
         
     }
@@ -17,9 +17,9 @@ namespace infinitemoto.DTOs
     {
         public int VehDocId { get; set; }
         public string DocType { get; set; } = null!;
-        public string DocPath { get; set; } = null!;
+        public IFormFile ? DocImage { get; set; } = null!;
         public int? VehicleId { get; set; }
-        public bool? Status { get; set; } = null!;
+        public EventStatus Status { get; set; }
         public DateTime Validtill { get; set; }
         
     }

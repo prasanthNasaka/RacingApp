@@ -69,7 +69,7 @@ public class EventController : ControllerBase
     // ================================
 
     // 🔹 Get All Event Registrations
-    [HttpGet("registrations")]
+    [HttpGet("")]
     public async Task<ActionResult<IEnumerable<EventregistrationDto>>> GetAllEventRegistrations()
     {
         var registrations = await _eventRegistrationService.GetAllEventsAsync();
@@ -77,7 +77,7 @@ public class EventController : ControllerBase
     }
 
     // 🔹 Get a Single Event Registration by ID
-    [HttpGet("registrations/{id}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<EventregistrationDto>> GetEventRegistrationById(int id)
     {
         var registration = await _eventRegistrationService.GetEventByIdAsync(id);
@@ -86,7 +86,7 @@ public class EventController : ControllerBase
     }
 
     // 🔹 Create a New Event Registration
-    [HttpPost("registrations")]
+    [HttpPost("")]
     public async Task<ActionResult<EventregistrationDto>> CreateEventRegistration([FromBody] EventregistrationDto registration)
     {
         var createdRegistration = await _eventRegistrationService.AddEventAsync(registration);
@@ -94,7 +94,7 @@ public class EventController : ControllerBase
     }
 
     // 🔹 Update an Existing Event Registration
-    [HttpPut("registrations/{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateEventRegistration(int id, [FromBody] EventregistrationDto registration)
     {
         var updated = await _eventRegistrationService.UpdateEventAsync(id, registration);
@@ -103,7 +103,7 @@ public class EventController : ControllerBase
     }
 
     // 🔹 Delete an Event Registration
-    [HttpDelete("registrations/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEventRegistration(int id)
     {
         var deleted = await _eventRegistrationService.DeleteEventAsync(id);

@@ -34,11 +34,18 @@ namespace infinitemoto.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody] VehicleDTO vehicleDto)
+        public async Task<IActionResult> CreateVehicle([FromForm] VehicleDTO vehicleDto, VehicleDocDTO vehicleDocDto)
         {
+            if (vehicleDto.VehicleDoc == null || !vehicleDto.VehicleDoc.Any())
+            {
+                return BadRequest("Vehicle must have at least one document");
+            }
+
             await _vehicleService.AddVehicleAsync(vehicleDto);
+
             return CreatedAtAction(nameof(GetVehicle), new { id = vehicleDto.VehicleId }, vehicleDto);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDto)
