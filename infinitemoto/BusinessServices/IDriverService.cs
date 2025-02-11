@@ -11,5 +11,5 @@ public interface IDriverService
     Task<bool> UpdateDriverAsync(int id, DriverDTO driverDto);
     Task<bool> DeleteDriverAsync(int driverId);
 
-    Task<IEnumerable<DriverDTO>> SearchDriversWithVehiclesAsync(string? searchWord);
+    Task<IEnumerable<DriverSrcResDTO>> SearchDriversWithVehiclesAsync(string? searchWord);
 }

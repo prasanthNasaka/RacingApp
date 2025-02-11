@@ -44,7 +44,7 @@ public class SearchController : ControllerBase
     /// <param name="searchWord">Driver's name</param>
     /// <returns>List of matching drivers with vehicles</returns>
     [HttpGet("drivers")]
-    public async Task<ActionResult<IEnumerable<DriverDTO>>> SearchDrivers([FromQuery] string? searchWord)
+    public async Task<ActionResult<IEnumerable<DriverSrcResDTO>>> SearchDrivers([FromQuery] string? searchWord)
     {
         var drivers = await _driverService.SearchDriversWithVehiclesAsync(searchWord);
 

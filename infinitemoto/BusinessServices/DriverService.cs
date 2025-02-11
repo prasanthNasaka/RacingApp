@@ -127,7 +127,7 @@ public class DriverService : IDriverService
         return true;
     }
 
-    public async Task<IEnumerable<DriverDTO>> SearchDriversWithVehiclesAsync(string? searchWord)
+    public async Task<IEnumerable<DriverSrcResDTO>> SearchDriversWithVehiclesAsync(string? searchWord)
     {
         // Query drivers and include their associated vehicles (if applicable)
         var query = _context.Drivers
@@ -142,12 +142,12 @@ public class DriverService : IDriverService
 
         // Execute the query asynchronously and map the results to DTOs
         var drivers = await query
-                            .Select(d => new DriverDTO
+                            .Select(d => new DriverSrcResDTO
                             {
                                 DriverId = d.DriverId,
                                 DriverName = d.Drivername,
                                 Phone = d.Phone,
-                                Email = d.Email,
+                               // Email = d.Email,
                                 FmsciNumb = d.FmsciNumb,
                                 //FmsciValidTill = d.FmsciValidTill,
                                 DlNumb = d.DlNumb,

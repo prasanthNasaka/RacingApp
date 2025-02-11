@@ -126,6 +126,14 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// Enable static file serving for a custom folder
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/images"
+});
+
 // Configure the HTTP request pipeline
 app.UseHttpsRedirection();
 
@@ -137,6 +145,11 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); // Add this line
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
+
+// Enable static files serving
+app.UseStaticFiles();
+
+app.MapGet("/", () => "Hello World!");
 
 app.MapControllers();
 app.Run();
