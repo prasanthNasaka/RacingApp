@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.Models;
 using infinitemoto.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace infinitemoto.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<VehicleDTO>> GetVehicles()
+        public async Task<IEnumerable<vehicleresDto>> GetVehicles()
         {
             return await _vehicleService.GetAllVehiclesAsync();
         }
@@ -34,13 +35,8 @@ namespace infinitemoto.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromForm] VehicleDTO vehicleDto, VehicleDocDTO vehicleDocDto)
+        public async Task<IActionResult> CreateVehicle([FromForm] VehicleDTO vehicleDto)
         {
-            if (vehicleDto.VehicleDoc == null || !vehicleDto.VehicleDoc.Any())
-            {
-                return BadRequest("Vehicle must have at least one document");
-            }
-
             await _vehicleService.AddVehicleAsync(vehicleDto);
 
             return CreatedAtAction(nameof(GetVehicle), new { id = vehicleDto.VehicleId }, vehicleDto);

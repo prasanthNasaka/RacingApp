@@ -29,6 +29,12 @@ public partial class Eventregistration
 
     public int Companyid { get; set; }
 
+    public string? Showdashboard { get; set; }
+
+    public string? Accountnum { get; set; }
+
+    public string? Isactive { get; set; }
+
     public virtual CompanyDetail Company { get; set; } = null!;
 
     public virtual ICollection<Eventcategory> Eventcategories { get; set; } = new List<Eventcategory>();

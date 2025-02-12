@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace infinitemoto.Services
 {
-    public interface IEventRegistrationService
+     public interface IEventRegistrationService
     {
-        Task<IEnumerable<EventregistrationDto>> GetAllEventsAsync();
-        Task<EventregistrationDto?> GetEventByIdAsync(int id);
-        Task<EventregistrationDto> AddEventAsync(EventregistrationDto eventRegistration);
-        Task<bool> UpdateEventAsync(int id, EventregistrationDto eventRegistration);
-        Task<bool> DeleteEventAsync(int id);
+        Task<IEnumerable<EventregistrationResDto>> GetAllEventsAsync();
+        Task<EventregistrationResDto?> GetEventByIdAsync(int eventId);
+        Task<bool> AddEventAsync(EventregistrationReqDto eventDto);
+        Task UpdateEventAsync(int eventId, EventregistrationReqDto eventDto);
+        Task DeleteEventAsync(int eventId);
     }
 }
