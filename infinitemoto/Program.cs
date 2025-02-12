@@ -41,7 +41,7 @@ builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();  // Register JwtService for JWT handling
 builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
 builder.Services.AddScoped<IEventregistrationReqDto, EventregistrationReqDto>();
-builder.Services.AddScoped<IEventCategoryDto, EventCategoryDto>();
+builder.Services.AddScoped<IEventCategoryService, EventCategoryService>();
 builder.Services.AddScoped<IVehicleDto, VehicleDTO>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<IDriverDTO, DriverDTO>();
@@ -54,6 +54,8 @@ builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IVehicleDocService, VehicleDocService>();
 builder.Services.AddScoped<IEventRegistrationService, EventRegistrationService>();
 builder.Services.AddScoped<IEventregistrationResDto, EventregistrationResDto>();
+builder.Services.AddScoped<IEventcategoriesgetDto, EventCategorygetDto>();
+builder.Services.AddScoped<IEventCategoryCreateDto, EventCategoryCreateDto>();
 
 // error handling
 builder.Services.AddControllers().AddJsonOptions(options =>

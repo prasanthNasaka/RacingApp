@@ -33,10 +33,10 @@ namespace infinitemoto.Services
                     Cc = v.Cc,
                     VehicleOf = v.VehicleOf,
                     VehiclePhoto = v.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
-                    RcImage = v.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                    RcImage = v.RcImage,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
                     InsuranceImage = v.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
                     FcImage = v.FcImage,//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
-                    
+
                     Status = v.Status.HasValue && v.Status.Value ? EventStatus.active : EventStatus.Inactive
                 }).ToListAsync();
         }
@@ -59,7 +59,7 @@ namespace infinitemoto.Services
                 Cc = vehicle.Cc,
                 VehicleOf = vehicle.VehicleOf,
                 VehiclePhoto = vehicle.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
-                RcImage = vehicle.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                RcImage = vehicle.RcImage,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
                 InsuranceImage = vehicle.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
                 FcImage = vehicle.FcImage//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
             };
@@ -112,7 +112,7 @@ namespace infinitemoto.Services
             vehicle.FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto);
             vehicle.EngNumber = vehicleDto.EngNumber;
             vehicle.Make = vehicleDto.Make;
-            vehicle.Model = vehicleDto.Model;   
+            vehicle.Model = vehicleDto.Model;
             vehicle.Cc = vehicleDto.Cc;
             vehicle.VehicleOf = vehicleDto.VehicleOf;
             vehicle.Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null;

@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 
 namespace infinitemoto.Services
 {
-    public interface IEventCategoryService
-    {
-        Task<IEnumerable<EventCategoryDto>> GetAllEventCategoriesAsync();
-        Task<EventCategoryDto?> GetEventCategoryByIdAsync(int id);
-        Task<EventCategoryDto> AddEventCategoryAsync(EventCategoryDto eventCategory);
-        Task<bool> UpdateEventCategoryAsync(int id, EventCategoryDto eventCategory);
-        Task<bool> DeleteEventCategoryAsync(int id);
-    }
+  public interface IEventCategoryService
+{
+    Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync();
+    Task<EventCategorygetDto?> GetEventCategoryByIdAsync(int id);
+    Task<EventCategoryCreateDto> CreateEventCategoryAsync(EventCategoryCreateDto eventCategoryDto);
+    Task<bool> UpdateEventCategoryAsync(int id, EventCategoryCreateDto eventCategoryDto);
+    Task<bool> DeleteEventCategoryAsync(int id);
+}
+
 }
