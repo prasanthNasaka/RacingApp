@@ -128,7 +128,7 @@ public interface IvehiclescrDto
 public class vehiclescrDto : IvehiclescrDto
 {
     public string RegNumb { get; set; }
-    public string ChasisNumb { get; set; }
+    public string ChasisNumb  { get; set; }
     public string EngNumber { get; set; }
     public string Make { get; set; }
     public string Model { get; set; }

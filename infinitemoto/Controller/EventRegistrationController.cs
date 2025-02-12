@@ -46,7 +46,7 @@ namespace infinitemoto.Controllers
         // }
 
          [HttpPost]
-        public async Task<IActionResult> AddEvent( EventregistrationReqDto eventDto)
+        public async Task<IActionResult> AddEvent ( EventregistrationReqDto eventDto)
         {
             var isAdded = await _eventService.AddEventAsync(eventDto);
             if (isAdded)

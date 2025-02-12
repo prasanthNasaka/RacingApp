@@ -32,7 +32,7 @@ public class EventCategoryController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _eventCategoryService.GetEventCategoryByIdAsync(id);
+        var result = await _eventCategoryService.GetEventCategoryByIdAsync (id);
         if (result == null) return NotFound();
         return Ok(result);
     }

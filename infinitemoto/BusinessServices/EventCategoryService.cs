@@ -21,7 +21,7 @@ public class EventCategoryService : IEventCategoryService
     {
         if(event_id > 0 )
         {
-            return await _context.Eventcategories
+            return await _context.Eventcategories 
             .Where(e => e.EventId == event_id)
             .Select(e => new EventCategorygetDto
             {
