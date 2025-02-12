@@ -15,7 +15,7 @@ public partial class DummyProjectSqlContext : DbContext
     {
     }
 
-    public virtual DbSet<Account> Accounts { get; set; }
+      public virtual DbSet<Account> Accounts { get; set; }
 
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
@@ -358,10 +358,10 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.EngNumber)
                 .HasMaxLength(50)
                 .HasColumnName("eng_number");
-            entity.Property(e => e.FcImage)
-                .HasMaxLength(100)
-                .HasColumnName("fc_image");
-            entity.Property(e => e.FcUpto).HasColumnName("fc_upto");
+            entity.Property(e => e.IcNum)
+                .HasColumnType("character varying")
+                .HasColumnName("ic_num");
+            entity.Property(e => e.IcUpto).HasColumnName("ic_upto");
             entity.Property(e => e.InsuranceImage)
                 .HasMaxLength(100)
                 .HasColumnName("insurance_image");
@@ -372,6 +372,10 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.RcImage)
                 .HasMaxLength(100)
                 .HasColumnName("rc_image");
+            entity.Property(e => e.RcNum)
+                .HasColumnType("character varying")
+                .HasColumnName("rc_num");
+            entity.Property(e => e.RcUpto).HasColumnName("rc_upto");
             entity.Property(e => e.RegNumb)
                 .HasMaxLength(20)
                 .HasColumnName("reg_numb");
