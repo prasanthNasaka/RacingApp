@@ -2,6 +2,7 @@ using infinitemoto.DTOs;
 using infinitemoto.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace infinitemoto.Controllers
@@ -34,15 +35,61 @@ namespace infinitemoto.Controllers
             return Ok(eventDto);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddEvent([FromForm] EventregistrationReqDto eventDto)
+        // [HttpPost]
+        // public async Task<ActionResult> AddEvent([FromForm] EventregistrationReqDto eventDto)
+        // {
+        //     bool isAdded = await _eventService.AddEventAsync(eventDto);
+        //     if (isAdded)
+        //         return CreatedAtAction(nameof(GetEventById), new { id = eventDto.Eventname }, eventDto);
+
+        //     return BadRequest("Failed to add event");
+        // }
+
+         [HttpPost]
+        public async Task<IActionResult> AddEvent([FromForm] EventregistrationReqDto eventDto)
         {
-            bool isAdded = await _eventService.AddEventAsync(eventDto);
+            var isAdded = await _eventService.AddEventAsync(eventDto);
             if (isAdded)
-                return CreatedAtAction(nameof(GetEventById), new { id = eventDto.Eventname }, eventDto);
-            
+            {
+                return Created("Event created successfully", eventDto);
+            }
             return BadRequest("Failed to add event");
         }
+
+
+        // [HttpPost]
+        // public async Task<IActionResult> AddEvent([FromForm] string eventData, [FromForm] IFormFile banner, [FromForm] IFormFile qrpath)
+        // {
+        //     if (string.IsNullOrEmpty(eventData))
+        //         return BadRequest("Invalid data received.");
+
+        //     // Deserialize eventData JSON into EventregistrationReqDto
+        //     EventregistrationReqDto? eventDto;
+        //     try
+        //     {
+        //         eventDto = System.Text.Json.JsonSerializer.Deserialize<EventregistrationReqDto>(eventData);
+        //         if (eventDto == null)
+        //             return BadRequest("Failed to parse event data.");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest($"Error parsing event data: {ex.Message}");
+        //     }
+
+        //     // Assign uploaded files
+        //     eventDto.Banner = banner;
+        //     eventDto.Qrpath = qrpath;
+
+        //     var isAdded = await _eventService.AddEventAsync(eventDto);
+
+        //     if (isAdded)
+        //     {
+        //         return Created("Event created successfully", eventDto);
+        //     }
+        //     return BadRequest("Failed to add event");
+        // }
+
+
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateEvent(int id, [FromForm] EventregistrationReqDto eventDto)

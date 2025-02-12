@@ -10,6 +10,7 @@ using infinitemoto.DTOs;
 using infinitemoto.Services;
 using System.Text.Json.Serialization;
 using infinitemoto.LookUps;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -95,10 +96,10 @@ builder.Services.AddSwaggerGen(options =>
                     Id = "Bearer"
                 }
             },
-            new string[] { }
+           Array.Empty<string>()
         }
     });
-});
+ });
 
 
 
@@ -138,22 +139,12 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images"
 });
 
-// Configure the HTTP request pipeline
-app.UseHttpsRedirection();
-
-// CORS should be placed before Authentication and Authorization
-app.UseCors("CorsPolicy");
-
 // Middleware setup
 app.UseHttpsRedirection();
-app.UseAuthentication(); // Add this line
+app.UseCors("CorsPolicy");  // Ensure CORS is before Auth middleware
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 
-// Enable static files serving
-app.UseStaticFiles();
-
-app.MapGet("/", () => "Hello World!");
-
+// Map controllers
 app.MapControllers();
 app.Run();

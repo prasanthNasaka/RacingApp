@@ -68,27 +68,55 @@ namespace infinitemoto.Services
 
         public async Task<bool> AddEventAsync(EventregistrationReqDto eventDto)
         {
-            var eventEntity = new Eventregistration
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
             {
-                Eventtype = eventDto.Eventtype,
-                Eventname = eventDto.Eventname,
-                Startdate = eventDto.Startdate.ToUniversalTime(),
-                Enddate = eventDto.Enddate.ToUniversalTime(),
-                Isactive = eventDto.Isactive,
-                Showdashboard = eventDto.Showdashboard,
-                Eventstatus = eventDto.Eventstatus,
-                Bankname = eventDto.Bankname,
-                Ifsccode = eventDto.Ifsccode,
-                Accountname = eventDto.Accountname,
-                Accountnum = eventDto.Accountnum,
-                Companyid = eventDto.Companyid,
-                Banner = Utils.saveImg(eventDto.Banner, "Banner"),
-                Qrpath = Utils.saveImg(eventDto.Qrpath, "QR")
-            };
+                var eventEntity = new Eventregistration
+                {
+                    Eventtype = eventDto.Eventtype,
+                    Eventname = eventDto.Eventname,
+                    Startdate = eventDto.Startdate.ToUniversalTime(),
+                    Enddate = eventDto.Enddate.ToUniversalTime(),
+                    Isactive = eventDto.Isactive,
+                    Showdashboard = eventDto.Showdashboard,
+                    Eventstatus = eventDto.Eventstatus,
+                    Bankname = eventDto.Bankname,
+                    Ifsccode = eventDto.Ifsccode,
+                    Accountname = eventDto.Accountname,
+                    Accountnum = eventDto.Accountnum,
+                    Companyid = eventDto.Companyid,
+                    Banner = Utils.saveImg(eventDto.Banner, "Banner"),
+                    Qrpath = Utils.saveImg(eventDto.Qrpath, "QR")
+                };
 
-            _context.Eventregistrations.Add(eventEntity);
-            await _context.SaveChangesAsync();
-            return true;
+                _context.Eventregistrations.Add(eventEntity);
+                await _context.SaveChangesAsync();
+
+                if (eventDto.lstcat != null && eventDto.lstcat.Any())
+                {
+                    var eventCategories = eventDto.lstcat.Select(item => new Eventcategory
+                    {
+                        EvtCategory = item.EvtCategory,
+                        NoOfVeh = item.NoOfVeh,
+                        Status = item.Status,
+                        Nooflaps = item.Nooflaps,
+                        Entryprice = item.Entryprice,
+                        Wheelertype = item.Wheelertype,
+                        EventId = eventEntity.Eventid // Assign FK after saving event
+                    }).ToList();
+
+                    _context.Eventcategories.AddRange(eventCategories);
+                    await _context.SaveChangesAsync();
+                }
+
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
         }
 
         public async Task UpdateEventAsync(int eventId, EventregistrationReqDto eventDto)
@@ -108,7 +136,7 @@ namespace infinitemoto.Services
             eventEntity.Accountname = eventDto.Accountname;
             eventEntity.Accountnum = eventDto.Accountnum;
             eventEntity.Companyid = eventDto.Companyid;
-            
+
             if (eventDto.Banner != null)
             {
                 eventEntity.Banner = Utils.saveImg(eventDto.Banner, "Banner");
