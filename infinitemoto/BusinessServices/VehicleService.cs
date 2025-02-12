@@ -33,10 +33,10 @@ namespace infinitemoto.Services
                     Cc = v.Cc,
                     VehicleOf = v.VehicleOf,
                     VehiclePhoto = v.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
-                    RcImage = v.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                    RcImage = v.RcImage,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
                     InsuranceImage = v.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
                     FcImage = v.FcImage,//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
-                    
+
                     Status = v.Status.HasValue && v.Status.Value ? EventStatus.active : EventStatus.Inactive
                 }).ToListAsync();
         }
@@ -59,7 +59,7 @@ namespace infinitemoto.Services
                 Cc = vehicle.Cc,
                 VehicleOf = vehicle.VehicleOf,
                 VehiclePhoto = vehicle.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
-                RcImage = vehicle.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                RcImage = vehicle.RcImage,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
                 InsuranceImage = vehicle.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
                 FcImage = vehicle.FcImage//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
             };
@@ -112,7 +112,7 @@ namespace infinitemoto.Services
             vehicle.FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto);
             vehicle.EngNumber = vehicleDto.EngNumber;
             vehicle.Make = vehicleDto.Make;
-            vehicle.Model = vehicleDto.Model;   
+            vehicle.Model = vehicleDto.Model;
             vehicle.Cc = vehicleDto.Cc;
             vehicle.VehicleOf = vehicleDto.VehicleOf;
             vehicle.Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null;
@@ -129,36 +129,44 @@ namespace infinitemoto.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync(string? searchWord, int? vehicleOf = null, bool? status = null)
+         public async Task<IEnumerable<vehiclescrDto>> SearchVehiclesAsync(string? searchWord, int? vehicleOf = null)
+    {
+        var query = _context.Vehicles.AsQueryable();
+
+        // Apply search filters
+        if (!string.IsNullOrWhiteSpace(searchWord))
         {
-            var query = _context.Vehicles
-                                .Include(v => v.VehicleDoc)
-                                .AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(searchWord))
-            {
-                query = query.Where(v => v.Make.Contains(searchWord) || v.Model.Contains(searchWord) || v.RegNumb.ToString().Contains(searchWord));
-            }
-
-            if (vehicleOf.HasValue)
-            {
-                query = query.Where(v => v.VehicleOf == vehicleOf.Value);
-            }
-
-            var vehicles = await query
-                                .Select(v => new VehicleDTO
-                                {
-                                    VehicleId = v.VehicleId,
-                                    RegNumb = v.RegNumb,
-                                    ChasisNumb = v.ChasisNumb,
-                                    Make = v.Make,
-                                    Model = v.Model,
-                                    VehicleOf = v.VehicleOf,
-
-                                })
-                                .ToListAsync();
-
-            return vehicles;
+            query = query.Where(v => 
+                v.RegNumb.Contains(searchWord) ||
+                v.ChasisNumb.Contains(searchWord) ||
+                v.EngNumber.Contains(searchWord) ||
+                v.Make.Contains(searchWord) ||
+                v.Model.Contains(searchWord) ||
+                v.Cc.Contains(searchWord)
+            );
         }
+
+        if (vehicleOf.HasValue)
+        {
+            query = query.Where(v => v.VehicleOf == vehicleOf.Value);
+        }
+
+        var vehicles = await query
+            .Select(v => new vehiclescrDto
+            {
+                RegNumb = v.RegNumb,
+                ChasisNumb = v.ChasisNumb,
+                EngNumber = v.EngNumber,
+                Make = v.Make,
+                Model = v.Model,
+                Cc = v.Cc,
+                VehicleOf = v.VehicleOf
+            })
+            .ToListAsync();
+
+        return vehicles;
+
+    }
     }
 }
+
