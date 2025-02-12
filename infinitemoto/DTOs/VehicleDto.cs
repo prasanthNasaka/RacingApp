@@ -136,7 +136,7 @@ public class vehiclescrDto : IvehiclescrDto
 
     public string VehiclePhoto { get; set; }
 
-    //public int? VehicleOf { get; set; }
+    //public int? VehicleOf { get; set; } 
 }
 
 }

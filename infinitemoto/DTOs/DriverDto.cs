@@ -108,5 +108,5 @@ public class DriverSrcResDTO : IDriverSrcResDTO
     public string DriverPhoto { get; set; } 
     public string Phone { get; set; } 
     public string FmsciNumb { get; set; } 
-    public string DlNumb  { get; set; }
+    public string DlNumb  { get; set; }  
    }

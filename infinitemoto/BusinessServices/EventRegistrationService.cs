@@ -15,7 +15,7 @@ namespace infinitemoto.Services
         public EventRegistrationService(DummyProjectSqlContext context)
         {
             _context = context;
-        }
+        } 
 
         public async Task<IEnumerable<EventregistrationResDto>> GetAllEventsAsync()
         {

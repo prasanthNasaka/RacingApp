@@ -6,7 +6,7 @@ namespace infinitemoto.Services
 {
   public interface IEventCategoryService
 {
-    Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync (int event_id = 0);
+    Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync (int event_id = 0); 
     Task<EventCategorygetDto?> GetEventCategoryByIdAsync(int id);
     Task<EventCategoryCreateDto> CreateEventCategoryAsync(EventCategoryCreateDto eventCategoryDto);
     Task<bool> UpdateEventCategoryAsync(int id, EventCategoryCreateDto eventCategoryDto);

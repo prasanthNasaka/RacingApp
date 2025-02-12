@@ -53,7 +53,7 @@ namespace infinitemoto.Controllers
             {
                 return Created("Event created successfully", eventDto);
             }
-            return BadRequest("Failed to add event");
+            return BadRequest("Failed to add event"); 
         }
 
 
