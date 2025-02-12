@@ -97,12 +97,15 @@ public interface IDriverSrcResDTO
     string Phone { get; set; }
     string FmsciNumb { get; set; }
     string DlNumb { get; set; }
+    string DriverPhoto { get; set; } 
     
 }
 
 public class DriverSrcResDTO : IDriverSrcResDTO
 { public int DriverId { get; set; }
     public string DriverName { get; set; } = null!;
+
+    public string DriverPhoto { get; set; } 
     public string Phone { get; set; } 
     public string FmsciNumb { get; set; } 
     public string DlNumb { get; set; }

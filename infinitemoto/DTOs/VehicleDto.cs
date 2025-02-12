@@ -119,7 +119,9 @@ public interface IvehiclescrDto
     string Make { get; set; }
     string Model { get; set; }
     string Cc { get; set; }
-    int? VehicleOf { get; set; }
+
+    string VehiclePhoto { get; set; }
+    //int? VehicleOf { get; set; }
 
 }
 
@@ -131,7 +133,10 @@ public class vehiclescrDto : IvehiclescrDto
     public string Make { get; set; }
     public string Model { get; set; }
     public string Cc { get; set; }
-    public int? VehicleOf { get; set; }
+
+    public string VehiclePhoto { get; set; }
+
+    //public int? VehicleOf { get; set; }
 }
 
 }
