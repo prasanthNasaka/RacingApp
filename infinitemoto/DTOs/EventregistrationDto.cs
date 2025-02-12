@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.SignalR;
 
 namespace infinitemoto.DTOs;
 
@@ -18,7 +19,7 @@ public interface IEventregistrationReqDto
 
     string Isactive { get; set; }
 
-    IFormFile Banner { get; set; }
+    IFormFile? Banner { get; set; }
 
     string Showdashboard { get; set; }
 
@@ -32,7 +33,7 @@ public interface IEventregistrationReqDto
     string Accountnum { get; set; }
 
 
-    IFormFile Qrpath { get; set; }
+    IFormFile? Qrpath { get; set; }
 
     int Companyid { get; set; }
 
@@ -55,7 +56,7 @@ public class EventregistrationReqDto : IEventregistrationReqDto
 
     public string Isactive { get; set; } = null!;
 
-    public IFormFile Banner { get; set; } = null!;
+    public IFormFile? Banner { get; set; } = null!;
 
     public string Showdashboard { get; set; } = null!;
 
@@ -70,11 +71,11 @@ public class EventregistrationReqDto : IEventregistrationReqDto
     public string Accountnum { get; set; } = null!;
 
 
-    public IFormFile Qrpath { get; set; } = null!;
+    public IFormFile? Qrpath { get; set; } = null!;
 
     public int Companyid { get; set; }
 
-     public List<EventCategoryCreateDto>? lstcat { get; set; }
+     public List<EventCategoryCreateDto> lstcat{get;set;}  = new List<EventCategoryCreateDto>();
 
     
 }

@@ -17,8 +17,27 @@ public class EventCategoryService : IEventCategoryService
         _context = context;
     }
 
-    public async Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync()
+    public async Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync(int event_id = 0)
     {
+        if(event_id > 0 )
+        {
+            return await _context.Eventcategories 
+            .Where(e => e.EventId == event_id)
+            .Select(e => new EventCategorygetDto
+            {
+                EvtCatId = e.EvtCatId,
+                EvtCategory = e.EvtCategory,
+                NoOfVeh = e.NoOfVeh,
+                Status = e.Status,
+                Nooflaps = e.Nooflaps,
+                Entryprice = e.Entryprice,
+                Wheelertype = e.Wheelertype,
+                EventId = e.EventId
+            })
+            .ToListAsync();
+        }
+        else
+        {
         return await _context.Eventcategories
             .Select(e => new EventCategorygetDto
             {
@@ -32,6 +51,7 @@ public class EventCategoryService : IEventCategoryService
                 EventId = e.EventId
             })
             .ToListAsync();
+        }
     }
 
     public async Task<EventCategorygetDto?> GetEventCategoryByIdAsync(int id)
