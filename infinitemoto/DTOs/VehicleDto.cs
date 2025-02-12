@@ -89,4 +89,28 @@ namespace infinitemoto.DTOs
         public string FcImage { get ; set ; }
         public EventStatus Status { get ; set ; }
     }
+
+public interface IvehiclescrDto
+{
+    string RegNumb { get; set; }
+    string ChasisNumb { get; set; }
+    string EngNumber { get; set; }
+    string Make { get; set; }
+    string Model { get; set; }
+    string Cc { get; set; }
+    int? VehicleOf { get; set; }
+
+}
+
+public class vehiclescrDto : IvehiclescrDto
+{
+    public string RegNumb { get; set; }
+    public string ChasisNumb { get; set; }
+    public string EngNumber { get; set; }
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public string Cc { get; set; }
+    public int? VehicleOf { get; set; }
+}
+
 }

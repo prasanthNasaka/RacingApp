@@ -15,6 +15,7 @@ namespace infinitemoto.Services
         Task UpdateVehicleAsync(int vehicleId, VehicleDTO vehicleDto);
         Task DeleteVehicleAsync(int vehicleId);
 
-        Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync (string? searchWord, int? vehicleOf = null, bool? status = null);
+        //Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync (string? searchWord, int? vehicleOf = null, bool? status = null);
+        Task<IEnumerable<vehiclescrDto>> SearchVehiclesAsync(string? searchWord, int? vehicleOf = null);
     }
 }
