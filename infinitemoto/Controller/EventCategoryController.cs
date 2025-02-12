@@ -23,7 +23,7 @@ public class EventCategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(int event_id=0)
     {
         var result = await _eventCategoryService.GetAllEventCategoriesAsync();
         return Ok(result);
@@ -32,7 +32,7 @@ public class EventCategoryController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _eventCategoryService.GetEventCategoryByIdAsync(id);
+        var result = await _eventCategoryService.GetEventCategoryByIdAsync (id); 
         if (result == null) return NotFound();
         return Ok(result);
     }
@@ -42,7 +42,7 @@ public class EventCategoryController : ControllerBase
     {
         var created = await _eventCategoryService.CreateEventCategoryAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.EvtCatId }, created);
-    }
+    } 
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, EventCategoryCreateDto dto)

@@ -159,6 +159,7 @@ namespace infinitemoto.Services
                     v.EngNumber.Contains(searchWord) ||
                     v.Make.Contains(searchWord) ||
                     v.Model.Contains(searchWord) ||
+
                     v.Cc.Contains(searchWord)
                 );
             }
@@ -177,11 +178,12 @@ namespace infinitemoto.Services
                     Make = v.Make,
                     Model = v.Model,
                     Cc = v.Cc,
-                    VehicleOf = v.VehicleOf
+                    VehiclePhoto = v.VehiclePhoto, 
+                    //VehicleOf = v.VehicleOf
                 })
                 .ToListAsync();
 
-            return vehicles;
+            return vehicles; 
 
         }
     }

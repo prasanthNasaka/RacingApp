@@ -151,21 +151,11 @@ public class DriverService : IDriverService
                                 FmsciNumb = d.FmsciNumb,
                                 //FmsciValidTill = d.FmsciValidTill,
                                 DlNumb = d.DlNumb,
-                                //DlValidTill = d.DlValidTill,
-                                //Dob = d.Dob,
-                                //DriverPhoto = d.DriverPhoto,
-                                //DlPhoto = d.DlPhoto,
-                                //FmsciLicPhoto = d.FmsciLicPhoto,
-                                //Status = d.Status,
-                                // Team = d.TeammemberofNavigation == null ? null : new TeamDTO
-                                // {
-                                //     TeamId = d.TeammemberofNavigation.TeamId,
-                                //     TeamName = d.TeammemberofNavigation.TeamName
-                                // }
-                            })
+                                DriverPhoto= d.DriverPhoto 
+                                                        })
                             .ToListAsync();
 
-        return drivers;
+        return drivers; 
     }
     
 }

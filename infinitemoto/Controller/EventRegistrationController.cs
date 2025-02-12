@@ -22,7 +22,7 @@ namespace infinitemoto.Controllers
         public async Task<ActionResult<IEnumerable<EventregistrationResDto>>> GetAllEvents()
         {
             var events = await _eventService.GetAllEventsAsync();
-            return Ok(events);
+            return Ok(events); 
         }
 
         [HttpGet("{id}")]
@@ -46,14 +46,14 @@ namespace infinitemoto.Controllers
         // }
 
          [HttpPost]
-        public async Task<IActionResult> AddEvent([FromForm] EventregistrationReqDto eventDto)
+        public async Task<IActionResult> AddEvent ( EventregistrationReqDto eventDto)
         {
             var isAdded = await _eventService.AddEventAsync(eventDto);
             if (isAdded)
             {
                 return Created("Event created successfully", eventDto);
             }
-            return BadRequest("Failed to add event");
+            return BadRequest("Failed to add event"); 
         }
 
 
