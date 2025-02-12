@@ -11,18 +11,24 @@ namespace infinitemoto.DTOs
         int VehicleId { get; set; }
         string RegNumb { get; set; }
         string ChasisNumb { get; set; }
-        DateTime FcUpto { get; set; }
+      //  DateTime FcUpto { get; set; }
         string EngNumber { get; set; }
         string Make { get; set; }
         string Model { get; set; }
         string Cc { get; set; }
         int? VehicleOf { get; set; }
+
+        string? RcNum { get; set; }
+        string? IcNum { get; set; }
+        DateTime IcUpto { get; set; }
+        DateTime RcUpto { get; set; }
+
         IFormFile VehiclePhoto { get; set; }
         IFormFile RcImage { get; set; }
 
         IFormFile InsuranceImage { get; set; }
 
-        IFormFile FcImage { get; set; }
+       // IFormFile FcImage { get; set; }
         EventStatus Status { get; set; }
         // List< VehicleDocDTO?> VehicleDoc{get;set;}
     }
@@ -31,7 +37,7 @@ namespace infinitemoto.DTOs
         public int VehicleId { get; set; }
         public string RegNumb { get; set; }
         public string ChasisNumb { get; set; }
-        public DateTime FcUpto { get; set; }
+       // public DateTime FcUpto { get; set; }
         public string EngNumber { get; set; } = null!;
         public string Make { get; set; } = null!;
         public string Model { get; set; } = null!;
@@ -42,9 +48,14 @@ namespace infinitemoto.DTOs
 
         public IFormFile InsuranceImage { get; set; }
 
-        public IFormFile FcImage { get; set; }
+        //public IFormFile FcImage { get; set; }
         //[JsonConverter(typeof(JsonStringEnumConverter))] 
         public EventStatus Status { get; set; }
+
+       public string? RcNum { get; set; }
+        public string? IcNum { get; set; }
+       public  DateTime IcUpto { get; set; }
+       public DateTime RcUpto { get; set; }
 
         // public List< VehicleDocDTO?> VehicleDoc { get; set; }
         // public List<VehicleDocDTO> VehicleDoc { get; set; }
@@ -56,7 +67,7 @@ namespace infinitemoto.DTOs
         int VehicleId { get; set; }
         string RegNumb { get; set; }
         string ChasisNumb { get; set; }
-        DateTime FcUpto { get; set; }
+       // DateTime FcUpto { get; set; }
         string EngNumber { get; set; }
         string Make { get; set; }
         string Model { get; set; }
@@ -67,7 +78,12 @@ namespace infinitemoto.DTOs
 
         string InsuranceImage { get; set; }
 
-        string FcImage { get; set; }
+        string? RcNum { get; set; }
+        string? IcNum { get; set; }
+        DateOnly? IcUpto { get; set; }
+        DateOnly? RcUpto { get; set; }
+
+        //string FcImage { get; set; }
         EventStatus Status { get; set; }
         // List< VehicleDocDTO?> VehicleDoc{get;set;}
     }
@@ -77,7 +93,7 @@ namespace infinitemoto.DTOs
         public int VehicleId { get ; set ; }
         public string RegNumb { get ; set ; }
         public string ChasisNumb { get ; set ; }
-        public DateTime FcUpto { get ; set ; }
+        //public DateTime FcUpto { get ; set ; }
         public string EngNumber { get ; set ; }
         public string Make { get ; set ; }
         public string Model { get ; set ; }
@@ -86,7 +102,12 @@ namespace infinitemoto.DTOs
         public string VehiclePhoto { get ; set ; }
         public string RcImage { get ; set ; }
         public string InsuranceImage { get ; set ; }
-        public string FcImage { get ; set ; }
+
+        public string? RcNum { get; set; }
+        public string? IcNum { get; set; }
+       public  DateOnly? IcUpto { get; set; }
+       public DateOnly? RcUpto { get; set; }
+        //public string FcImage { get ; set ; }
         public EventStatus Status { get ; set ; }
     }
 

@@ -35,6 +35,9 @@ public interface IEventregistrationReqDto
     IFormFile Qrpath { get; set; }
 
     int Companyid { get; set; }
+
+    List<EventCategoryCreateDto>? lstcat { get; set; }
+
 }
 
 public class EventregistrationReqDto : IEventregistrationReqDto
@@ -70,6 +73,9 @@ public class EventregistrationReqDto : IEventregistrationReqDto
     public IFormFile Qrpath { get; set; } = null!;
 
     public int Companyid { get; set; }
+
+     public List<EventCategoryCreateDto>? lstcat { get; set; }
+
     
 }
 
@@ -104,6 +110,7 @@ public interface IEventregistrationResDto
     string Qrpath { get; set; }
 
     int Companyid { get; set; }
+
 }
 
 public class EventregistrationResDto : IEventregistrationResDto
@@ -139,5 +146,7 @@ public class EventregistrationResDto : IEventregistrationResDto
     public string Qrpath { get; set; } = null!;
 
     public int Companyid { get; set; }
+
+
     
 }
