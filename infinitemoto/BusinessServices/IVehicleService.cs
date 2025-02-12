@@ -1,4 +1,5 @@
 using infinitemoto.DTOs;
+using infinitemoto.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,11 @@ namespace infinitemoto.Services
 {
     public interface IVehicleService
     {
-        Task<IEnumerable<VehicleDTO>> GetAllVehiclesAsync();
-        Task<VehicleDTO?> GetVehicleByIdAsync(int vehicleId);
+       Task<IEnumerable<vehicleresDto>> GetAllVehiclesAsync();
+        Task<vehicleresDto?> GetVehicleByIdAsync(int vehicleId);
        
         //Task AddVehicleAsync(VehicleDTO vehicleDto, List<VehicleDocDTO> vehicleDocDto);
-        Task AddVehicleAsync(VehicleDTO vehicleDto);
+        Task<bool> AddVehicleAsync(VehicleDTO vehicleDto);
         Task UpdateVehicleAsync(int vehicleId, VehicleDTO vehicleDto);
         Task DeleteVehicleAsync(int vehicleId);
 

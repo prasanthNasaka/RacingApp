@@ -1,5 +1,6 @@
 using infinitemoto.DTOs;
 using infinitemoto.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,99 +17,117 @@ namespace infinitemoto.Services
             _context = context;
         }
 
-        // Get all event registrations
-        public async Task<IEnumerable<EventregistrationDto>> GetAllEventsAsync()
+        public async Task<IEnumerable<EventregistrationResDto>> GetAllEventsAsync()
         {
             return await _context.Eventregistrations
-                .Select(e => new EventregistrationDto
+                .Select(e => new EventregistrationResDto
                 {
                     Eventid = e.Eventid,
                     Eventtype = e.Eventtype,
                     Eventname = e.Eventname,
                     Startdate = e.Startdate,
                     Enddate = e.Enddate,
-                    //Isactive = e.Isactive,
+                    Isactive = e.Isactive,
                     Banner = e.Banner,
-                    //Showdashboard = e.Showdashboard
-                })
-                .ToListAsync();
+                    Showdashboard = e.Showdashboard,
+                    Eventstatus = e.Eventstatus,
+                    Bankname = e.Bankname,
+                    Ifsccode = e.Ifsccode,
+                    Accountname = e.Accountname,
+                    Accountnum = e.Accountnum,
+                    Qrpath = e.Qrpath,
+                    Companyid = e.Companyid
+                }).ToListAsync();
         }
 
-        // Get an event registration by ID
-        public async Task<EventregistrationDto?> GetEventByIdAsync(int id)
-{
-    var eventRegistration = await _context.Eventregistrations.FindAsync(id);
-
-    // ✅ Ensure the event exists before accessing its properties
-    if (eventRegistration == null)
-        return null;
-
-    return new EventregistrationDto
-    {
-        Eventid = eventRegistration.Eventid, // 👈 Make sure eventRegistration is not null
-        Eventtype = eventRegistration.Eventtype,
-        Eventname = eventRegistration.Eventname,
-        Startdate = eventRegistration.Startdate,
-        Enddate = eventRegistration.Enddate,
-        //Isactive = eventRegistration.Isactive,
-        Banner = eventRegistration.Banner,
-        //Showdashboard = eventRegistration.Showdashboard
-    };
-}
-
-        // Create a new event registration
-        public async Task<EventregistrationDto> AddEventAsync(EventregistrationDto eventRegistrationDto)
+        public async Task<EventregistrationResDto?> GetEventByIdAsync(int eventId)
         {
-            var eventRegistration = new Eventregistration
+            var eventEntity = await _context.Eventregistrations.FindAsync(eventId);
+            if (eventEntity == null)
+                return null;
+
+            return new EventregistrationResDto
             {
-                Eventtype = eventRegistrationDto.Eventtype,
-                Eventname = eventRegistrationDto.Eventname,
-                Startdate = eventRegistrationDto.Startdate,
-                Enddate = eventRegistrationDto.Enddate,
-                //Isactive = eventRegistrationDto.Isactive,
-                Banner = eventRegistrationDto.Banner,
-                //Showdashboard = eventRegistrationDto.Showdashboard
+                Eventid = eventEntity.Eventid,
+                Eventtype = eventEntity.Eventtype,
+                Eventname = eventEntity.Eventname,
+                Startdate = eventEntity.Startdate,
+                Enddate = eventEntity.Enddate,
+                Isactive = eventEntity.Isactive,
+                Banner = eventEntity.Banner,
+                Showdashboard = eventEntity.Showdashboard,
+                Eventstatus = eventEntity.Eventstatus,
+                Bankname = eventEntity.Bankname,
+                Ifsccode = eventEntity.Ifsccode,
+                Accountname = eventEntity.Accountname,
+                Accountnum = eventEntity.Accountnum,
+                Qrpath = eventEntity.Qrpath,
+                Companyid = eventEntity.Companyid
+            };
+        }
+
+        public async Task<bool> AddEventAsync(EventregistrationReqDto eventDto)
+        {
+            var eventEntity = new Eventregistration
+            {
+                Eventtype = eventDto.Eventtype,
+                Eventname = eventDto.Eventname,
+                Startdate = eventDto.Startdate.ToUniversalTime(),
+                Enddate = eventDto.Enddate.ToUniversalTime(),
+                Isactive = eventDto.Isactive,
+                Showdashboard = eventDto.Showdashboard,
+                Eventstatus = eventDto.Eventstatus,
+                Bankname = eventDto.Bankname,
+                Ifsccode = eventDto.Ifsccode,
+                Accountname = eventDto.Accountname,
+                Accountnum = eventDto.Accountnum,
+                Companyid = eventDto.Companyid,
+                Banner = Utils.saveImg(eventDto.Banner, "Banner"),
+                Qrpath = Utils.saveImg(eventDto.Qrpath, "QR")
             };
 
-            _context.Eventregistrations.Add(eventRegistration);
+            _context.Eventregistrations.Add(eventEntity);
             await _context.SaveChangesAsync();
-
-            eventRegistrationDto.Eventid = eventRegistration.Eventid;
-            return eventRegistrationDto;
+            return true;
         }
 
-        // Update an existing event registration
-        public async Task<bool> UpdateEventAsync(int id, EventregistrationDto eventRegistrationDto)
+        public async Task UpdateEventAsync(int eventId, EventregistrationReqDto eventDto)
         {
-            if (eventRegistrationDto is null)
+            var eventEntity = await _context.Eventregistrations.FindAsync(eventId);
+            if (eventEntity == null) throw new KeyNotFoundException("Event not found");
+
+            eventEntity.Eventtype = eventDto.Eventtype;
+            eventEntity.Eventname = eventDto.Eventname;
+            eventEntity.Startdate = eventDto.Startdate.ToUniversalTime();
+            eventEntity.Enddate = eventDto.Enddate.ToUniversalTime();
+            eventEntity.Isactive = eventDto.Isactive;
+            eventEntity.Showdashboard = eventDto.Showdashboard;
+            eventEntity.Eventstatus = eventDto.Eventstatus;
+            eventEntity.Bankname = eventDto.Bankname;
+            eventEntity.Ifsccode = eventDto.Ifsccode;
+            eventEntity.Accountname = eventDto.Accountname;
+            eventEntity.Accountnum = eventDto.Accountnum;
+            eventEntity.Companyid = eventDto.Companyid;
+            
+            if (eventDto.Banner != null)
             {
-                throw new ArgumentNullException(nameof(eventRegistrationDto));
+                eventEntity.Banner = Utils.saveImg(eventDto.Banner, "Banner");
+            }
+            if (eventDto.Qrpath != null)
+            {
+                eventEntity.Qrpath = Utils.saveImg(eventDto.Qrpath, "QR");
             }
 
-            var eventRegistration = await _context.Eventregistrations.FindAsync(id);
-            if (eventRegistration == null) return false;
-
-            eventRegistration.Eventtype = eventRegistrationDto.Eventtype;
-            eventRegistration.Eventname = eventRegistrationDto.Eventname;
-            eventRegistration.Startdate = eventRegistrationDto.Startdate;
-            eventRegistration.Enddate = eventRegistrationDto.Enddate;
-            //eventRegistration.Isactive = eventRegistrationDto.Isactive;
-            eventRegistration.Banner = eventRegistrationDto.Banner;
-            //eventRegistration.Showdashboard = eventRegistrationDto.Showdashboard;
-
             await _context.SaveChangesAsync();
-            return true;
         }
 
-        // Delete an event registration
-        public async Task<bool> DeleteEventAsync(int id)
+        public async Task DeleteEventAsync(int eventId)
         {
-            var eventRegistration = await _context.Eventregistrations.FindAsync(id);
-            if (eventRegistration == null) return false;
+            var eventEntity = await _context.Eventregistrations.FindAsync(eventId);
+            if (eventEntity == null) throw new KeyNotFoundException("Event not found");
 
-            _context.Eventregistrations.Remove(eventRegistration);
+            _context.Eventregistrations.Remove(eventEntity);
             await _context.SaveChangesAsync();
-            return true;
         }
     }
 }

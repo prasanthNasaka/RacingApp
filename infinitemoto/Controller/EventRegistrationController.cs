@@ -1,120 +1,75 @@
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using infinitemoto.Models;
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Authorization;
+using infinitemoto.DTOs;
+using infinitemoto.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-// namespace infinitemoto.Controllers
-// {
-//     [ApiController]
-//     [Route("api/[controller]")]
-//     [Authorize]
-//     public class EventregistrationController : ControllerBase
-//     {
-//         private readonly DummyProjectSqlContext _context;
+namespace infinitemoto.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EventRegistrationController : ControllerBase
+    {
+        private readonly IEventRegistrationService _eventService;
 
-//         public EventregistrationController(DummyProjectSqlContext context)
-//         {
-//             _context = context;
-//         }
+        public EventRegistrationController(IEventRegistrationService eventService)
+        {
+            _eventService = eventService;
+        }
 
-//         // GET: api/Eventregistration
-//         [HttpGet]
-//         public async Task<IActionResult> GetAll()
-//         {
-//             var events = await _context.Eventregistrations.ToListAsync();
-//             if (events == null || events.Count == 0)
-//             {
-//                 return NotFound(new { message = "No events found." });
-//             }
-//             return Ok(new { message = "Events retrieved successfully.", data = events });
-//         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EventregistrationResDto>>> GetAllEvents()
+        {
+            var events = await _eventService.GetAllEventsAsync();
+            return Ok(events);
+        }
 
-//         // GET: api/Eventregistration/{id}
-//         [HttpGet("{id}")]
-//         public async Task<IActionResult> GetById(int id)
-//         {
-//             var eventRegistration = await _context.Eventregistrations.FindAsync(id);
-//             if (eventRegistration == null)
-//             {
-//                 return NotFound(new { message = $"Event with ID {id} not found." });
-//             }
-//             return Ok(new { message = "Event retrieved successfully.", data = eventRegistration });
-//         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EventregistrationResDto>> GetEventById(int id)
+        {
+            var eventDto = await _eventService.GetEventByIdAsync(id);
+            if (eventDto == null)
+                return NotFound("Event not found");
 
-//         // POST: api/Eventregistration
-//         [HttpPost]
-//         public async Task<IActionResult> Create([FromBody] Eventregistration eventRegistration)
-//         {
+            return Ok(eventDto);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddEvent([FromForm] EventregistrationReqDto eventDto)
+        {
+            bool isAdded = await _eventService.AddEventAsync(eventDto);
+            if (isAdded)
+                return CreatedAtAction(nameof(GetEventById), new { id = eventDto.Eventname }, eventDto);
             
+            return BadRequest("Failed to add event");
+        }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateEvent(int id, [FromForm] EventregistrationReqDto eventDto)
+        {
+            try
+            {
+                await _eventService.UpdateEventAsync(id, eventDto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
 
-//             if (!ModelState.IsValid)
-//             {
-//                 return BadRequest(new { message = "Invalid data.", errors = ModelState });
-//             }
-
-//             try
-//             {
-//                 _context.Eventregistrations.Add(eventRegistration);
-//                 await _context.SaveChangesAsync();
-//                 return CreatedAtAction(nameof(GetById), new { id = eventRegistration.Eventid }, new { message = "Event created successfully.", data = eventRegistration });
-//             }
-//             catch (Exception ex)
-//             {
-//                 return BadRequest(new { message = "Error occurred while creating the event.", error = ex.Message });
-//             }
-//         }
-
-//         // PUT: api/Eventregistration/{id}
-//         [HttpPut("{id}")]
-//         public async Task<IActionResult> Update(int id, [FromBody] Eventregistration eventRegistration)
-//         {
-//             if (id != eventRegistration.Eventid)
-//             {
-//                 return BadRequest(new { message = "ID mismatch. Ensure the ID in the URL matches the request body." });
-//             }
-
-//             if (!ModelState.IsValid)
-//             {
-//                 return BadRequest(new { message = "Invalid data.", errors = ModelState });
-//             }
-
-//             _context.Entry(eventRegistration).State = EntityState.Modified;
-//             try
-//             {
-//                 await _context.SaveChangesAsync();
-//             }
-//             catch (DbUpdateConcurrencyException)
-//             {
-//                 if (!EventRegistrationExists(id))
-//                 {
-//                     return NotFound(new { message = $"Event with ID {id} not found for update." });
-//                 }
-//                 throw;
-//             }
-
-//             return Ok(new { message = "Event updated successfully.", data = eventRegistration });
-//         }
-
-//         // DELETE: api/Eventregistration/{id}
-//         [HttpDelete("{id}")]
-//         public async Task<IActionResult> Delete(int id)
-//         {
-//             var eventRegistration = await _context.Eventregistrations.FindAsync(id);
-//             if (eventRegistration == null)
-//             {
-//                 return NotFound(new { message = $"Event with ID {id} not found." });
-//             }
-
-//             _context.Eventregistrations.Remove(eventRegistration);
-//             await _context.SaveChangesAsync();
-//             return Ok(new { message = "Event deleted successfully." });
-//         }
-
-//         private bool EventRegistrationExists(int id)
-//         {
-//             return _context.Eventregistrations.Any(e => e.Eventid == id);
-//         }
-//     }
-// }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteEvent(int id)
+        {
+            try
+            {
+                await _eventService.DeleteEventAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+    }
+}

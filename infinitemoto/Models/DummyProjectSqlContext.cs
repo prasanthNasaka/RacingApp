@@ -224,6 +224,9 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Accountname)
                 .HasMaxLength(100)
                 .HasColumnName("accountname");
+            entity.Property(e => e.Accountnum)
+                .HasColumnType("character varying")
+                .HasColumnName("accountnum");
             entity.Property(e => e.Bankname)
                 .HasMaxLength(100)
                 .HasColumnName("bankname");
@@ -237,9 +240,15 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.Ifsccode)
                 .HasMaxLength(20)
                 .HasColumnName("ifsccode");
+            entity.Property(e => e.Isactive)
+                .HasColumnType("character varying")
+                .HasColumnName("isactive");
             entity.Property(e => e.Qrpath)
                 .HasMaxLength(1000)
                 .HasColumnName("QRpath");
+            entity.Property(e => e.Showdashboard)
+                .HasColumnType("character varying")
+                .HasColumnName("showdashboard");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Eventregistrations)
@@ -349,11 +358,20 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.EngNumber)
                 .HasMaxLength(50)
                 .HasColumnName("eng_number");
+            entity.Property(e => e.FcImage)
+                .HasMaxLength(100)
+                .HasColumnName("fc_image");
             entity.Property(e => e.FcUpto).HasColumnName("fc_upto");
+            entity.Property(e => e.InsuranceImage)
+                .HasMaxLength(100)
+                .HasColumnName("insurance_image");
             entity.Property(e => e.Make)
                 .HasMaxLength(100)
                 .HasColumnName("make");
             entity.Property(e => e.Model).HasColumnName("model");
+            entity.Property(e => e.RcImage)
+                .HasMaxLength(100)
+                .HasColumnName("rc_image");
             entity.Property(e => e.RegNumb)
                 .HasMaxLength(20)
                 .HasColumnName("reg_numb");
@@ -377,15 +395,9 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("doc_image");
             entity.Property(e => e.DocType).HasColumnName("doc_type");
-
             entity.Property(e => e.Status)
-        .HasConversion<string>() // Store Enum as a string in DB
-        .HasDefaultValueSql("'InActive'::text") 
-        .HasColumnName("status");
-            // entity.Property(e => e.Status)
-            //     .HasDefaultValueSql("'Active'::text")
-            //     .HasColumnName("status");
-            
+                .HasDefaultValueSql("'Active'::text")
+                .HasColumnName("status");
             entity.Property(e => e.Validtill).HasColumnName("validtill");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
 

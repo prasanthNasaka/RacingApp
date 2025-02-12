@@ -27,5 +27,11 @@ public partial class Vehicle
 
     public bool? Status { get; set; }
 
+    public string? RcImage { get; set; }
+
+    public string? InsuranceImage { get; set; }
+
+    public string? FcImage { get; set; }
+
     public virtual VehicleDoc? VehicleDoc { get; set; }
 }

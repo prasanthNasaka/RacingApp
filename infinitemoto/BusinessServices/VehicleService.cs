@@ -18,10 +18,10 @@ namespace infinitemoto.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<VehicleDTO>> GetAllVehiclesAsync()
+        public async Task<IEnumerable<vehicleresDto>> GetAllVehiclesAsync()
         {
             return await _context.Vehicles
-                .Select(v => new VehicleDTO
+                .Select(v => new vehicleresDto
                 {
                     VehicleId = v.VehicleId,
                     RegNumb = v.RegNumb,
@@ -32,18 +32,22 @@ namespace infinitemoto.Services
                     Model = v.Model,
                     Cc = v.Cc,
                     VehicleOf = v.VehicleOf,
-                    //VehiclePhoto = v.VehiclePhoto,
+                    VehiclePhoto = v.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
+                    RcImage = v.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                    InsuranceImage = v.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
+                    FcImage = v.FcImage,//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
+                    
                     Status = v.Status.HasValue && v.Status.Value ? EventStatus.active : EventStatus.Inactive
                 }).ToListAsync();
         }
 
-        public async Task<VehicleDTO?> GetVehicleByIdAsync(int vehicleId)
+        public async Task<vehicleresDto?> GetVehicleByIdAsync(int vehicleId)
         {
             var vehicle = await _context.Vehicles.FindAsync(vehicleId);
             if (vehicle == null)
                 return null;
 
-            return new VehicleDTO
+            return new vehicleresDto
             {
                 VehicleId = vehicle.VehicleId,
                 RegNumb = vehicle.RegNumb,
@@ -54,48 +58,51 @@ namespace infinitemoto.Services
                 Model = vehicle.Model,
                 Cc = vehicle.Cc,
                 VehicleOf = vehicle.VehicleOf,
-                // VehiclePhoto = vehicle.VehiclePhoto,
-                Status = vehicle.Status.HasValue && vehicle.Status.Value ? EventStatus.active : EventStatus.Inactive
+                VehiclePhoto = vehicle.VehiclePhoto,// != null ? Convert.ToBase64String(v.VehiclePhoto) : null, // Convert byte[] to base64 string
+                RcImage = vehicle.RcImage ,//!= null ? Convert.ToBase64String(v.RcImage) : null, // Convert byte[] to base64 string
+                InsuranceImage = vehicle.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
+                FcImage = vehicle.FcImage//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
             };
         }
 
-   public async Task AddVehicleAsync(VehicleDTO vehicleDto)
-{
-    var vehicle = new Vehicle
-    {
-        RegNumb = vehicleDto.RegNumb,
-        ChasisNumb = vehicleDto.ChasisNumb,
-        FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto),
-        EngNumber = vehicleDto.EngNumber,
-        Make = vehicleDto.Make,
-        Model = vehicleDto.Model,
-        Cc = vehicleDto.Cc,
-        VehicleOf = vehicleDto.VehicleOf,
-        Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null
-    };
-
-    // ✅ Save vehicle first to generate VehicleId
-    _context.Vehicles.Add(vehicle);
-    await _context.SaveChangesAsync();
-
-    // ✅ Save vehicle documents if provided
-    if (vehicleDto.VehicleDoc != null && vehicleDto.VehicleDoc.Any())
-    {
-        var vehicleDocs = vehicleDto.VehicleDoc.Select(vd => new VehicleDoc
+        public async Task<bool> AddVehicleAsync(VehicleDTO vehicleDto)
         {
-            DocType = vd.DocType,
-            VehicleId = vehicle.VehicleId, // ✅ Associate with the newly created vehicle
-            Status = vd.Status.ToString(),
-            Validtill = DateOnly.FromDateTime(vd.Validtill),
-            DocImage = vd.DocImage != null ? Utils.saveImg(vd.DocImage, "DP") : null
-        }).ToList();
+            var vehicle = new Vehicle
+            {
+                RegNumb = vehicleDto.RegNumb,
+                ChasisNumb = vehicleDto.ChasisNumb,
+                FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto),
+                EngNumber = vehicleDto.EngNumber,
+                Make = vehicleDto.Make,
+                Model = vehicleDto.Model,
+                Cc = vehicleDto.Cc,
+                VehicleOf = vehicleDto.VehicleOf,
+                Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null
+            };
+            if (vehicleDto.VehiclePhoto != null)
+            {
+                vehicle.VehiclePhoto = Utils.saveImg(vehicleDto.VehiclePhoto, "VP");
+            }
+            if (vehicleDto.RcImage != null)
+            {
+                vehicle.RcImage = Utils.saveImg(vehicleDto.RcImage, "RC");
+            }
+            if (vehicleDto.InsuranceImage != null)
+            {
+                vehicle.InsuranceImage = Utils.saveImg(vehicleDto.InsuranceImage, "IC");
+            }
+            if (vehicleDto.FcImage != null)
+            {
+                vehicle.FcImage = Utils.saveImg(vehicleDto.FcImage, "FC");
+            }
 
-        _context.VehicleDocs.AddRange(vehicleDocs);
-        await _context.SaveChangesAsync();
-    }
-}
+            // ✅ Save vehicle first to generate VehicleId
+            _context.Vehicles.Add(vehicle);
+            await _context.SaveChangesAsync();
+            return true;
+        }
 
-        public async Task UpdateVehicleAsync([FromForm]int vehicleId, VehicleDTO vehicleDto)
+        public async Task UpdateVehicleAsync([FromForm] int vehicleId, VehicleDTO vehicleDto)
         {
             var vehicle = await _context.Vehicles.FindAsync(vehicleId);
             if (vehicle == null) throw new KeyNotFoundException("Vehicle not found");
@@ -105,7 +112,7 @@ namespace infinitemoto.Services
             vehicle.FcUpto = DateOnly.FromDateTime(vehicleDto.FcUpto);
             vehicle.EngNumber = vehicleDto.EngNumber;
             vehicle.Make = vehicleDto.Make;
-            vehicle.Model = vehicleDto.Model;
+            vehicle.Model = vehicleDto.Model;   
             vehicle.Cc = vehicleDto.Cc;
             vehicle.VehicleOf = vehicleDto.VehicleOf;
             vehicle.Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null;
@@ -122,41 +129,36 @@ namespace infinitemoto.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync (string? searchWord, int? vehicleOf = null, bool? status = null)
-    {
-        var query = _context.Vehicles
-                            .Include(v => v.VehicleDoc)  
-                            .AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(searchWord))
+        public async Task<IEnumerable<VehicleDTO>> SearchVehiclesAsync(string? searchWord, int? vehicleOf = null, bool? status = null)
         {
-            query = query.Where(v => v.Make.Contains(searchWord) || v.Model.Contains(searchWord) || v.RegNumb.ToString().Contains(searchWord));
+            var query = _context.Vehicles
+                                .Include(v => v.VehicleDoc)
+                                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchWord))
+            {
+                query = query.Where(v => v.Make.Contains(searchWord) || v.Model.Contains(searchWord) || v.RegNumb.ToString().Contains(searchWord));
+            }
+
+            if (vehicleOf.HasValue)
+            {
+                query = query.Where(v => v.VehicleOf == vehicleOf.Value);
+            }
+
+            var vehicles = await query
+                                .Select(v => new VehicleDTO
+                                {
+                                    VehicleId = v.VehicleId,
+                                    RegNumb = v.RegNumb,
+                                    ChasisNumb = v.ChasisNumb,
+                                    Make = v.Make,
+                                    Model = v.Model,
+                                    VehicleOf = v.VehicleOf,
+
+                                })
+                                .ToListAsync();
+
+            return vehicles;
         }
-
-        if (vehicleOf.HasValue)
-        {
-            query = query.Where(v => v.VehicleOf == vehicleOf.Value);
-        }
-
-        var vehicles = await query
-                            .Select(v => new VehicleDTO
-                            {
-                                VehicleId = v.VehicleId,
-                                RegNumb = v.RegNumb,
-                                ChasisNumb = v.ChasisNumb,
-                                Make = v.Make,
-                                Model = v.Model,
-                                VehicleOf = v.VehicleOf,
-                                
-                            })
-                            .ToListAsync();
-
-        return vehicles;
-    }
-
-        // public Task AddVehicleAsync(VehicleDTO vehicleDto)
-        // {
-        //     throw new NotImplementedException();
-        // }
     }
 }
