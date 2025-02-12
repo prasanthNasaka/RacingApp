@@ -35,7 +35,7 @@ public partial class Vehicle
 
     public DateOnly? IcUpto { get; set; }
 
-    public DateOnly? RcUpto { get; set; }
+    public DateOnly? RcUpto   { get; set; }
 
     public virtual VehicleDoc? VehicleDoc { get; set; }
 }

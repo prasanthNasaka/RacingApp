@@ -15,7 +15,7 @@ public partial class DummyProjectSqlContext : DbContext
     {
     }
 
-    public virtual DbSet<Account> Accounts { get; set; }
+      public virtual DbSet<Account> Accounts { get; set; }
 
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
