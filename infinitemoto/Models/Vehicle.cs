@@ -11,8 +11,6 @@ public partial class Vehicle
 
     public string ChasisNumb { get; set; } = null!;
 
-    public DateOnly FcUpto { get; set; }
-
     public string EngNumber { get; set; } = null!;
 
     public string Make { get; set; } = null!;
@@ -31,7 +29,13 @@ public partial class Vehicle
 
     public string? InsuranceImage { get; set; }
 
-    public string? FcImage { get; set; }
+    public string? RcNum { get; set; }
+
+    public string? IcNum { get; set; }
+
+    public DateOnly? IcUpto { get; set; }
+
+    public DateOnly? RcUpto { get; set; }
 
     public virtual VehicleDoc? VehicleDoc { get; set; }
 }
