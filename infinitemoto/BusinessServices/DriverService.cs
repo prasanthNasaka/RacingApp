@@ -151,7 +151,7 @@ public class DriverService : IDriverService
                                 FmsciNumb = d.FmsciNumb,
                                 //FmsciValidTill = d.FmsciValidTill,
                                 DlNumb = d.DlNumb,
-                                DriverPhoto= d.DriverPhoto
+                                DriverPhoto= d.DriverPhoto 
                                                         })
                             .ToListAsync();
 

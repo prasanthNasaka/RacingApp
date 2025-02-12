@@ -132,7 +132,7 @@ public class vehiclescrDto : IvehiclescrDto
     public string EngNumber { get; set; }
     public string Make { get; set; }
     public string Model { get; set; }
-    public string Cc { get; set; }
+    public string Cc { get; set; } 
 
     public string VehiclePhoto { get; set; }
 

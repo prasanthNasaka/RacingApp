@@ -28,7 +28,7 @@ public interface IEventregistrationReqDto
     string Bankname { get; set; }
 
     string Ifsccode { get; set; } 
-
+ 
     string Accountname { get; set; }
     string Accountnum { get; set; }
 

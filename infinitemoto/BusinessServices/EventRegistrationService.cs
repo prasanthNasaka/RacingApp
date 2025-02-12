@@ -12,7 +12,7 @@ namespace infinitemoto.Services
     {
         private readonly DummyProjectSqlContext _context;
 
-        public EventRegistrationService(DummyProjectSqlContext context)
+        public EventRegistrationService(DummyProjectSqlContext context) 
         {
             _context = context;
         } 

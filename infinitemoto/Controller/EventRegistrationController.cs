@@ -22,7 +22,7 @@ namespace infinitemoto.Controllers
         public async Task<ActionResult<IEnumerable<EventregistrationResDto>>> GetAllEvents()
         {
             var events = await _eventService.GetAllEventsAsync();
-            return Ok(events);
+            return Ok(events); 
         }
 
         [HttpGet("{id}")]

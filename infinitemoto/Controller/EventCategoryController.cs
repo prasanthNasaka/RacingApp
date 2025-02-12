@@ -42,7 +42,7 @@ public class EventCategoryController : ControllerBase
     {
         var created = await _eventCategoryService.CreateEventCategoryAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.EvtCatId }, created);
-    }
+    } 
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, EventCategoryCreateDto dto)

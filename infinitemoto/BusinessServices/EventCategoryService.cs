@@ -17,7 +17,7 @@ public class EventCategoryService : IEventCategoryService
         _context = context;
     }
 
-    public async Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync(int event_id = 0) 
+    public async Task<IEnumerable<EventCategorygetDto>> GetAllEventCategoriesAsync(int event_id = 0)  
     {
         if(event_id > 0 )
         {

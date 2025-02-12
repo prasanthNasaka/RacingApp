@@ -178,7 +178,7 @@ namespace infinitemoto.Services
                     Make = v.Make,
                     Model = v.Model,
                     Cc = v.Cc,
-                    VehiclePhoto = v.VehiclePhoto,
+                    VehiclePhoto = v.VehiclePhoto, 
                     //VehicleOf = v.VehicleOf
                 })
                 .ToListAsync();
