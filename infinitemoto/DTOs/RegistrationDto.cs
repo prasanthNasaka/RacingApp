@@ -77,14 +77,14 @@ namespace infinitemoto.DTOs
 
         string ReferenceNo { get; set; }
 
-        string RaceStatus { get; set; }
+        // string RaceStatus { get; set; }
 
-        DateTime? ScrutinyDone { get; set; }
+        // DateTime? ScrutinyDone { get; set; }
 
-        DateTime? AddDate { get; set; }
+        // DateTime? AddDate { get; set; }
 
-        int? AddBy { get; set; }
-        int? UpdatedBy { get; set; }
+        // int? AddBy { get; set; }
+        // int? UpdatedBy { get; set; }
 
     }
 
@@ -107,15 +107,15 @@ public class RegistrationresDto : IRegistrationresDto
 
     public string ReferenceNo { get; set; } = null!;
 
-    public string RaceStatus { get; set; } = null!;
+    // public string RaceStatus { get; set; } = null!;
 
-       public DateTime? ScrutinyDone { get; set; }
+    //    public DateTime? ScrutinyDone { get; set; }
 
-    public DateTime? AddDate { get; set; }
+    // public DateTime? AddDate { get; set; }
 
-    public int? AddBy { get; set; }
+    // public int? AddBy { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    // public int? UpdatedBy { get; set; }
 
     }
 }
