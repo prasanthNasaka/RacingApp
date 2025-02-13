@@ -46,9 +46,9 @@ namespace infinitemoto.Controllers
         // }
 
          [HttpPost]
-        public async Task<IActionResult> AddEvent ( EventregistrationReqDto eventDto)
+        public async Task<IActionResult> AddEvent ( [FromBody] EventregistrationReqDto eventDto, [FromForm] IFormFile? banner, [FromForm] IFormFile? qrpath)
         {
-            var isAdded = await _eventService.AddEventAsync(eventDto);
+            var isAdded = await _eventService.AddEventAsync(eventDto, banner, qrpath);
             if (isAdded)
             {
                 return Created("Event created successfully", eventDto);
