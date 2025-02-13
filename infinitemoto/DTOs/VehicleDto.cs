@@ -29,7 +29,7 @@ namespace infinitemoto.DTOs
         IFormFile InsuranceImage { get; set; }
 
        // IFormFile FcImage { get; set; }
-        EventStatus Status { get; set; }
+        bool Status { get; set; }
         // List< VehicleDocDTO?> VehicleDoc{get;set;}
     }
     public class VehicleDTO : IVehicleDto
@@ -50,7 +50,7 @@ namespace infinitemoto.DTOs
 
         //public IFormFile FcImage { get; set; }
         //[JsonConverter(typeof(JsonStringEnumConverter))] 
-        public EventStatus Status { get; set; }
+        public bool Status { get; set; }
 
        public string? RcNum { get; set; }
         public string? IcNum { get; set; }
@@ -84,7 +84,7 @@ namespace infinitemoto.DTOs
         DateOnly? RcUpto { get; set; }
 
         //string FcImage { get; set; }
-        EventStatus Status { get; set; }
+        bool? Status { get; set; }
         // List< VehicleDocDTO?> VehicleDoc{get;set;}
     }
 
@@ -108,7 +108,7 @@ namespace infinitemoto.DTOs
        public  DateOnly? IcUpto { get; set; }
        public DateOnly? RcUpto { get; set; }
         //public string FcImage { get ; set ; }
-        public EventStatus Status { get ; set ; }
+        public bool? Status { get ; set ; }
     }
 
 public interface IvehiclescrDto
