@@ -20,6 +20,7 @@ namespace infinitemoto.Services
         public async Task<IEnumerable<EventregistrationResDto>> GetAllEventsAsync()
         {
             return await _context.Eventregistrations
+            .Include(e => e.Eventcategories)
                 .Select(e => new EventregistrationResDto
                 {
                     Eventid = e.Eventid,
@@ -36,13 +37,19 @@ namespace infinitemoto.Services
                     Accountname = e.Accountname,
                     Accountnum = e.Accountnum,
                     Qrpath = e.Qrpath,
-                    Companyid = e.Companyid
+                    Companyid = e.Companyid,
+
                 }).ToListAsync();
+
         }
 
         public async Task<EventregistrationResDto?> GetEventByIdAsync(int eventId)
         {
-            var eventEntity = await _context.Eventregistrations.FindAsync(eventId);
+            var eventEntity = await _context
+                                    .Eventregistrations
+                                    .Include(e => e.Eventcategories)
+                                    .FirstOrDefaultAsync(e => e.Eventid == eventId);
+                                    
             if (eventEntity == null)
                 return null;
 
@@ -62,11 +69,24 @@ namespace infinitemoto.Services
                 Accountname = eventEntity.Accountname,
                 Accountnum = eventEntity.Accountnum,
                 Qrpath = eventEntity.Qrpath,
-                Companyid = eventEntity.Companyid
+                Companyid = eventEntity.Companyid,
+
+                
+                lstcat = eventEntity.Eventcategories.Select(c => new EventCategoryCreateDto
+                {
+                    EvtCatId = c.EvtCatId,
+                    EvtCategory = c.EvtCategory,
+                    NoOfVeh = c.NoOfVeh,
+                    Status = c.Status,
+                    Nooflaps = c.Nooflaps,
+                    Entryprice = c.Entryprice,
+                    Wheelertype = c.Wheelertype,
+                    EventId = c.EventId
+                }).ToList()
             };
         }
 
-        public async Task<bool> AddEventAsync(EventregistrationReqDto eventDto)
+        public async Task<bool> AddEventAsync(EventregistrationReqDto eventDto,  IFormFile? banner, IFormFile? qrpath)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -85,8 +105,8 @@ namespace infinitemoto.Services
                     Accountname = eventDto.Accountname,
                     Accountnum = eventDto.Accountnum,
                     Companyid = eventDto.Companyid,
-                    Banner = Utils.saveImg(eventDto.Banner, "Banner"),
-                    Qrpath = Utils.saveImg(eventDto.Qrpath, "QR")
+                    Banner = banner!=null?Utils.saveImg(banner, "Banner"):"",
+                    Qrpath = qrpath!=null?Utils.saveImg(qrpath, "QR"):""
                 };
 
                 _context.Eventregistrations.Add(eventEntity);
@@ -137,14 +157,14 @@ namespace infinitemoto.Services
             eventEntity.Accountnum = eventDto.Accountnum;
             eventEntity.Companyid = eventDto.Companyid;
 
-            if (eventDto.Banner != null)
-            {
-                eventEntity.Banner = Utils.saveImg(eventDto.Banner, "Banner");
-            }
-            if (eventDto.Qrpath != null)
-            {
-                eventEntity.Qrpath = Utils.saveImg(eventDto.Qrpath, "QR");
-            }
+            // if (eventDto.Banner != null)
+            // {
+            //     eventEntity.Banner = Utils.saveImg(eventDto.Banner, "Banner");
+            // }
+            // if (eventDto.Qrpath != null)
+            // {
+            //     eventEntity.Qrpath = Utils.saveImg(eventDto.Qrpath, "QR");
+            // }
 
             await _context.SaveChangesAsync();
         }
