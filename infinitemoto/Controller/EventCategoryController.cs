@@ -25,7 +25,7 @@ public class EventCategoryController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll(int event_id=0)
     {
-        var result = await _eventCategoryService.GetAllEventCategoriesAsync();
+        var result = await _eventCategoryService.GetAllEventCategoriesAsync(event_id);
         return Ok(result);
     }
 
