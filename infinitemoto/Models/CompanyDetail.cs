@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace infinitemoto.Models;
 
-public partial class CompanyDetail
+public partial class Companydetail
 {
     public int Companyid { get; set; }
 

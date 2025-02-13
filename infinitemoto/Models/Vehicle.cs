@@ -35,7 +35,9 @@ public partial class Vehicle
 
     public DateOnly? IcUpto { get; set; }
 
-    public DateOnly? RcUpto   { get; set; }
+    public DateOnly? RcUpto { get; set; }
+
+    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
 
     public virtual VehicleDoc? VehicleDoc { get; set; }
 }

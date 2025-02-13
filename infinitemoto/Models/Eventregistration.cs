@@ -35,7 +35,9 @@ public partial class Eventregistration
 
     public string? Isactive { get; set; }
 
-    public virtual CompanyDetail Company { get; set; } = null!;
+    public virtual Companydetail Company { get; set; } = null!;
 
     public virtual ICollection<Eventcategory> Eventcategories { get; set; } = new List<Eventcategory>();
+
+    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
 }

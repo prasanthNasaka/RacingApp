@@ -22,4 +22,6 @@ public partial class Eventcategory
     public int? EventId { get; set; }
 
     public virtual Eventregistration? Event { get; set; }
+
+    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
 }

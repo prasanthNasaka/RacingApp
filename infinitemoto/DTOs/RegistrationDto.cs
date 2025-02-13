@@ -1,32 +1,121 @@
+using infinitemoto.Models;
+
 namespace infinitemoto.DTOs
 {
 
-    public interface IRegistrationDto
+    public interface IRegistrationreqDto
     {
-         int Id { get; set; }
-         string Name { get; set; }
-         DateTime DOB { get; set; }
-         string BloodGroup { get; set; }
-         string DrivingLicense { get; set; }
-         DateTime DrivingLicenseValidTill { get; set; }
-         string FMSCI_License { get; set; }
-         DateTime FMSCI_LicenseValidTill { get; set; }
-         string Phone { get; set; }
-         string Email { get; set; }
-         string Image { get; set; }
+        //int RegId { get; set; }
+
+        int VechId { get; set; }
+
+        int DriverId { get; set; }
+
+        int EventId { get; set; }
+
+        int EventcategoryId { get; set; }
+
+        int ContestantNo { get; set; }
+
+        bool AmountPaid { get; set; }
+
+        string ReferenceNo { get; set; }
+
+        DateTime? ScrutinyDone { get; set; }
+
+        DateTime? AddDate { get; set; }
+
+        int? AddBy { get; set; }
+        int? UpdatedBy { get; set; }
+         
     }
-      public class RegistrationDto:IRegistrationDto
+      public class RegistrationreqDto:IRegistrationreqDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DOB { get; set; }
-        public string BloodGroup { get; set; }
-        public string DrivingLicense { get; set; }
-        public DateTime DrivingLicenseValidTill { get; set; }
-        public string FMSCI_License { get; set; }
-        public DateTime FMSCI_LicenseValidTill { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Image { get; set; }
+        //public int RegId { get; set; }
+
+        public int VechId { get; set; }
+
+        public int DriverId { get; set; }
+
+        public int EventId { get; set; }
+
+        public int EventcategoryId { get; set; }
+
+        public int ContestantNo { get; set; }
+
+        public bool AmountPaid { get; set; }
+
+        public string ReferenceNo { get; set; } = null!;
+
+        public string RaceStatus { get; set; } = null!;
+
+           public DateTime? ScrutinyDone { get; set; }
+
+    public DateTime? AddDate { get; set; }
+
+    public int? AddBy { get; set; }
+
+    public int? UpdatedBy { get; set; }
+
+    }
+
+    public interface IRegistrationresDto
+    {
+        int RegId { get; set; }
+
+        int VechId { get; set; }
+
+        int DriverId { get; set; }
+
+        int EventId { get; set; }
+
+        int EventcategoryId { get; set; }
+
+        int ContestantNo { get; set; }
+
+        bool AmountPaid { get; set; }
+
+        string ReferenceNo { get; set; }
+
+        string RaceStatus { get; set; }
+
+        DateTime? ScrutinyDone { get; set; }
+
+        DateTime? AddDate { get; set; }
+
+        int? AddBy { get; set; }
+        int? UpdatedBy { get; set; }
+
+    }
+
+public class RegistrationresDto : IRegistrationresDto
+
+{
+    public int RegId { get; set; }
+
+    public int VechId { get; set; }
+
+    public int DriverId { get; set; }
+
+    public int EventId { get; set; }
+
+    public int EventcategoryId { get; set; }
+
+    public int ContestantNo { get; set; }
+
+    public bool AmountPaid { get; set; }
+
+    public string ReferenceNo { get; set; } = null!;
+
+    public string RaceStatus { get; set; } = null!;
+
+       public DateTime? ScrutinyDone { get; set; }
+
+    public DateTime? AddDate { get; set; }
+
+    public int? AddBy { get; set; }
+
+    public int? UpdatedBy { get; set; }
+
     }
 }

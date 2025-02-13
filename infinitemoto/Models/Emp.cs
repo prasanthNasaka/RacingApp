@@ -24,6 +24,4 @@ public partial class Emp
     public string? Location { get; set; }
 
     public virtual Account? Acc { get; set; }
-
-    public virtual Company? Com { get; set; }
 }

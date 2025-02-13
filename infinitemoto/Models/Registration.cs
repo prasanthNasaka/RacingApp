@@ -5,25 +5,37 @@ namespace infinitemoto.Models;
 
 public partial class Registration
 {
-    public int Id { get; set; }
+    public int RegId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public int VechId { get; set; }
 
-    public DateTime Dob { get; set; }
+    public int DriverId { get; set; }
 
-    public string BloodGroup { get; set; } = null!;
+    public int EventId { get; set; }
 
-    public string DrivingLicense { get; set; } = null!;
+    public int EventcategoryId { get; set; }
 
-    public DateTime DrivingLicenseValidTill { get; set; }
+    public int ContestantNo { get; set; }
 
-    public string FmsciLicense { get; set; } = null!;
+    public bool AmountPaid { get; set; }
 
-    public DateTime FmsciLicenseValidTill { get; set; }
+    public string ReferenceNo { get; set; } = null!;
 
-    public string Phone { get; set; } = null!;
+    public string RaceStatus { get; set; } = null!;
 
-    public string Email { get; set; } = null!;
+    public DateTime? ScrutinyDone { get; set; }
 
-    public string Image { get; set; } = null!;
+    public DateTime? AddDate { get; set; }
+
+    public int? AddBy { get; set; }
+
+    public int? UpdatedBy { get; set; }
+
+    public virtual Driver Driver { get; set; } = null!;
+
+    public virtual Eventregistration Event { get; set; } = null!;
+
+    public virtual Eventcategory Eventcategory { get; set; } = null!;
+
+    public virtual Vehicle Vech { get; set; } = null!;
 }
