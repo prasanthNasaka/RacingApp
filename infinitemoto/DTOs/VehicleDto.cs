@@ -115,7 +115,7 @@ public interface IvehiclescrDto
 {
     string RegNumb { get; set; }
 
-    int vechicleId{get;set;}
+     int VehicleId { get ; set ; }
     // string ChasisNumb { get; set; }
     // string EngNumber { get; set; }
     string Make { get; set; }
@@ -130,7 +130,7 @@ public interface IvehiclescrDto
 public class vehiclescrDto : IvehiclescrDto
 {
     public string RegNumb { get; set; }
-    public int vechicleId{get;set;}
+    public int VehicleId { get ; set ; }
 
     // public string ChasisNumb  { get; set; }
     // public string EngNumber { get; set; }

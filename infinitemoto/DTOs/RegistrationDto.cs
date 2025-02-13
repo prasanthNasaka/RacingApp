@@ -47,7 +47,7 @@ namespace infinitemoto.DTOs
 
         public string ReferenceNo { get; set; } = null!;
 
-    //     public string RaceStatus { get; set; } = null!;
+    //     public string RaceStatus { get; set; } = null!; 
 
     //        public DateTime? ScrutinyDone { get; set; }
 

@@ -98,7 +98,7 @@ namespace infinitemoto.Services
                 // ScrutinyDone = registration.ScrutinyDone,
                 // AddDate = registration.AddDate,
                 // AddBy = registration.AddBy,
-                // UpdatedBy = registration.UpdatedBy
+                // UpdatedBy = registration.UpdatedBy 
             };
         }
     }
