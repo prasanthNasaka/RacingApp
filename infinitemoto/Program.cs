@@ -40,7 +40,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserInfoServices, UserInfoServices>();
 builder.Services.AddScoped<IUserInfoValidation, UserInfoValidation>();
 builder.Services.AddScoped<IJwtService, JwtService>();  // Register JwtService for JWT handling
-builder.Services.AddScoped<IRegistrationDto, RegistrationDto>();
+ builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IRegistrationreqDto, RegistrationreqDto>();
+builder.Services.AddScoped<IRegistrationresDto, RegistrationresDto>();
 builder.Services.AddScoped<IEventregistrationReqDto, EventregistrationReqDto>();
 builder.Services.AddScoped<IEventCategoryService, EventCategoryService>();
 builder.Services.AddScoped<IVehicleDto, VehicleDTO>();

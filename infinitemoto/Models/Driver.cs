@@ -35,5 +35,7 @@ public partial class Driver
 
     public bool Status { get; set; }
 
+    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+
     public virtual Team? TeammemberofNavigation { get; set; }
 }

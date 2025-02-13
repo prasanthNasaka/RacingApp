@@ -173,8 +173,8 @@ namespace infinitemoto.Services
                 .Select(v => new vehiclescrDto
                 {
                     RegNumb = v.RegNumb,
-                    ChasisNumb = v.ChasisNumb,
-                    EngNumber = v.EngNumber,
+                    // ChasisNumb = v.ChasisNumb,
+                    // EngNumber = v.EngNumber,
                     Make = v.Make,
                     Model = v.Model,
                     Cc = v.Cc,

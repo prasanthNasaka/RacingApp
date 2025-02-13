@@ -15,13 +15,11 @@ public partial class DummyProjectSqlContext : DbContext
     {
     }
 
-      public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<Account> Accounts { get; set; }
 
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
-    public virtual DbSet<Company> Companies { get; set; }
-
-    public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
+    public virtual DbSet<Companydetail> Companydetails { get; set; }
 
     public virtual DbSet<Driver> Drivers { get; set; }
 
@@ -88,28 +86,11 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("rolename");
         });
 
-        modelBuilder.Entity<Company>(entity =>
-        {
-            entity.HasKey(e => e.ComId).HasName("company_pkey");
-
-            entity.ToTable("company");
-
-            entity.Property(e => e.ComId).HasColumnName("com_id");
-            entity.Property(e => e.ComName)
-                .HasMaxLength(100)
-                .HasColumnName("com_name");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
-            entity.Property(e => e.Location)
-                .HasMaxLength(100)
-                .HasColumnName("location");
-            entity.Property(e => e.Phone).HasColumnName("phone");
-        });
-
-        modelBuilder.Entity<CompanyDetail>(entity =>
+        modelBuilder.Entity<Companydetail>(entity =>
         {
             entity.HasKey(e => e.Companyid).HasName("companydetails_pk");
+
+            entity.ToTable("companydetails");
 
             entity.Property(e => e.Companyid)
                 .UseIdentityAlwaysColumn()
@@ -186,10 +167,6 @@ public partial class DummyProjectSqlContext : DbContext
             entity.HasOne(d => d.Acc).WithMany(p => p.Emps)
                 .HasForeignKey(d => d.AccId)
                 .HasConstraintName("emp_acc_id_fkey");
-
-            entity.HasOne(d => d.Com).WithMany(p => p.Emps)
-                .HasForeignKey(d => d.ComId)
-                .HasConstraintName("emp_com_id_fkey");
         });
 
         modelBuilder.Entity<Eventcategory>(entity =>
@@ -259,9 +236,51 @@ public partial class DummyProjectSqlContext : DbContext
 
         modelBuilder.Entity<Registration>(entity =>
         {
-            entity.Property(e => e.Dob).HasColumnName("DOB");
-            entity.Property(e => e.FmsciLicense).HasColumnName("FMSCI_License");
-            entity.Property(e => e.FmsciLicenseValidTill).HasColumnName("FMSCI_LicenseValidTill");
+            entity.HasKey(e => e.RegId).HasName("registration_pkey");
+
+            entity.ToTable("registration");
+
+            entity.HasIndex(e => e.ReferenceNo, "registration_reference_no_key").IsUnique();
+
+            entity.Property(e => e.RegId).HasColumnName("reg_id");
+            entity.Property(e => e.AddBy).HasColumnName("add_by");
+            entity.Property(e => e.AddDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("add_date");
+            entity.Property(e => e.AmountPaid).HasColumnName("amount_paid");
+            entity.Property(e => e.ContestantNo).HasColumnName("contestant_no");
+            entity.Property(e => e.DriverId).HasColumnName("driver_id");
+            entity.Property(e => e.EventId).HasColumnName("event_id");
+            entity.Property(e => e.EventcategoryId).HasColumnName("eventcategory_id");
+            entity.Property(e => e.RaceStatus)
+                .HasMaxLength(50)
+                .HasColumnName("race_status");
+            entity.Property(e => e.ReferenceNo)
+                .HasMaxLength(50)
+                .HasColumnName("reference_no");
+            entity.Property(e => e.ScrutinyDone)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("scrutiny_done");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+            entity.Property(e => e.VechId).HasColumnName("vech_id");
+
+            entity.HasOne(d => d.Driver).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.DriverId)
+                .HasConstraintName("fk_driver");
+
+            entity.HasOne(d => d.Event).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.EventId)
+                .HasConstraintName("fk_event");
+
+            entity.HasOne(d => d.Eventcategory).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.EventcategoryId)
+                .HasConstraintName("fk_eventcategory");
+
+            entity.HasOne(d => d.Vech).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.VechId)
+                .HasConstraintName("fk_vech");
         });
 
         modelBuilder.Entity<Scrutinyrule>(entity =>
