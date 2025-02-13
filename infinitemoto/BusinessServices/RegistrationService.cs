@@ -24,15 +24,15 @@ namespace infinitemoto.Services
                 ContestantNo = dto.ContestantNo,
                 AmountPaid = dto.AmountPaid,
                 ReferenceNo = dto.ReferenceNo,
-                RaceStatus = dto.RaceStatus,
-                ScrutinyDone = dto.ScrutinyDone.HasValue
-                                                        ? DateTime.SpecifyKind(dto.ScrutinyDone.Value, DateTimeKind.Unspecified)
-                                                        : null,
-                AddDate = dto.AddDate.HasValue
-                                                        ? DateTime.SpecifyKind(dto.AddDate.Value, DateTimeKind.Unspecified)
-                                                        : DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
-                AddBy = dto.AddBy,
-                UpdatedBy = dto.UpdatedBy
+                // RaceStatus = dto.RaceStatus,
+                // ScrutinyDone = dto.ScrutinyDone.HasValue
+                //                                         ? DateTime.SpecifyKind(dto.ScrutinyDone.Value, DateTimeKind.Unspecified)
+                //                                         : null,
+                // AddDate = dto.AddDate.HasValue
+                //                                         ? DateTime.SpecifyKind(dto.AddDate.Value, DateTimeKind.Unspecified)
+                //                                         : DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
+                // AddBy = dto.AddBy,
+                // UpdatedBy = dto.UpdatedBy
             };
 
             _context.Registrations.Add(registration);
@@ -48,11 +48,11 @@ namespace infinitemoto.Services
                 ContestantNo = registration.ContestantNo,
                 AmountPaid = registration.AmountPaid,
                 ReferenceNo = registration.ReferenceNo,
-                RaceStatus = registration.RaceStatus,
-                ScrutinyDone = registration.ScrutinyDone,
-                AddDate = registration.AddDate,
-                AddBy = registration.AddBy,
-                UpdatedBy = registration.UpdatedBy
+                // RaceStatus = registration.RaceStatus,
+                // ScrutinyDone = registration.ScrutinyDone,
+                // AddDate = registration.AddDate,
+                // AddBy = registration.AddBy,
+                // UpdatedBy = registration.UpdatedBy
             };
         }
 
@@ -70,11 +70,11 @@ namespace infinitemoto.Services
                 ContestantNo = r.ContestantNo,
                 AmountPaid = r.AmountPaid,
                 ReferenceNo = r.ReferenceNo,
-                RaceStatus = r.RaceStatus,
-                ScrutinyDone = r.ScrutinyDone,
-                AddDate = r.AddDate,
-                AddBy = r.AddBy,
-                UpdatedBy = r.UpdatedBy
+                // RaceStatus = r.RaceStatus,
+                // ScrutinyDone = r.ScrutinyDone,
+                // AddDate = r.AddDate,
+                // AddBy = r.AddBy,
+                // UpdatedBy = r.UpdatedBy
             });
         }
 
@@ -94,11 +94,11 @@ namespace infinitemoto.Services
                 ContestantNo = registration.ContestantNo,
                 AmountPaid = registration.AmountPaid,
                 ReferenceNo = registration.ReferenceNo,
-                RaceStatus = registration.RaceStatus,
-                ScrutinyDone = registration.ScrutinyDone,
-                AddDate = registration.AddDate,
-                AddBy = registration.AddBy,
-                UpdatedBy = registration.UpdatedBy
+                // RaceStatus = registration.RaceStatus,
+                // ScrutinyDone = registration.ScrutinyDone,
+                // AddDate = registration.AddDate,
+                // AddBy = registration.AddBy,
+                // UpdatedBy = registration.UpdatedBy 
             };
         }
     }
