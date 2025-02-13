@@ -25,8 +25,12 @@ namespace infinitemoto.Services
                 AmountPaid = dto.AmountPaid,
                 ReferenceNo = dto.ReferenceNo,
                 RaceStatus = dto.RaceStatus,
-                ScrutinyDone = dto.ScrutinyDone,
-                AddDate = dto.AddDate ?? DateTime.UtcNow,
+                ScrutinyDone = dto.ScrutinyDone.HasValue
+                                                        ? DateTime.SpecifyKind(dto.ScrutinyDone.Value, DateTimeKind.Unspecified)
+                                                        : null,
+                AddDate = dto.AddDate.HasValue
+                                                        ? DateTime.SpecifyKind(dto.AddDate.Value, DateTimeKind.Unspecified)
+                                                        : DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
                 AddBy = dto.AddBy,
                 UpdatedBy = dto.UpdatedBy
             };
