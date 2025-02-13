@@ -114,6 +114,8 @@ namespace infinitemoto.DTOs
 public interface IvehiclescrDto
 {
     string RegNumb { get; set; }
+
+    int vechicleId{get;set;}
     // string ChasisNumb { get; set; }
     // string EngNumber { get; set; }
     string Make { get; set; }
@@ -128,6 +130,8 @@ public interface IvehiclescrDto
 public class vehiclescrDto : IvehiclescrDto
 {
     public string RegNumb { get; set; }
+    public int vechicleId{get;set;}
+
     // public string ChasisNumb  { get; set; }
     // public string EngNumber { get; set; }
     public string Make { get; set; }
