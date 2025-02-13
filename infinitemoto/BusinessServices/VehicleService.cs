@@ -41,7 +41,7 @@ namespace infinitemoto.Services
                     InsuranceImage = v.InsuranceImage,// != null ? Convert.ToBase64String(v.InsuranceImage) : null, // Convert byte[] to base64 string
                     //FcImage = v.FcImage,//!= null ? Convert.ToBase64String(v.FcImage) : null, // Convert byte[] to base64 string
 
-                    Status = v.Status.HasValue && v.Status.Value ? EventStatus.active : EventStatus.Inactive
+                    Status = v.Status,//.HasValue && v.Status.Value ? EventStatus.active : EventStatus.Inactive
                 }).ToListAsync();
         }
 
@@ -89,7 +89,7 @@ namespace infinitemoto.Services
                 RcUpto = DateOnly.FromDateTime(vehicleDto.RcUpto),
                 IcUpto = DateOnly.FromDateTime(vehicleDto.IcUpto),
                 VehicleOf = vehicleDto.VehicleOf,
-                Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null
+                Status = vehicleDto.Status,// == EventStatus.active ? true : (bool?)null
             };
             if (vehicleDto.VehiclePhoto != null)
             {
@@ -132,7 +132,7 @@ namespace infinitemoto.Services
             vehicle.IcUpto = DateOnly.FromDateTime(vehicleDto.IcUpto);
 
             vehicle.VehicleOf = vehicleDto.VehicleOf;
-            vehicle.Status = vehicleDto.Status == EventStatus.active ? true : (bool?)null;
+            vehicle.Status = vehicleDto.Status;// == EventStatus.active ? true : (bool?)null;
 
             await _context.SaveChangesAsync();
         }
