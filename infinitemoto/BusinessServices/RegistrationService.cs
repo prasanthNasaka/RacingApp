@@ -16,6 +16,7 @@ namespace infinitemoto.Services
         public async Task<RegistrationresDto> CreateRegistrationAsync(RegistrationreqDto dto)
         {
             var registration = new Registration
+
             {
                 VechId = dto.VechId,
                 DriverId = dto.DriverId,
@@ -58,7 +59,9 @@ namespace infinitemoto.Services
 
         public async Task<IEnumerable<RegistrationresDto>> GetAllRegistrationsAsync()
         {
-            var registrations = await _context.Registrations.ToListAsync();
+            var registrations = await _context.Registrations
+            .Include<Registration, Eventregistration>(r => r.Event)
+            .Include<Registration, Eventcategory>(r => r.Eventcategory).ToListAsync();
 
             return registrations.Select(r => new RegistrationresDto
             {
@@ -66,7 +69,9 @@ namespace infinitemoto.Services
                 VechId = r.VechId,
                 DriverId = r.DriverId,
                 EventId = r.EventId,
+                Eventname=r.Event.Eventname,
                 EventcategoryId = r.EventcategoryId,
+                EvtCategory=r.Eventcategory.EvtCategory,
                 ContestantNo = r.ContestantNo,
                 AmountPaid = r.AmountPaid,
                 ReferenceNo = r.ReferenceNo,
