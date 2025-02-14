@@ -23,7 +23,7 @@ namespace infinitemoto.Services
                 EventId = dto.EventId,
                 EventcategoryId = dto.EventcategoryId,
                 ContestantNo = dto.ContestantNo,
-                AmountPaid = dto.AmountPaid,
+                AmountPaid = dto.AmountPaid, 
                 ReferenceNo = dto.ReferenceNo,
                 // RaceStatus = dto.RaceStatus,
                 // ScrutinyDone = dto.ScrutinyDone.HasValue

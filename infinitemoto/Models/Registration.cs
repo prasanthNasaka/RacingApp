@@ -19,11 +19,11 @@ public partial class Registration
 
     public bool AmountPaid { get; set; }
 
-    public string ReferenceNo { get; set; } = null!;
+    public string? ReferenceNo { get; set; }
 
     public string? RaceStatus { get; set; }
 
-    public DateTime? ScrutinyDone { get; set; }
+    public DateTime? ScrutinyDone { get; set; } 
 
     public DateTime? AddDate { get; set; }
 
