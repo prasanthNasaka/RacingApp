@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using infinitemoto.Models;
 
 namespace infinitemoto.DTOs
@@ -27,9 +28,9 @@ namespace infinitemoto.DTOs
 
         // int? AddBy { get; set; }
         // int? UpdatedBy { get; set; }
-         
+
     }
-      public class RegistrationreqDto:IRegistrationreqDto
+    public class RegistrationreqDto : IRegistrationreqDto
     {
         //public int RegId { get; set; }
 
@@ -46,17 +47,17 @@ namespace infinitemoto.DTOs
         public bool AmountPaid { get; set; }
 
 
-        public string ReferenceNo { get; set; } = null!;
+        public string? ReferenceNo { get; set; } = null!;
 
-    //     public string RaceStatus { get; set; } = null!; 
+        //     public string RaceStatus { get; set; } = null!; 
 
-    //        public DateTime? ScrutinyDone { get; set; }
+        //        public DateTime? ScrutinyDone { get; set; }
 
-    // public DateTime? AddDate { get; set; }
+        // public DateTime? AddDate { get; set; }
 
-    // public int? AddBy { get; set; }
+        // public int? AddBy { get; set; }
 
-    // public int? UpdatedBy { get; set; }
+        // public int? UpdatedBy { get; set; }
 
     }
 
@@ -69,14 +70,16 @@ namespace infinitemoto.DTOs
         int DriverId { get; set; }
 
         int EventId { get; set; }
+        string Eventname { get; set; }
 
         int EventcategoryId { get; set; }
+        string EvtCategory { get; set; }
 
         int ContestantNo { get; set; }
 
         bool AmountPaid { get; set; }
 
-        string ReferenceNo { get; set; }
+        string? ReferenceNo { get; set; }
 
         // string RaceStatus { get; set; }
 
@@ -89,34 +92,36 @@ namespace infinitemoto.DTOs
 
     }
 
-public class RegistrationresDto : IRegistrationresDto
+    public class RegistrationresDto : IRegistrationresDto
 
-{
-    public int RegId { get; set; }
+    {
+        public int RegId { get; set; }
 
-    public int VechId { get; set; }
+        public int VechId { get; set; }
 
-    public int DriverId { get; set; }
+        public int DriverId { get; set; }
 
-    public int EventId { get; set; }
+        public int EventId { get; set; }
+        public string Eventname { get; set; }
 
-    public int EventcategoryId { get; set; }
+        public int EventcategoryId { get; set; }
 
-    public int ContestantNo { get; set; }
+        public string EvtCategory { get; set; }
+        public int ContestantNo { get; set; }
 
-    public bool AmountPaid { get; set; }
+        public bool AmountPaid { get; set; }
 
-    public string ReferenceNo { get; set; } = null!;
+        public string ReferenceNo { get; set; } = null!;
 
-    // public string RaceStatus { get; set; } = null!;
+        // public string RaceStatus { get; set; } = null!;
 
-    //    public DateTime? ScrutinyDone { get; set; }
+        //    public DateTime? ScrutinyDone { get; set; }
 
-    // public DateTime? AddDate { get; set; }
+        // public DateTime? AddDate { get; set; }
 
-    // public int? AddBy { get; set; }
+        // public int? AddBy { get; set; }
 
-    // public int? UpdatedBy { get; set; }
+        // public int? UpdatedBy { get; set; }
 
     }
 }

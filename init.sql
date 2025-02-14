@@ -356,3 +356,8 @@ INSERT INTO public.scrutinyrules (scrutiny_description) VALUES
 END $$;
 
 
+
+ALTER TABLE public.registration ALTER COLUMN reference_no DROP NOT NULL;
+
+
+
