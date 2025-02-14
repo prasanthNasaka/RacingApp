@@ -19,11 +19,13 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
 
+    public virtual DbSet<Company> Companies { get; set; }
+
     public virtual DbSet<Companydetail> Companydetails { get; set; }
 
     public virtual DbSet<Driver> Drivers { get; set; }
 
-    public virtual DbSet<Emp> Emps { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Eventcategory> Eventcategories { get; set; }
 
@@ -86,6 +88,34 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("rolename");
         });
 
+        modelBuilder.Entity<Company>(entity =>
+        {
+            entity.HasKey(e => e.CompanyId).HasName("company_pkey");
+
+            entity.ToTable("company");
+
+            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.City)
+                .HasMaxLength(100)
+                .HasColumnName("city");
+            entity.Property(e => e.CompanyName)
+                .HasMaxLength(255)
+                .HasColumnName("company_name");
+            entity.Property(e => e.Country)
+                .HasMaxLength(100)
+                .HasColumnName("country");
+            entity.Property(e => e.State)
+                .HasMaxLength(100)
+                .HasColumnName("state");
+            entity.Property(e => e.Street)
+                .HasMaxLength(255)
+                .HasColumnName("street");
+            entity.Property(e => e.Website)
+                .HasMaxLength(255)
+                .HasColumnName("website");
+            entity.Property(e => e.Zip).HasColumnName("zip");
+        });
+
         modelBuilder.Entity<Companydetail>(entity =>
         {
             entity.HasKey(e => e.Companyid).HasName("companydetails_pk");
@@ -142,13 +172,15 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasConstraintName("fk_tbl_teams");
         });
 
-        modelBuilder.Entity<Emp>(entity =>
+        modelBuilder.Entity<Employee>(entity =>
         {
             entity.HasKey(e => e.EmpId).HasName("emp_pkey");
 
-            entity.ToTable("emp");
+            entity.ToTable("employee");
 
-            entity.Property(e => e.EmpId).HasColumnName("emp_id");
+            entity.Property(e => e.EmpId)
+                .HasDefaultValueSql("nextval('emp_emp_id_seq'::regclass)")
+                .HasColumnName("emp_id");
             entity.Property(e => e.AccId).HasColumnName("acc_id");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.ComId).HasColumnName("com_id");
@@ -164,9 +196,10 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("location");
             entity.Property(e => e.Phone).HasColumnName("phone");
 
-            entity.HasOne(d => d.Acc).WithMany(p => p.Emps)
-                .HasForeignKey(d => d.AccId)
-                .HasConstraintName("emp_acc_id_fkey");
+            entity.HasOne(d => d.Com).WithMany(p => p.Employees)
+                .HasForeignKey(d => d.ComId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("emp_com_id_fkey");
         });
 
         modelBuilder.Entity<Eventcategory>(entity =>
@@ -239,8 +272,6 @@ public partial class DummyProjectSqlContext : DbContext
             entity.HasKey(e => e.RegId).HasName("registration_pkey");
 
             entity.ToTable("registration");
-
-            entity.HasIndex(e => e.ReferenceNo, "registration_reference_no_key").IsUnique();
 
             entity.Property(e => e.RegId).HasColumnName("reg_id");
             entity.Property(e => e.AddBy).HasColumnName("add_by");

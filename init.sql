@@ -361,3 +361,28 @@ ALTER TABLE public.registration ALTER COLUMN reference_no DROP NOT NULL;
 
 
 
+ALTER TABLE registration DROP CONSTRAINT registration_reference_no_key;
+
+
+ALTER TABLE emp RENAME TO employee;
+
+
+CREATE TABLE company (
+company_id SERIAL PRIMARY KEY,
+company_name VARCHAR(255) NOT NULL,
+    street VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    zip INT,
+    country VARCHAR(100),
+    website VARCHAR(255)
+);
+
+
+ALTER TABLE public.employee 
+ADD CONSTRAINT emp_com_id_fkey FOREIGN KEY (com_id) 
+REFERENCES public.company(company_id) ON DELETE CASCADE;
+
+
+ALTER TABLE public.employee DROP CONSTRAINT emp_acc_id_fkey;
+

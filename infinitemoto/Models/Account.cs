@@ -14,6 +14,4 @@ public partial class Account
     public string? PhoneNumber { get; set; }
 
     public int? Status { get; set; }
-
-    public virtual ICollection<Emp> Emps { get; set; } = new List<Emp>();
 }
