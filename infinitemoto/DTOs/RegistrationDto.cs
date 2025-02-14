@@ -10,7 +10,7 @@ namespace infinitemoto.DTOs
 
         int VechId { get; set; }
 
-        int DriverId { get; set; }
+        int DriverId { get; set; } 
 
         int EventId { get; set; }
 
