@@ -59,6 +59,13 @@ builder.Services.AddScoped<IEventRegistrationService, EventRegistrationService>(
 builder.Services.AddScoped<IEventregistrationResDto, EventregistrationResDto>();
 builder.Services.AddScoped<IEventcategoriesgetDto, EventCategorygetDto>();
 builder.Services.AddScoped<IEventCategoryCreateDto, EventCategoryCreateDto>();
+// builder.Services.AddScoped<>(IRegistrationreqDto, RegistrationreqDto);
+// builder.Services.AddScoped<IRegistrationresDto, RegistrationresDto>();
+builder.Services.AddScoped<ICompanyResponseDto, CompanyResponseDto>();
+builder.Services.AddScoped<ICompanyRequestDto, CompanyRequestDto>();
+builder.Services.AddScoped<IEmployeeRequestDto, EmployeeRequestDto>();
+builder.Services.AddScoped<IEmployeeResponseDto, EmployeeResponseDto>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 // error handling
 builder.Services.AddControllers().AddJsonOptions(options =>

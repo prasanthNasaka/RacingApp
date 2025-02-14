@@ -23,7 +23,7 @@ public partial class Registration
 
     public string? RaceStatus { get; set; }
 
-    public DateTime? ScrutinyDone { get; set; } 
+    public DateTime? ScrutinyDone { get; set; }
 
     public DateTime? AddDate { get; set; }
 

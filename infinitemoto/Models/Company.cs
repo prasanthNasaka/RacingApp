@@ -5,15 +5,21 @@ namespace infinitemoto.Models;
 
 public partial class Company
 {
-    public int ComId { get; set; }
+    public int CompanyId { get; set; }
 
-    public string? ComName { get; set; }
+    public string CompanyName { get; set; } = null!;
 
-    public string? Email { get; set; }
+    public string? Street { get; set; }
 
-    public int? Phone { get; set; }
+    public string? City { get; set; }
 
-    public string? Location { get; set; }
+    public string? State { get; set; }
 
-    public virtual ICollection<Emp> Emps { get; set; } = new List<Emp>();
+    public int? Zip { get; set; }
+
+    public string? Country { get; set; }
+
+    public string? Website { get; set; }
+
+    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 }
