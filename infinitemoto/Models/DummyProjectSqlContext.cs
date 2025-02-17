@@ -15,12 +15,6 @@ public partial class DummyProjectSqlContext : DbContext
     {
     }
 
-    public virtual DbSet<Account> Accounts { get; set; }
-
-    public virtual DbSet<Authenticationrole> Authenticationroles { get; set; }
-
-    public virtual DbSet<Company> Companies { get; set; }
-
     public virtual DbSet<Companydetail> Companydetails { get; set; }
 
     public virtual DbSet<Driver> Drivers { get; set; }
@@ -33,11 +27,13 @@ public partial class DummyProjectSqlContext : DbContext
 
     public virtual DbSet<Registration> Registrations { get; set; }
 
+    public virtual DbSet<Scrutineer> Scrutineers { get; set; }
+
+    public virtual DbSet<Scrutineydetail> Scrutineydetails { get; set; }
+
     public virtual DbSet<Scrutinyrule> Scrutinyrules { get; set; }
 
     public virtual DbSet<Team> Teams { get; set; }
-
-    public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Userinfo> Userinfos { get; set; }
 
@@ -55,46 +51,15 @@ public partial class DummyProjectSqlContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Account>(entity =>
-        {
-            entity.HasKey(e => e.AccId).HasName("accounts_pkey");
-
-            entity.ToTable("accounts");
-
-            entity.Property(e => e.AccId).HasColumnName("acc_id");
-            entity.Property(e => e.AccName)
-                .HasMaxLength(100)
-                .HasColumnName("acc_name");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(20)
-                .HasColumnName("phone_number");
-            entity.Property(e => e.Status).HasColumnName("status");
-        });
-
-        modelBuilder.Entity<Authenticationrole>(entity =>
-        {
-            entity.HasKey(e => e.Roleid).HasName("authenticationroles_pkey");
-
-            entity.ToTable("authenticationroles");
-
-            entity.Property(e => e.Roleid)
-                .ValueGeneratedNever()
-                .HasColumnName("roleid");
-            entity.Property(e => e.Rolename)
-                .HasMaxLength(50)
-                .HasColumnName("rolename");
-        });
-
-        modelBuilder.Entity<Company>(entity =>
+        modelBuilder.Entity<Companydetail>(entity =>
         {
             entity.HasKey(e => e.CompanyId).HasName("company_pkey");
 
-            entity.ToTable("company");
+            entity.ToTable("companydetails");
 
-            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.CompanyId)
+                .HasDefaultValueSql("nextval('company_company_id_seq'::regclass)")
+                .HasColumnName("company_id");
             entity.Property(e => e.City)
                 .HasMaxLength(100)
                 .HasColumnName("city");
@@ -114,20 +79,6 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("website");
             entity.Property(e => e.Zip).HasColumnName("zip");
-        });
-
-        modelBuilder.Entity<Companydetail>(entity =>
-        {
-            entity.HasKey(e => e.Companyid).HasName("companydetails_pk");
-
-            entity.ToTable("companydetails");
-
-            entity.Property(e => e.Companyid)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("companyid");
-            entity.Property(e => e.Companyname)
-                .HasColumnType("character varying")
-                .HasColumnName("companyname");
         });
 
         modelBuilder.Entity<Driver>(entity =>
@@ -281,6 +232,9 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("add_date");
             entity.Property(e => e.AmountPaid).HasColumnName("amount_paid");
             entity.Property(e => e.ContestantNo).HasColumnName("contestant_no");
+            entity.Property(e => e.DocumentStatus)
+                .HasDefaultValue(0)
+                .HasColumnName("document_status");
             entity.Property(e => e.DriverId).HasColumnName("driver_id");
             entity.Property(e => e.EventId).HasColumnName("event_id");
             entity.Property(e => e.EventcategoryId).HasColumnName("eventcategory_id");
@@ -290,10 +244,15 @@ public partial class DummyProjectSqlContext : DbContext
             entity.Property(e => e.ReferenceNo)
                 .HasMaxLength(50)
                 .HasColumnName("reference_no");
-            entity.Property(e => e.ScrutinyDone)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("scrutiny_done");
+            entity.Property(e => e.ScrutineerId).HasColumnName("scrutineer_id");
+            entity.Property(e => e.ScrutinyStatus)
+                .HasMaxLength(1)
+                .HasColumnName("scrutiny_status");
+            entity.Property(e => e.ScrutinyUpdatedDate).HasColumnName("scrutiny_updated_date");
+            entity.Property(e => e.Status)
+                .HasColumnType("character varying")
+                .HasColumnName("status");
+            entity.Property(e => e.UpdateDttm).HasColumnName("update_dttm");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.VechId).HasColumnName("vech_id");
 
@@ -309,24 +268,70 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasForeignKey(d => d.EventcategoryId)
                 .HasConstraintName("fk_eventcategory");
 
+            entity.HasOne(d => d.Scrutineer).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.ScrutineerId)
+                .HasConstraintName("registration_scrutineer_fk");
+
             entity.HasOne(d => d.Vech).WithMany(p => p.Registrations)
                 .HasForeignKey(d => d.VechId)
                 .HasConstraintName("fk_vech");
         });
 
+        modelBuilder.Entity<Scrutineer>(entity =>
+        {
+            entity.HasKey(e => e.ScrutineerId).HasName("scrutineer_pkey");
+
+            entity.ToTable("scrutineer");
+
+            entity.Property(e => e.ScrutineerId)
+                .ValueGeneratedNever()
+                .HasColumnName("scrutineer_id");
+            entity.Property(e => e.ScrutineerName)
+                .HasMaxLength(255)
+                .HasColumnName("scrutineer_name");
+        });
+
+        modelBuilder.Entity<Scrutineydetail>(entity =>
+        {
+            entity.HasKey(e => e.ScrutineydetailsId).HasName("scrutineydetails_pkey");
+
+            entity.ToTable("scrutineydetails");
+
+            entity.Property(e => e.ScrutineydetailsId)
+                .ValueGeneratedNever()
+                .HasColumnName("scrutineydetails_id");
+            entity.Property(e => e.Comment).HasColumnName("comment");
+            entity.Property(e => e.RegId).HasColumnName("reg_id");
+            entity.Property(e => e.ScrutineyruleId).HasColumnName("scrutineyrule_id");
+            entity.Property(e => e.Status)
+                .HasColumnType("character varying")
+                .HasColumnName("status");
+
+            entity.HasOne(d => d.Reg).WithMany(p => p.Scrutineydetails)
+                .HasForeignKey(d => d.RegId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("scrutineydetails_reg_id_fkey");
+
+            entity.HasOne(d => d.Scrutineyrule).WithMany(p => p.Scrutineydetails)
+                .HasForeignKey(d => d.ScrutineyruleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("scrutineydetails_scrutineyrule_id_fkey");
+        });
+
         modelBuilder.Entity<Scrutinyrule>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("scrutinyrules");
+            entity.HasKey(e => e.ScrutinyrulesId).HasName("pk_scrutinyrules");
 
+            entity.ToTable("scrutinyrules");
+
+            entity.HasIndex(e => e.ScrutinyrulesId, "scrutinyrules_id").IsUnique();
+
+            entity.Property(e => e.ScrutinyrulesId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("scrutinyrules_id");
             entity.Property(e => e.ScrutinyDescription)
                 .HasColumnType("character varying")
                 .HasColumnName("scrutiny_description");
-            entity.Property(e => e.ScrutinyId)
-                .ValueGeneratedOnAdd()
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("scrutiny_id");
         });
 
         modelBuilder.Entity<Team>(entity =>
@@ -342,13 +347,6 @@ public partial class DummyProjectSqlContext : DbContext
                 .HasColumnName("team_name");
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.Property(e => e.Role)
-                .HasMaxLength(50)
-                .HasDefaultValueSql("'User'::character varying");
-        });
-
         modelBuilder.Entity<Userinfo>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("userinfo_pkey");
@@ -359,16 +357,32 @@ public partial class DummyProjectSqlContext : DbContext
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Compid).HasColumnName("compid");
+            entity.Property(e => e.EmpId).HasColumnName("emp_id");
             entity.Property(e => e.IsActive)
                 .HasDefaultValue(true)
                 .HasColumnName("is_active");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");
+            entity.Property(e => e.Token).HasColumnType("character varying");
             entity.Property(e => e.Username)
                 .HasMaxLength(25)
                 .HasColumnName("username");
             entity.Property(e => e.Usertype).HasColumnName("usertype");
+
+            entity.HasOne(d => d.Comp).WithMany(p => p.Userinfos)
+                .HasForeignKey(d => d.Compid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("userinfo_companydetails_fk");
+
+            entity.HasOne(d => d.Emp).WithMany(p => p.Userinfos)
+                .HasForeignKey(d => d.EmpId)
+                .HasConstraintName("userinfo_employee_fk");
+
+            entity.HasOne(d => d.UsertypeNavigation).WithMany(p => p.Userinfos)
+                .HasForeignKey(d => d.Usertype)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("userinfo_userroles_fk");
         });
 
         modelBuilder.Entity<Userrole>(entity =>

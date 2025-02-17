@@ -412,6 +412,8 @@ company_name VARCHAR(255) NOT NULL,
 );
 
 
+
+
 ALTER TABLE public.employee 
 ADD CONSTRAINT emp_com_id_fkey FOREIGN KEY (com_id) 
 REFERENCES public.company(company_id) ON DELETE CASCADE;
@@ -419,3 +421,29 @@ REFERENCES public.company(company_id) ON DELETE CASCADE;
 
 ALTER TABLE public.employee DROP CONSTRAINT emp_acc_id_fkey;
 
+ALTER TABLE public.scrutinyrules 
+ADD CONSTRAINT pk_scrutinyrules PRIMARY KEY (scrutinyrules_id);
+
+
+ALTER TABLE public.scrutineydetails ALTER COLUMN reg_id SET NOT NULL;
+ALTER TABLE public.scrutineydetails ALTER COLUMN status SET NOT NULL;
+ALTER TABLE public.scrutineydetails ALTER COLUMN scrutineyrule_id SET NOT NULL;
+
+
+ALTER TABLE public.registration ALTER COLUMN race_status SET NOT NULL;
+ALTER TABLE public.registration ALTER COLUMN race_status SET DEFAULT 0;
+
+ALTER TABLE public.registration RENAME COLUMN scrutiny TO scrutiny_status;
+ALTER TABLE public.registration ADD document_status int DEFAULT 0 NOT NULL;
+ALTER TABLE public.registration DROP COLUMN scrutiny_done;
+ALTER TABLE public.registration ADD update_dttm date NULL;
+
+ALTER TABLE public.registration ADD CONSTRAINT registration_scrutineer_fk FOREIGN KEY (scrutineer_id) REFERENCES public.scrutineer(scrutineer_id);
+
+ALTER TABLE public.eventregistration ADD CONSTRAINT eventregistration_companydetails_fk FOREIGN KEY (companyid) REFERENCES public.companydetails(company_id);
+
+ALTER TABLE public.userinfo ADD "Token" varchar NULL;
+ALTER TABLE public.userinfo ADD emp_id int NULL;
+ALTER TABLE public.userinfo ADD CONSTRAINT userinfo_employee_fk FOREIGN KEY (emp_id) REFERENCES public.employee(emp_id);
+ALTER TABLE public.userinfo ADD CONSTRAINT userinfo_companydetails_fk FOREIGN KEY (compid) REFERENCES public.companydetails(company_id);
+ALTER TABLE public.userinfo ADD CONSTRAINT userinfo_userroles_fk FOREIGN KEY (usertype) REFERENCES public.userroles(roleid);

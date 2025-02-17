@@ -16,4 +16,14 @@ public partial class Userinfo
     public int Compid { get; set; }
 
     public bool IsActive { get; set; }
+
+    public string? Token { get; set; }
+
+    public int? EmpId { get; set; }
+
+    public virtual Companydetail Comp { get; set; } = null!;
+
+    public virtual Employee? Emp { get; set; }
+
+    public virtual Userrole UsertypeNavigation { get; set; } = null!;
 }

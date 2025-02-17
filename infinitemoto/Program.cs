@@ -66,6 +66,14 @@ builder.Services.AddScoped<ICompanyRequestDto, CompanyRequestDto>();
 builder.Services.AddScoped<IEmployeeRequestDto, EmployeeRequestDto>();
 builder.Services.AddScoped<IEmployeeResponseDto, EmployeeResponseDto>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IScrutineerreqDto, ScrutineerreqDto>();
+builder.Services.AddScoped<IScrutineerresDto, ScrutineerresDto>();
+builder.Services.AddScoped<IScrutineerService, ScrutineerService>();
+builder.Services.AddScoped<IEventCategoryService, EventCategoryService>();
+builder.Services.AddScoped<IEventCategoryCreateDto, EventCategoryCreateDto>();
+builder.Services.AddScoped<IScrutineydetailreqDto,ScrutineydetailreqDto>();
+builder.Services.AddScoped<IScrutineydetailresDto, ScrutineydetailresDto>();
+builder.Services.AddScoped<IScrutineydetailService, ScrutineydetailService>();
 
 // error handling
 builder.Services.AddControllers().AddJsonOptions(options =>

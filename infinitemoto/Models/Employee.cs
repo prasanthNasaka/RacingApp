@@ -23,5 +23,7 @@ public partial class Employee
 
     public string? Location { get; set; }
 
-    public virtual Company? Com { get; set; }
+    public virtual Companydetail? Com { get; set; }
+
+    public virtual ICollection<Userinfo> Userinfos { get; set; } = new List<Userinfo>();
 }
