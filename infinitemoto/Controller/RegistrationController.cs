@@ -22,11 +22,20 @@ namespace infinitemoto.Controllers
             return CreatedAtAction(nameof(GetRegistrationById), new { id = createdRegistration.RegId }, createdRegistration);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RegistrationresDto>>> GetAllRegistrations()
+        [HttpGet("event/{id}")]
+        public async Task<ActionResult<IEnumerable<RegistrationresDto>>> GetRegistrationByEventId(int id)
         {
-            return Ok(await _registrationService.GetAllRegistrationsAsync());
+            var registrations = await _registrationService.GetRegistrationsByEventIdAsync(id);
+
+            // If there are no registrations found, return a 404 Not Found
+            if (registrations == null || !registrations.Any())
+            {
+                return NotFound("No registrations found for the specified event.");
+            }
+
+            return Ok(registrations);  // Return the list of registrations with a 200 OK status
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<RegistrationresDto>> GetRegistrationById(int id)

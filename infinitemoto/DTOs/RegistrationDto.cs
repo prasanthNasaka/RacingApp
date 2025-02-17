@@ -10,7 +10,7 @@ namespace infinitemoto.DTOs
 
         int VechId { get; set; }
 
-        int DriverId { get; set; } 
+        int DriverId { get; set; }
 
         int EventId { get; set; }
 
@@ -81,6 +81,9 @@ namespace infinitemoto.DTOs
 
         string? ReferenceNo { get; set; }
 
+         string RegNumb { get; set; }
+        string Drivername { get; set; }
+
         // string RaceStatus { get; set; }
 
         // DateTime? ScrutinyDone { get; set; }
@@ -89,6 +92,11 @@ namespace infinitemoto.DTOs
 
         // int? AddBy { get; set; }
         // int? UpdatedBy { get; set; }
+
+        // List<EventregistrationResDto> Event { get; set; }
+        // List<EventCategorygetDto> Eventcategory { get; set; }
+        // List<DriverResDTO> Driver { get; set; }
+        // List<vehicleresDto> Vech { get; set; }
 
     }
 
@@ -113,15 +121,14 @@ namespace infinitemoto.DTOs
 
         public string ReferenceNo { get; set; } = null!;
 
-        // public string RaceStatus { get; set; } = null!;
+        public string RegNumb { get; set; }
+        public string Drivername { get; set; }
 
-        //    public DateTime? ScrutinyDone { get; set; }
+        // public List<EventregistrationResDto> Event { get; set; }
+        // public List<EventCategorygetDto> Eventcategory { get; set; }
+        // public List<DriverResDTO> Driver { get; set; }
 
-        // public DateTime? AddDate { get; set; }
-
-        // public int? AddBy { get; set; }
-
-        // public int? UpdatedBy { get; set; }
+        // public List<vehicleresDto> Vech { get; set; }
 
     }
 }
