@@ -12,4 +12,6 @@ public partial class Userrole
     public int? Eventtypeid { get; set; }
 
     public string? Description { get; set; }
+
+    public virtual ICollection<Userinfo> Userinfos { get; set; } = new List<Userinfo>();
 }

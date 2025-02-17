@@ -17,7 +17,7 @@ public class CompanyService : ICompanyService
 
     public async Task<List<CompanyResponseDto>> GetAllCompanies()
     {
-        return await _context.Companies
+        return await _context.Companydetails
             .Include(c => c.Employees) // Include employees in response
             .Select(c => new CompanyResponseDto
             {
@@ -36,7 +36,7 @@ public class CompanyService : ICompanyService
 
     public async Task<CompanyResponseDto?> GetCompanyById(int companyId)
     {
-        var company = await _context.Companies
+        var company = await _context.Companydetails
             .Include(c => c.Employees) // Include employees
             .FirstOrDefaultAsync(c => c.CompanyId == companyId);
 
@@ -60,7 +60,7 @@ public class CompanyService : ICompanyService
     public async Task<CompanyResponseDto> CreateCompanyWithEmployees(CompanyRequestDto requestDto)
     {
         // Step 1: Create and save the company first
-        var company = new Company
+        var company = new Companydetail
         {
             CompanyName = requestDto.CompanyName,
             Street = requestDto.Street,
@@ -71,7 +71,7 @@ public class CompanyService : ICompanyService
             Website = requestDto.Website
         };
 
-        _context.Companies.Add(company);
+        _context.Companydetails.Add(company);
         await _context.SaveChangesAsync();
 
         // Step 2: Use the created company ID to add employees
@@ -98,7 +98,7 @@ public class CompanyService : ICompanyService
 
     public async Task<CompanyResponseDto?> UpdateCompanyWithEmployees(int companyId, CompanyRequestDto requestDto)
     {
-        var company = await _context.Companies.Include(c => c.Employees).FirstOrDefaultAsync(c => c.CompanyId == companyId);
+        var company = await _context.Companydetails.Include(c => c.Employees).FirstOrDefaultAsync(c => c.CompanyId == companyId);
         if (company == null) return null;
 
         // Update company details
@@ -135,7 +135,7 @@ public class CompanyService : ICompanyService
 
     public async Task<bool> DeleteCompany(int companyId)
     {
-        var company = await _context.Companies.Include(c => c.Employees).FirstOrDefaultAsync(c => c.CompanyId == companyId);
+        var company = await _context.Companydetails.Include(c => c.Employees).FirstOrDefaultAsync(c => c.CompanyId == companyId);
         if (company == null) return false;
 
         // Remove employees first (if they exist)
@@ -145,7 +145,7 @@ public class CompanyService : ICompanyService
         }
 
         // Remove company
-        _context.Companies.Remove(company);
+        _context.Companydetails.Remove(company);
         await _context.SaveChangesAsync();
         return true;
     }

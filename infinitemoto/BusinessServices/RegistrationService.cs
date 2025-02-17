@@ -25,6 +25,7 @@ namespace infinitemoto.Services
                 ContestantNo = dto.ContestantNo,
                 AmountPaid = dto.AmountPaid,
                 ReferenceNo = dto.ReferenceNo,
+                ScrutineerId = dto.ScrutineerId,
                 // RaceStatus = dto.RaceStatus,
                 // ScrutinyDone = dto.ScrutinyDone.HasValue
                 //                                         ? DateTime.SpecifyKind(dto.ScrutinyDone.Value, DateTimeKind.Unspecified)
@@ -49,6 +50,7 @@ namespace infinitemoto.Services
                 ContestantNo = registration.ContestantNo,
                 AmountPaid = registration.AmountPaid,
                 ReferenceNo = registration.ReferenceNo,
+                ScrutineerId = registration.ScrutineerId,
                 // RaceStatus = registration.RaceStatus,
                 // ScrutinyDone = registration.ScrutinyDone,
                 // AddDate = registration.AddDate,
@@ -63,7 +65,8 @@ namespace infinitemoto.Services
             var registrations = await _context.Registrations
                 .Where(r => r.EventId == eventId)  // Filter registrations by EventId
                 .Include(r => r.Driver)            // Include related Driver
-                .Include(r => r.Event)             // Include related Eventregistration
+                .Include(r => r.Event) 
+                .Include(r => r.Scrutineer)            // Include related Eventregistration
                 .Include(r => r.Eventcategory)     // Include related Eventcategory
                 .Include(r => r.Vech)              // Include related Vehicle
                 .ToListAsync();
@@ -83,6 +86,7 @@ namespace infinitemoto.Services
                 EvtCategory = r.Eventcategory?.EvtCategory, // Assuming 'Eventcategory' has 'CategoryName'
                 RegNumb = r.Vech?.RegNumb,      // Assuming 'Vech' has a 'Model' property
                 Drivername = r.Driver?.Drivername,  // Assuming 'Driver' has a 'DriverName' property
+                ScrutineerId = r.ScrutineerId,
             });
         }
 
