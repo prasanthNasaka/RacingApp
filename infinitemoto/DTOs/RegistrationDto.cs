@@ -22,7 +22,9 @@ namespace infinitemoto.DTOs
 
         string ReferenceNo { get; set; }
 
-        int? ScrutineerId { get; set; }
+        string? ScrutinyStatus { get; set; }
+
+        string? DocumentStatus { get; set; }
 
         // DateTime? ScrutinyDone { get; set; }
 
@@ -51,7 +53,9 @@ namespace infinitemoto.DTOs
 
         public string? ReferenceNo { get; set; } = null!;
 
-          public int? ScrutineerId { get; set; }
+        public string? ScrutinyStatus { get; set; }
+
+        public string? DocumentStatus { get; set; }
 
 
         //     public string RaceStatus { get; set; } = null!; 
@@ -86,10 +90,12 @@ namespace infinitemoto.DTOs
 
         string? ReferenceNo { get; set; }
 
-         string RegNumb { get; set; }
+        string RegNumb { get; set; }
         string Drivername { get; set; }
 
-         int? ScrutineerId { get; set; }
+        string? ScrutinyStatus { get; set; }
+
+        string? DocumentStatus { get; set; }
 
         // string RaceStatus { get; set; }
 
@@ -131,7 +137,9 @@ namespace infinitemoto.DTOs
         public string RegNumb { get; set; }
         public string Drivername { get; set; }
 
-         public int? ScrutineerId { get; set; }
+        public string? ScrutinyStatus { get; set; }
+
+        public string? DocumentStatus { get; set; }
 
         // public List<EventregistrationResDto> Event { get; set; }
         // public List<EventCategorygetDto> Eventcategory { get; set; }
