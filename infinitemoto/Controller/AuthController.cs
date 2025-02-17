@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using infinitemoto.BusinessServices;
+using System.Security.Claims;
 
-namespace infinitemoto.controller
+namespace infinitemoto.Controller
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -19,28 +17,36 @@ namespace infinitemoto.controller
             _jwtService = jwtService;
         }
 
+        // Login action to authenticate user and return a JWT token
         [HttpPost("login")]
         public IActionResult Login(DTOs.Login dto)
         {
+            // Check if credentials are valid
             if (dto.Username == DefaultUsername && dto.Password == DefaultPassword)
             {
+                // Generate token after successful login
                 var token = _jwtService.GenerateToken(DefaultUsername);
                 return Ok(new { Token = token });
             }
 
+            // Unauthorized if credentials are invalid
             return Unauthorized("Invalid username or password.");
         }
 
+        // Validate token action (for checking the token)
         [HttpGet("validate-token")]
-        public IActionResult ValidateToken([FromQuery] string username)
+        public IActionResult ValidateToken([FromQuery] string token)
         {
-            if (username == DefaultUsername)
+            // Here, validate the incoming token instead of username
+            var principal = _jwtService.ValidateToken(token);
+            if (principal == null)
             {
-                var token = _jwtService.GenerateToken(username);
-                return Ok(new { Token = token });
+                return Unauthorized("Invalid or expired token.");
             }
 
-            return Unauthorized("Invalid username.");
+            // Return the claims or user info from the valid token
+            var username = principal.FindFirst(ClaimTypes.Name)?.Value;
+            return Ok(new { Username = username });
         }
     }
 }

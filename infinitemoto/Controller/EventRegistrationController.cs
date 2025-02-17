@@ -48,6 +48,10 @@ namespace infinitemoto.Controllers
          [HttpPost]
         public async Task<IActionResult> AddEvent ( [FromBody] EventregistrationReqDto eventDto, [FromForm] IFormFile? banner, [FromForm] IFormFile? qrpath)
         {
+
+            // Set the default driverID to 1
+            var driver = new DriverResDTO { DriverId = 1 };
+            
             var isAdded = await _eventService.AddEventAsync(eventDto, banner, qrpath);
             if (isAdded)
             {

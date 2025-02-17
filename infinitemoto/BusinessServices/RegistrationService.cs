@@ -23,7 +23,7 @@ namespace infinitemoto.Services
                 EventId = dto.EventId,
                 EventcategoryId = dto.EventcategoryId,
                 ContestantNo = dto.ContestantNo,
-                AmountPaid = dto.AmountPaid, 
+                AmountPaid = dto.AmountPaid,
                 ReferenceNo = dto.ReferenceNo,
                 // RaceStatus = dto.RaceStatus,
                 // ScrutinyDone = dto.ScrutinyDone.HasValue
@@ -57,31 +57,37 @@ namespace infinitemoto.Services
             };
         }
 
-        public async Task<IEnumerable<RegistrationresDto>> GetAllRegistrationsAsync()
+        public async Task<IEnumerable<RegistrationresDto>> GetRegistrationsByEventIdAsync(int eventId)
         {
+            // Query the registrations by EventId and include related entities
             var registrations = await _context.Registrations
-            .Include<Registration, Eventregistration>(r => r.Event)
-            .Include<Registration, Eventcategory>(r => r.Eventcategory).ToListAsync();
+                .Where(r => r.EventId == eventId)  // Filter registrations by EventId
+                .Include(r => r.Driver)            // Include related Driver
+                .Include(r => r.Event)             // Include related Eventregistration
+                .Include(r => r.Eventcategory)     // Include related Eventcategory
+                .Include(r => r.Vech)              // Include related Vehicle
+                .ToListAsync();
 
+            // Map the registrations to RegistrationResDto
             return registrations.Select(r => new RegistrationresDto
             {
                 RegId = r.RegId,
                 VechId = r.VechId,
                 DriverId = r.DriverId,
                 EventId = r.EventId,
-                Eventname=r.Event.Eventname,
                 EventcategoryId = r.EventcategoryId,
-                EvtCategory=r.Eventcategory.EvtCategory,
                 ContestantNo = r.ContestantNo,
                 AmountPaid = r.AmountPaid,
                 ReferenceNo = r.ReferenceNo,
-                // RaceStatus = r.RaceStatus,
-                // ScrutinyDone = r.ScrutinyDone,
-                // AddDate = r.AddDate,
-                // AddBy = r.AddBy,
-                // UpdatedBy = r.UpdatedBy
+                Eventname = r.Event?.Eventname,    // Assuming 'Event' has an 'EventName' property
+                EvtCategory = r.Eventcategory?.EvtCategory, // Assuming 'Eventcategory' has 'CategoryName'
+                RegNumb = r.Vech?.RegNumb,      // Assuming 'Vech' has a 'Model' property
+                Drivername = r.Driver?.Drivername,  // Assuming 'Driver' has a 'DriverName' property
             });
         }
+
+
+
 
         public async Task<RegistrationresDto?> GetRegistrationByIdAsync(int id)
         {

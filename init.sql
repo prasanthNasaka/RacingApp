@@ -360,6 +360,39 @@ END $$;
 ALTER TABLE public.registration ALTER COLUMN reference_no DROP NOT NULL;
 
 
+ALTER TABLE scrutinyrules RENAME COLUMN scrutiny_id TO scrutinyrules_id;
+
+
+ALTER TABLE scrutinyrules
+ADD CONSTRAINT scrutinyrules_id UNIQUE (scrutinyrules_id);
+
+
+ALTER TABLE registration 
+ADD COLUMN scrutiny CHAR(1) CHECK (scrutiny IN ('Y', 'N')),
+ADD COLUMN scrutiny_updated_date DATE,
+ADD COLUMN scrutineer_id INT,
+ADD COLUMN status varchar ; -- 0: pending, 1: passed, 2: failed
+
+CREATE TABLE scrutineer (
+    scrutineer_id INT PRIMARY KEY,
+    scrutineer_name VARCHAR(255) NOT NULL
+);
+
+
+
+CREATE TABLE scrutineydetails (
+    scrutineydetails_id INT PRIMARY KEY ,
+    scrutineyrule_id INT,
+    status varchar,  -- 0: pending, 1: passed, 2: failed, 3: n/a
+    comment TEXT,
+    reg_id INT,
+    FOREIGN KEY (scrutineyrule_id) REFERENCES scrutinyrules(scrutinyrules_id),
+    FOREIGN KEY (reg_id) REFERENCES registration(reg_id)
+);
+
+
+ALTER TABLE company RENAME TO companydetails;
+
 
 ALTER TABLE registration DROP CONSTRAINT registration_reference_no_key;
 
