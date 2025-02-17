@@ -25,11 +25,13 @@ public class CompanyService : ICompanyService
                 CompanyName = c.CompanyName,
                 City = c.City,
                 Country = c.Country,
+                
                 Employees = c.Employees.Select(e => new EmployeeResponseDto
                 {
                     EmpId = e.EmpId,
                     EmpName = e.EmpName,
-                    Email = e.Email
+                    Email = e.Email,
+                    phone = e.Phone
                 }).ToList()
             }).ToListAsync();
     }
@@ -52,7 +54,9 @@ public class CompanyService : ICompanyService
             {
                 EmpId = e.EmpId,
                 EmpName = e.EmpName,
-                Email = e.Email
+                Email = e.Email,
+                phone = e.Phone
+
             }).ToList()
         };
     }

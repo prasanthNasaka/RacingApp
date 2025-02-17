@@ -31,6 +31,8 @@ public class CompanyRequestDto : ICompanyRequestDto
 public interface ICompanyResponseDto
 {
     int CompanyId { get; set; }
+    
+
     string CompanyName { get; set; }
     string? City { get; set; }
     string? Country { get; set; }

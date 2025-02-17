@@ -28,6 +28,8 @@ public class EmployeeRequestDto : IEmployeeRequestDto
 public interface IEmployeeResponseDto
 {
     int EmpId { get; set; }
+
+    int? phone { get; set; }
     string? EmpName { get; set; }
     string? Email { get; set; }
     int? ComId { get; set; }
@@ -36,6 +38,8 @@ public interface IEmployeeResponseDto
 public class EmployeeResponseDto : IEmployeeResponseDto
 {
     public int EmpId { get; set; }
+
+    public int? phone { get; set; }
     public string? EmpName { get; set; }
     public string? Email { get; set; }
     public int? ComId { get; set; }
